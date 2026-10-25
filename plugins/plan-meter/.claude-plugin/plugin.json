@@ -1,0 +1,28 @@
+{
+  "name": "plan-meter",
+  "version": "0.1.0",
+  "description": "Your plan usage at the bottom right of Claude Code: 5-hour session, weekly window and an estimated month (M), calibrated from your own transcripts.",
+  "author": {
+    "name": "Marc Mayol",
+    "url": "https://github.com/marcmayol"
+  },
+  "homepage": "https://github.com/marcmayol/claude-code-meter",
+  "repository": "https://github.com/marcmayol/claude-code-meter",
+  "license": "MIT",
+  "keywords": ["usage", "subscription", "rate-limits", "monthly", "status", "mod"],
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "showMonth": {
+      "type": "boolean",
+      "title": "Show the month (M)",
+      "description": "The plan has no monthly quota: M is this month's tokens measured against the weekly limit calibrated from your transcripts, scaled to the month's days.",
+      "default": true
+    },
+    "countCacheRead": {
+      "type": "boolean",
+      "title": "Count cache reads",
+      "description": "Count cache_read tokens when calibrating and summing the month. Off by default: re-reading the context dominates the total and hides the real work.",
+      "default": false
+    }
+  }
+}

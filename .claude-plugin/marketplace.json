@@ -1,0 +1,25 @@
+{
+  "name": "drac",
+  "owner": {
+    "name": "Marc Mayol",
+    "url": "https://github.com/marcmayol"
+  },
+  "metadata": {
+    "description": "Claude Code plugins and mods by Marc Mayol: Plan Meter, your plan usage (5h, 7d and an estimated month) at the bottom right; Creality Print, slice and run Creality printers from Claude Code."
+  },
+  "plugins": [
+    {
+      "name": "plan-meter",
+      "source": "./plugins/plan-meter",
+      "description": "Plan usage at the bottom right of the prompt: 5-hour session, weekly window and an estimated month (M), calibrated from your own transcripts.",
+      "version": "0.1.0",
+      "category": "productivity"
+    },
+    {
+      "name": "creality-print",
+      "source": { "source": "github", "repo": "marcmayol/claude-code-creality-print-plugin" },
+      "description": "Slice with Creality Print, check gcode, handle colours and the CFS, and run Creality OS printers (K2, K1…). Unofficial.",
+      "category": "3d-printing"
+    }
+  ]
+}
