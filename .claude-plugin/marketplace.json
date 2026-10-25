@@ -5,7 +5,7 @@
     "url": "https://github.com/marcmayol"
   },
   "metadata": {
-    "description": "Claude Code plugins and mods by Marc Mayol: Meter for Claude Code, your plan usage (5h, 7d and an estimated month) at the bottom right; Creality Print, slice and run Creality printers from Claude Code."
+    "description": "Claude Code plugins and mods by Marc Mayol: Meter for Claude Code, your plan usage (5h, 7d and an estimated month) at the bottom right; Creality Print, slice and run Creality printers from Claude Code; Humanizar, clean and score Spanish text so it doesn't read like AI."
   },
   "plugins": [
     {
@@ -17,9 +17,19 @@
     },
     {
       "name": "creality-print",
-      "source": { "source": "github", "repo": "marcmayol/claude-code-creality-print-plugin" },
+      "source": {
+        "source": "github",
+        "repo": "marcmayol/claude-code-creality-print-plugin"
+      },
       "description": "Slice with Creality Print, check gcode, handle colours and the CFS, and run Creality OS printers (K2, K1…). Unofficial.",
       "category": "3d-printing"
+    },
+    {
+      "name": "humanizar",
+      "source": "./plugins/humanizar",
+      "description": "Clean and score Spanish text (0-100) so it doesn't read like AI: invisible characters, Unicode bold, filler, \"it's not X, it's Y\", em dashes, hashtag walls. Local heuristics, no API.",
+      "version": "0.1.0",
+      "category": "productivity"
     }
   ]
 }

@@ -7,6 +7,7 @@ Claude Code plugins and mods by [Marc Mayol](https://github.com/marcmayol), in o
 | Plugin | What it does |
 | --- | --- |
 | [meter-for-claude-code](plugins/meter-for-claude-code) | Your plan usage at the bottom right of the prompt: `5h 42% · 7d 20% · M 7%`. The 5-hour and weekly windows as `/usage` reports them, plus an estimated month calibrated from your transcripts. `/meter` for resets and past weeks. |
+| [humanizar](plugins/humanizar) | Cleans and scores Spanish text (0-100) so it doesn't read like AI: invisible characters, Unicode bold, filler, "it's not X, it's Y", em dashes, hashtag walls. `/humanizar` for posts, articles, emails or READMEs. Local heuristics, no API. |
 | [creality-print](https://github.com/marcmayol/claude-code-creality-print-plugin) | Slice with Creality Print, check gcode against the real bed, colours and mixed filaments, CFS slots, and run Creality OS printers (K2, K1…). Unofficial. |
 
 ## Install
@@ -15,6 +16,7 @@ At the prompt of a Claude Code terminal session:
 
 ```text
 /plugin install meter-for-claude-code --marketplace marcmayol/drac-plugins
+/plugin install humanizar --marketplace marcmayol/drac-plugins
 /plugin install creality-print --marketplace marcmayol/drac-plugins
 ```
 
