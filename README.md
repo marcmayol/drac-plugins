@@ -1,5 +1,7 @@
 # Drac Plugins
 
+**English** · [Español](README.es.md)
+
 Claude Code plugins and mods by [Marc Mayol](https://github.com/marcmayol), in one marketplace.
 
 | Plugin | What it does |

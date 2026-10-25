@@ -1,5 +1,7 @@
 # Meter for Claude Code
 
+**English** · [Español](README.es.md)
+
 A Claude Code mod from [Claude Code Meter](https://github.com/marcmayol/claude-code-meter): your plan usage at the bottom right of the prompt, on the permission mode's line.
 
 ```text
