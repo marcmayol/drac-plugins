@@ -8,11 +8,11 @@ import {
 } from './usage'
 import type { Hourly } from './usage'
 
-const limits = atom({ plugin: 'plan-meter', key: 'limits' } as const, [] as Limit[])
-const derived = atom({ plugin: 'plan-meter', key: 'derived' } as const, { history: [], isPartial: false } as Derived, {
+const limits = atom({ plugin: 'meter-for-claude-code', key: 'limits' } as const, [] as Limit[])
+const derived = atom({ plugin: 'meter-for-claude-code', key: 'derived' } as const, { history: [], isPartial: false } as Derived, {
   shape: 'derived-1'
 })
-const tick = atom({ plugin: 'plan-meter', key: 'tick' } as const, 0)
+const tick = atom({ plugin: 'meter-for-claude-code', key: 'tick' } as const, 0)
 
 const WINDOWS = ['five_hour', 'seven_day']
 const LABELS: Record<string, string> = { five_hour: '5h', seven_day: '7d' }

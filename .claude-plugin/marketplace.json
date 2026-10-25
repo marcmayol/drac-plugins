@@ -5,12 +5,12 @@
     "url": "https://github.com/marcmayol"
   },
   "metadata": {
-    "description": "Claude Code plugins and mods by Marc Mayol: Plan Meter, your plan usage (5h, 7d and an estimated month) at the bottom right; Creality Print, slice and run Creality printers from Claude Code."
+    "description": "Claude Code plugins and mods by Marc Mayol: Meter for Claude Code, your plan usage (5h, 7d and an estimated month) at the bottom right; Creality Print, slice and run Creality printers from Claude Code."
   },
   "plugins": [
     {
-      "name": "plan-meter",
-      "source": "./plugins/plan-meter",
+      "name": "meter-for-claude-code",
+      "source": "./plugins/meter-for-claude-code",
       "description": "Plan usage at the bottom right of the prompt: 5-hour session, weekly window and an estimated month (M), calibrated from your own transcripts.",
       "version": "0.1.0",
       "category": "productivity"

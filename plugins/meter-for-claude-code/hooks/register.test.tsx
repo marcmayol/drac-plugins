@@ -42,7 +42,7 @@ function world (on: On, store = new Map<string, unknown>()) {
 }
 
 const FOOTER = {
-  plugin: 'plan-meter',
+  plugin: 'meter-for-claude-code',
   component: 'SessionMode',
   props: { modes: [] },
   viewport: { columns: 160, rows: 40 }

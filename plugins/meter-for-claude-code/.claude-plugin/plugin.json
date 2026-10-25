@@ -1,5 +1,5 @@
 {
-  "name": "plan-meter",
+  "name": "meter-for-claude-code",
   "version": "0.1.0",
   "description": "Your plan usage at the bottom right of Claude Code: 5-hour session, weekly window and an estimated month (M), calibrated from your own transcripts.",
   "author": {

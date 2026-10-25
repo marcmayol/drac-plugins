@@ -20,6 +20,6 @@ export type Calibration = { util: number; tokens: number; at: number }
 
 declare module 'claude-code' {
   interface PluginState {
-    'plan-meter': { limits: Limit[]; derived: Shaped<Derived>; tick: number }
+    'meter-for-claude-code': { limits: Limit[]; derived: Shaped<Derived>; tick: number }
   }
 }

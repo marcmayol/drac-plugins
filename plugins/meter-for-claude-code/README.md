@@ -1,4 +1,4 @@
-# Plan Meter
+# Meter for Claude Code
 
 A Claude Code mod from [Claude Code Meter](https://github.com/marcmayol/claude-code-meter): your plan usage at the bottom right of the prompt, on the permission mode's line.
 
@@ -20,7 +20,7 @@ It needs a subscription: with API key billing there are no plan windows and the 
 ## Install
 
 ```text
-/plugin install plan-meter --marketplace marcmayol/drac-plugins
+/plugin install meter-for-claude-code --marketplace marcmayol/drac-plugins
 ```
 
 ## Development
