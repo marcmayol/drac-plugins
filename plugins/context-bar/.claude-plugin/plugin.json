@@ -1,0 +1,30 @@
+{
+  "name": "context-bar",
+  "version": "0.1.0",
+  "description": "The session's context window as a bar in the footer, with a mark where auto-compact kicks in: green, amber as it nears the compact, red right before it.",
+  "author": {
+    "name": "Marc Mayol",
+    "url": "https://github.com/marcmayol"
+  },
+  "homepage": "https://github.com/marcmayol/drac-plugins",
+  "repository": "https://github.com/marcmayol/drac-plugins",
+  "license": "MIT",
+  "keywords": ["context", "compact", "autocompact", "status", "mod"],
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "warnPoints": {
+      "type": "number",
+      "title": "Amber this close to the compact",
+      "description": "Points of the window left before auto-compact at which the bar turns amber.",
+      "default": 25,
+      "min": 1
+    },
+    "dangerPoints": {
+      "type": "number",
+      "title": "Red this close to the compact",
+      "description": "Points of the window left before auto-compact at which the bar turns red.",
+      "default": 10,
+      "min": 1
+    }
+  }
+}

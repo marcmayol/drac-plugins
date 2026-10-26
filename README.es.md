@@ -7,6 +7,7 @@ Plugins y mods de Claude Code de [Marc Mayol](https://github.com/marcmayol), en 
 | Plugin | Qué hace |
 | --- | --- |
 | [meter-for-claude-code](plugins/meter-for-claude-code/README.es.md) | El uso de tu plan abajo a la derecha del prompt: `5h 42% · 7d 20% · M 7%`. Las ventanas de 5 horas y semanal tal como las da `/usage`, más una estimación del mes calibrada con tus transcripciones. `/meter` muestra los reinicios y las semanas anteriores. |
+| [context-bar](plugins/context-bar/README.es.md) | La ventana de contexto como una barra al lado del medidor, con una marca donde salta el auto-compact: `ctx ━━━━━━━───┃─ 58% · compact 84%`. Verde mientras hay sitio, ámbar a 25 puntos del compact y rojo a 10. |
 | [humanizar](plugins/humanizar/README.es.md) | Limpia y puntúa textos en español (0-100) para que no suenen a IA: caracteres invisibles, negritas Unicode, relleno, «no es X, es Y», rayas, muros de hashtags. `/humanizar` para posts, artículos, correos o README. Heurísticas locales, sin API. |
 | [creality-print](https://github.com/marcmayol/claude-code-creality-print-plugin/blob/main/README.es.md) | Lamina con Creality Print, comprueba el gcode contra la cama real, colores y filamentos mezclados, ranuras del CFS, y maneja impresoras con Creality OS (K2, K1…). No oficial. |
 
@@ -16,6 +17,7 @@ En el prompt de una sesión de Claude Code en el terminal:
 
 ```text
 /plugin install meter-for-claude-code --marketplace marcmayol/drac-plugins
+/plugin install context-bar --marketplace marcmayol/drac-plugins
 /plugin install humanizar --marketplace marcmayol/drac-plugins
 /plugin install creality-print --marketplace marcmayol/drac-plugins
 ```

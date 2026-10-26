@@ -5,13 +5,20 @@
     "url": "https://github.com/marcmayol"
   },
   "metadata": {
-    "description": "Claude Code plugins and mods by Marc Mayol: Meter for Claude Code, your plan usage (5h, 7d and an estimated month) at the bottom right; Creality Print, slice and run Creality printers from Claude Code; Humanizar, clean and score Spanish text so it doesn't read like AI."
+    "description": "Claude Code plugins and mods by Marc Mayol: Meter for Claude Code, your plan usage (5h, 7d and an estimated month) at the bottom right; Context Bar, the context window filling up towards auto-compact; Creality Print, slice and run Creality printers from Claude Code; Humanizar, clean and score Spanish text so it doesn't read like AI."
   },
   "plugins": [
     {
       "name": "meter-for-claude-code",
       "source": "./plugins/meter-for-claude-code",
       "description": "Plan usage at the bottom right of the prompt: 5-hour session, weekly window and an estimated month (M), calibrated from your own transcripts.",
+      "version": "0.1.0",
+      "category": "productivity"
+    },
+    {
+      "name": "context-bar",
+      "source": "./plugins/context-bar",
+      "description": "The session's context window as a bar in the footer, with a mark where auto-compact kicks in: green, amber as it nears the compact, red right before it.",
       "version": "0.1.0",
       "category": "productivity"
     },
