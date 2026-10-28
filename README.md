@@ -9,6 +9,7 @@ Claude Code plugins and mods by [Marc Mayol](https://github.com/marcmayol), in o
 | [meter-for-claude-code](plugins/meter-for-claude-code) | Your plan usage at the bottom right of the prompt: `5h 42% · 7d 20% · M 7%`. The 5-hour and weekly windows as `/usage` reports them, plus an estimated month calibrated from your transcripts. `/meter` for resets and past weeks. |
 | [context-bar](plugins/context-bar) | The context window as a bar next to the meter, with a mark where auto-compact runs: `ctx ━━━━━━━───┃─ 58% · compact 84%`. Green while there is room, amber 25 points before the compact, red 10 before. |
 | [humanizar](plugins/humanizar) | Cleans and scores Spanish text (0-100) so it doesn't read like AI: invisible characters, Unicode bold, filler, "it's not X, it's Y", em dashes, hashtag walls. `/humanizar` for posts, articles, emails or READMEs. Local heuristics, no API. |
+| [omoikane](https://github.com/marcmayol/omoikane) | Long-term memory: what Claude learns in one session comes back in the next. One local SQLite file, duplicate detection, and on every prompt only the memories that really relate to it (or nothing). Needs the `omoi` binary. |
 | [creality-print](https://github.com/marcmayol/claude-code-creality-print-plugin) | Slice with Creality Print, check gcode against the real bed, colours and mixed filaments, CFS slots, and run Creality OS printers (K2, K1…). Unofficial. |
 
 ## Install
@@ -20,6 +21,7 @@ At the prompt of a Claude Code terminal session:
 /plugin install context-bar --marketplace marcmayol/drac-plugins
 /plugin install humanizar --marketplace marcmayol/drac-plugins
 /plugin install creality-print --marketplace marcmayol/drac-plugins
+/plugin install omoikane --marketplace marcmayol/drac-plugins
 ```
 
 From a shell:
