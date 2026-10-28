@@ -37,13 +37,14 @@ problem pulls it down.
 /plugin install humanizar --marketplace marcmayol/drac-plugins
 ```
 
-Requires [uv](https://docs.astral.sh/uv/): the MCP server runs with `uv run --script` and
-its only dependency is `mcp`.
+Nothing else to install: no Python, no uv, no MCP server. Since 0.2.0 the engine runs inside Claude Code itself,
+as a hooks module (`hooks/humanizar.ts`) that registers the `humanizar` tool (`mcp__humanizar__humanizar`).
 
 ## Tests
 
 ```
-uv run --with pytest pytest tests
+claude plugin validate .
+claude plugin test .
 ```
 
 ## Credits

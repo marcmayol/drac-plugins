@@ -32,6 +32,10 @@ claude plugin install meter-for-claude-code --marketplace marcmayol/drac-plugins
 
 In the desktop app, where `/plugin` does not run: click + next to the prompt box, then Plugins, Add marketplace with `marcmayol/drac-plugins`, then Add plugin.
 
+## Older Claude Code versions
+
+meter-for-claude-code, context-bar and humanizar are hooks modules (mods): they run inside Claude Code and need nothing else installed. Claude Code 2.1.310 loads them for installed plugins on its own; older versions (2.1.282, for one) skip them unless `CLAUDE_CODE_ENABLE_FUNCTION_HOOKS=1` is set in the environment. If `/meter` is an unknown command or the footer shows nothing, run `claude update` or set that variable.
+
 ## Adding a plugin
 
 A plugin either lives here under `plugins/<name>/` (`"source": "./plugins/<name>"`) or keeps its own repository and is only listed (`"source": { "source": "github", "repo": "<owner>/<repo>" }`). Add its entry to [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json) and check it with:

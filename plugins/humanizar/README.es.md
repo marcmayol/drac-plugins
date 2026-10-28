@@ -38,13 +38,15 @@ la media con la peor, así que un solo fallo grave la baja.
 /plugin install humanizar --marketplace marcmayol/drac-plugins
 ```
 
-Necesita [uv](https://docs.astral.sh/uv/): el servidor MCP se lanza con `uv run --script` y
-la única dependencia es `mcp`.
+No hay que instalar nada más: ni Python, ni uv, ni servidor MCP. Desde la 0.2.0 el motor corre dentro del propio
+Claude Code, como un módulo de hooks (`hooks/humanizar.ts`) que registra la herramienta `humanizar`
+(`mcp__humanizar__humanizar`).
 
 ## Tests
 
 ```
-uv run --with pytest pytest tests
+claude plugin validate .
+claude plugin test .
 ```
 
 ## Créditos

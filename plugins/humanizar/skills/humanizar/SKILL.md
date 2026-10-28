@@ -5,7 +5,7 @@ description: Limpia y puntúa un texto en español para que no suene a IA (relle
 
 # Humanizar un texto
 
-Herramienta del MCP `humanizar`: `humanizar(textos)`. Recibe una lista de textos y devuelve
+Herramienta `humanizar` del plugin (`mcp__humanizar__humanizar`): `humanizar(textos)`. Recibe una lista de textos y devuelve
 por cada uno `texto` (ya limpio), `cambiado`, `arreglos`, `avisos`, `puntos` (0-100) y
 `pruebas` (ritmo, concreción, relleno, huella, voz).
 
