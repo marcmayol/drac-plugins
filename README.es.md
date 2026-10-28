@@ -17,17 +17,19 @@ Plugins y mods de Claude Code de [Marc Mayol](https://github.com/marcmayol), en 
 En el prompt de una sesión de Claude Code en el terminal:
 
 ```text
-/plugin install meter-for-claude-code --marketplace marcmayol/drac-plugins
-/plugin install context-bar --marketplace marcmayol/drac-plugins
-/plugin install humanizar --marketplace marcmayol/drac-plugins
-/plugin install creality-print --marketplace marcmayol/drac-plugins
-/plugin install omoikane --marketplace marcmayol/drac-plugins
+/plugin marketplace add marcmayol/drac-plugins
+/plugin install meter-for-claude-code@drac
+/plugin install context-bar@drac
+/plugin install humanizar@drac
+/plugin install creality-print@drac
+/plugin install omoikane@drac
 ```
 
 Desde una terminal:
 
 ```bash
-claude plugin install meter-for-claude-code --marketplace marcmayol/drac-plugins
+claude plugin marketplace add marcmayol/drac-plugins
+claude plugin install meter-for-claude-code@drac
 ```
 
 En la app de escritorio, donde `/plugin` no funciona: pulsa + junto al cuadro del prompt, luego Plugins, Add marketplace con `marcmayol/drac-plugins` y después Add plugin.

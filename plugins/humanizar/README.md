@@ -34,7 +34,8 @@ problem pulls it down.
 ## Install
 
 ```
-/plugin install humanizar --marketplace marcmayol/drac-plugins
+/plugin marketplace add marcmayol/drac-plugins
+/plugin install humanizar@drac
 ```
 
 Nothing else to install: no Python, no uv, no MCP server. Since 0.2.0 the engine runs inside Claude Code itself,

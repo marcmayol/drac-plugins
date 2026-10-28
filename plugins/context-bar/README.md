@@ -18,7 +18,8 @@ It sits next to [meter-for-claude-code](../meter-for-claude-code) on the same li
 ## Install
 
 ```text
-/plugin install context-bar --marketplace marcmayol/drac-plugins
+/plugin marketplace add marcmayol/drac-plugins
+/plugin install context-bar@drac
 ```
 
 ## How it works

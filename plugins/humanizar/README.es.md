@@ -35,7 +35,8 @@ la media con la peor, así que un solo fallo grave la baja.
 ## Instalar
 
 ```
-/plugin install humanizar --marketplace marcmayol/drac-plugins
+/plugin marketplace add marcmayol/drac-plugins
+/plugin install humanizar@drac
 ```
 
 No hay que instalar nada más: ni Python, ni uv, ni servidor MCP. Desde la 0.2.0 el motor corre dentro del propio

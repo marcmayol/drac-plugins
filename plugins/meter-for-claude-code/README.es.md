@@ -22,7 +22,8 @@ Necesita suscripción. Si pagas por API key no hay ventanas del plan y el pie se
 ## Instalación
 
 ```text
-/plugin install meter-for-claude-code --marketplace marcmayol/drac-plugins
+/plugin marketplace add marcmayol/drac-plugins
+/plugin install meter-for-claude-code@drac
 ```
 
 ## Desarrollo

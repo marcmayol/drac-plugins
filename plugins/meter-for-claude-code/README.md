@@ -22,7 +22,8 @@ It needs a subscription: with API key billing there are no plan windows and the 
 ## Install
 
 ```text
-/plugin install meter-for-claude-code --marketplace marcmayol/drac-plugins
+/plugin marketplace add marcmayol/drac-plugins
+/plugin install meter-for-claude-code@drac
 ```
 
 ## Development

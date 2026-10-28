@@ -18,7 +18,8 @@ Va al lado de [meter-for-claude-code](../meter-for-claude-code/README.es.md), en
 ## Instalación
 
 ```text
-/plugin install context-bar --marketplace marcmayol/drac-plugins
+/plugin marketplace add marcmayol/drac-plugins
+/plugin install context-bar@drac
 ```
 
 ## Cómo funciona
