@@ -44,7 +44,7 @@
         "source": "url",
         "url": "https://github.com/marcmayol/omoikane.git"
       },
-      "description": "Long-term memory for Claude Code: what it learns in one session comes back in the next. Local SQLite, duplicate detection, and automatic recall of the memories that matter for each prompt. Needs the omoi binary.",
+      "description": "Long-term memory for Claude Code: what it learns in one session comes back in the next. Local SQLite, duplicate detection, and automatic recall of the memories that matter for each prompt. Installs its own omoi binary on first use.",
       "category": "productivity"
     }
   ]
