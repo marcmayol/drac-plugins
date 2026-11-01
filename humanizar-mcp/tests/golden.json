@@ -1,0 +1,1173 @@
+[
+ {
+  "entrada": "",
+  "salida": {
+   "texto": "",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "   ",
+  "salida": {
+   "texto": "   ",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "🚀 En el vertiginoso mundo de la IA, esto lo cambia todo.\n\nNo es solo una herramienta, es un cambio de paradigma. ¿El resultado? Un antes y un después.\n\nA día de hoy es fundamental aprovechar al máximo cada oportunidad — y esta es la clave.\n\n¿Qué opinas? 👇 #IA #AI #Innovación #Tech #Futuro",
+  "salida": {
+   "texto": "🚀 En el vertiginoso mundo de la IA, esto lo cambia todo.\n\nNo es solo una herramienta, es un cambio de paradigma. ¿El resultado? Un antes y un después.\n\nHoy es fundamental aprovechar al máximo cada oportunidad — y esta es la clave.\n\n¿Qué opinas? 👇 #IA #AI #Innovación #Tech #Futuro",
+   "cambiado": true,
+   "arreglos": [
+    "«a día de hoy» → «hoy»"
+   ],
+   "avisos": [
+    "relleno de IA: «en el vertiginoso mundo», «es fundamental», «cambio de paradigma», «un antes y un después», «aprovechar al máximo», «esto lo cambia todo»",
+    "«no es solo X, es Y»: di Y directamente",
+    "pregunta retórica corta («¿El resultado?»): cuéntalo sin preguntar",
+    "pregunta de cebo al final: solo si de verdad quieres esa respuesta",
+    "1 raya(s) «—»: cámbialas por coma, punto o paréntesis",
+    "5 hashtags: deja 1-3",
+    "2 emojis: como mucho uno",
+    "empieza con emoji: empieza con la idea"
+   ],
+   "puntos": 22,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 52,
+    "relleno": 0,
+    "huella": 0,
+    "voz": 30
+   }
+  }
+ },
+ {
+  "entrada": "Llevaba semanas difundiendo a mano cada post de LinkedIn en X y Threads. Unos 15 minutos por post.\n\nAyer monté un plugin para Claude Code que lo hace solo: lee mi actividad cada 2 horas y publica en las tres redes con mi propio Chrome. Sin APIs de pago.\n\nLo he subido aquí: https://github.com/marcmayol/drac-plugins #ClaudeCode",
+  "salida": {
+   "texto": "Llevaba semanas difundiendo a mano cada post de LinkedIn en X y Threads. Unos 15 minutos por post.\n\nAyer monté un plugin para Claude Code que lo hace solo: lee mi actividad cada 2 horas y publica en las tres redes con mi propio Chrome. Sin APIs de pago.\n\nLo he subido aquí: https://github.com/marcmayol/drac-plugins #ClaudeCode",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [],
+   "puntos": 100,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 100
+   }
+  }
+ },
+ {
+  "entrada": "𝗘𝘀𝘁𝗼 es​ así",
+  "salida": {
+   "texto": "Esto es así",
+   "cambiado": true,
+   "arreglos": [
+    "caracteres invisibles quitados",
+    "letras Unicode de negrita/cursiva pasadas a normales"
+   ],
+   "avisos": [
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "𝐀𝐁𝐂 𝘢𝘣𝘤 𝟏𝟐𝟑 y 𝟘 fin",
+  "salida": {
+   "texto": "ABC abc 123 y 0 fin",
+   "cambiado": true,
+   "arreglos": [
+    "letras Unicode de negrita/cursiva pasadas a normales"
+   ],
+   "avisos": [],
+   "puntos": 79,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "A día de hoy lo utilizo",
+  "salida": {
+   "texto": "Hoy lo uso",
+   "cambiado": true,
+   "arreglos": [
+    "«a día de hoy» → «hoy»",
+    "«utilizo» → «uso»"
+   ],
+   "avisos": [
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 48,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 100
+   }
+  }
+ },
+ {
+  "entrada": "Utilizarás esto",
+  "salida": {
+   "texto": "Utilizarás esto",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "UTILIZA esto, utilizan aquello, Utilizando lo otro y utilizar más",
+  "salida": {
+   "texto": "Usa esto, usan aquello, Usando lo otro y usar más",
+   "cambiado": true,
+   "arreglos": [
+    "«utiliza» → «usa»",
+    "«utilizan» → «usan»",
+    "«utilizar» → «usar»",
+    "«utilizando» → «usando»"
+   ],
+   "avisos": [],
+   "puntos": 79,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "Lo dice «el README»: https://github.com/a/b",
+  "salida": {
+   "texto": "Lo dice «el README»: https://github.com/a/b",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [],
+   "puntos": 79,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "Mi plugin ya publica en Bluesky. Gratis.",
+  "salida": {
+   "texto": "Mi plugin ya publica en Bluesky. Gratis.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [],
+   "puntos": 100,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 100
+   }
+  }
+ },
+ {
+  "entrada": "Esto lo cambia todo — ¿El resultado? Nada.",
+  "salida": {
+   "texto": "Esto lo cambia todo — ¿El resultado? Nada.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "relleno de IA: «esto lo cambia todo»",
+    "pregunta retórica corta («¿El resultado?»): cuéntalo sin preguntar",
+    "1 raya(s) «—»: cámbialas por coma, punto o paréntesis"
+   ],
+   "puntos": 29,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 0,
+    "huella": 0,
+    "voz": 45
+   }
+  }
+ },
+ {
+  "entrada": "No es X. Es Y. Y ya está.",
+  "salida": {
+   "texto": "No es X. Es Y. Y ya está.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "«No es X. Es Y.»: di Y directamente",
+    "todas las frases miden parecido: mezcla alguna corta con otra larga"
+   ],
+   "puntos": 45,
+   "pruebas": {
+    "ritmo": 7,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 45
+   }
+  }
+ },
+ {
+  "entrada": "No se trata de simplemente ganar; se trata de aprender.",
+  "salida": {
+   "texto": "No se trata de simplemente ganar; se trata de aprender.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "«no es solo X, es Y»: di Y directamente",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 41,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 45
+   }
+  }
+ },
+ {
+  "entrada": "no es únicamente una idea: sino algo más",
+  "salida": {
+   "texto": "no es únicamente una idea: sino algo más",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "«no es solo X, es Y»: di Y directamente",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 41,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 45
+   }
+  }
+ },
+ {
+  "entrada": "Comenta GUÍA y te lo envío.",
+  "salida": {
+   "texto": "Comenta GUÍA y te lo envío.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "cebo de comentarios («comenta X y te lo envío»): pon el enlace"
+   ],
+   "puntos": 79,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "Responde «sí» para que te avise.",
+  "salida": {
+   "texto": "Responde «sí» para que te avise.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "cebo de comentarios («comenta X y te lo envío»): pon el enlace",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "Dale like y comparte si te ha gustado. Sígueme para más. Guárdalo para luego.",
+  "salida": {
+   "texto": "Dale like y comparte si te ha gustado. Sígueme para más. Guárdalo para luego.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "petición de interacción: quítala",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 42,
+   "pruebas": {
+    "ritmo": 89,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "¿Y tú? ¿Estás de acuerdo? ¿qué opináis",
+  "salida": {
+   "texto": "¿Y tú? ¿Estás de acuerdo? ¿qué opináis",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "pregunta retórica corta («¿El resultado?»): cuéntalo sin preguntar",
+    "pregunta de cebo al final: solo si de verdad quieres esa respuesta",
+    "todas las frases miden parecido: mezcla alguna corta con otra larga",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 31,
+   "pruebas": {
+    "ritmo": 13,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 45
+   }
+  }
+ },
+ {
+  "entrada": "Esto va en **negrita** y esto no.",
+  "salida": {
+   "texto": "Esto va en **negrita** y esto no.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "markdown (**…**): en las redes sale tal cual, quítalo",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "**a\nb**",
+  "salida": {
+   "texto": "**a\nb**",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "palabra—pegada y otra – suelta y otra - con guion y una—última",
+  "salida": {
+   "texto": "palabra—pegada y otra – suelta y otra - con guion y una—última",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "3 raya(s) «—»: cámbialas por coma, punto o paréntesis",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 31,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 0,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "—Hola —dijo ella—. ¿Vienes?\n—No —contestó.",
+  "salida": {
+   "texto": "—Hola —dijo ella—. ¿Vienes?\n—No —contestó.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "pregunta retórica corta («¿El resultado?»): cuéntalo sin preguntar",
+    "1 raya(s) «—»: cámbialas por coma, punto o paréntesis",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 25,
+   "pruebas": {
+    "ritmo": 65,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 0,
+    "voz": 45
+   }
+  }
+ },
+ {
+  "entrada": "#uno #dos #tres",
+  "salida": {
+   "texto": "#uno #dos #tres",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "#uno #dos #tres #cuatro no#es #cinco",
+  "salida": {
+   "texto": "#uno #dos #tres #cuatro no#es #cinco",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "5 hashtags: deja 1-3",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "✅ Hecho ✨ y 🎉 listo",
+  "salida": {
+   "texto": "✅ Hecho ✨ y 🎉 listo",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "3 emojis: como mucho uno",
+    "empieza con emoji: empieza con la idea",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 31,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 0,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "Un emoji 🙂 al final",
+  "salida": {
+   "texto": "Un emoji 🙂 al final",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "  hola mundo . fin",
+  "salida": {
+   "texto": "  hola mundo . fin",
+   "cambiado": true,
+   "arreglos": [
+    "espacios raros normalizados"
+   ],
+   "avisos": [
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "­guion­blando﻿ y⁠ más ‌‍",
+  "salida": {
+   "texto": "guionblando y más ",
+   "cambiado": true,
+   "arreglos": [
+    "caracteres invisibles quitados"
+   ],
+   "avisos": [
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "etiquetas 󠁁󠁂 ocultas",
+  "salida": {
+   "texto": "etiquetas  ocultas",
+   "cambiado": true,
+   "arreglos": [
+    "caracteres invisibles quitados"
+   ],
+   "avisos": [
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "En base a esto, de cara a mañana, con el fin de llegar y con el objetivo de ganar: sin lugar a dudas, en el día de hoy.",
+  "salida": {
+   "texto": "Según esto, para mañana, para llegar y para ganar: sin duda, hoy.",
+   "cambiado": true,
+   "arreglos": [
+    "«en el día de hoy» → «hoy»",
+    "«sin lugar a dudas» → «sin duda»",
+    "«con el objetivo de» → «para»",
+    "«con el fin de» → «para»",
+    "«de cara a» → «para»",
+    "«en base a» → «según»"
+   ],
+   "avisos": [
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "De cara a mañana. En Base A nada. SIN LUGAR A DUDAS.",
+  "salida": {
+   "texto": "Para mañana. Según nada. Sin duda.",
+   "cambiado": true,
+   "arreglos": [
+    "«sin lugar a dudas» → «sin duda»",
+    "«de cara a» → «para»",
+    "«en base a» → «según»"
+   ],
+   "avisos": [
+    "todas las frases miden parecido: mezcla alguna corta con otra larga",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 31,
+   "pruebas": {
+    "ritmo": 0,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "Corta. Una frase bastante más larga que la anterior para que varíe el ritmo del texto entero. Otra. Y luego esta, que va por el medio.",
+  "salida": {
+   "texto": "Corta. Una frase bastante más larga que la anterior para que varíe el ritmo del texto entero. Otra. Y luego esta, que va por el medio.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "Esta frase mide seis palabras justas. Esta otra mide seis palabras justas. Aquella también mide seis palabras justas. Todas miden seis palabras justas aquí.",
+  "salida": {
+   "texto": "Esta frase mide seis palabras justas. Esta otra mide seis palabras justas. Aquella también mide seis palabras justas. Todas miden seis palabras justas aquí.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "todas las frases miden parecido: mezcla alguna corta con otra larga",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 31,
+   "pruebas": {
+    "ritmo": 0,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "He probado 3 modelos en 2026 con 16 GB. Llevo 8 horas. El mejor fue Qwen, el peor Gemma, y uso https://example.com/a?b=1 para verlo.",
+  "salida": {
+   "texto": "He probado 3 modelos en 2026 con 16 GB. Llevo 8 horas. El mejor fue Qwen, el peor Gemma, y uso https://example.com/a?b=1 para verlo.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [],
+   "puntos": 89,
+   "pruebas": {
+    "ritmo": 79,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 100
+   }
+  }
+ },
+ {
+  "entrada": "Yo. Me. Mi. Mis. Nosotros. Conmigo. Nuestra. Fin.",
+  "salida": {
+   "texto": "Yo. Me. Mi. Mis. Nosotros. Conmigo. Nuestra. Fin.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "todas las frases miden parecido: mezcla alguna corta con otra larga",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 36,
+   "pruebas": {
+    "ritmo": 0,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 100
+   }
+  }
+ },
+ {
+  "entrada": "Mis planes: conmigo no cuentes. Mío no es palabra de la lista, ni hemos tampoco.",
+  "salida": {
+   "texto": "Mis planes: conmigo no cuentes. Mío no es palabra de la lista, ni hemos tampoco.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 48,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 100
+   }
+  }
+ },
+ {
+  "entrada": "La documentación explica cómo se instala el programa y qué ficheros cambia en cada sistema.",
+  "salida": {
+   "texto": "La documentación explica cómo se instala el programa y qué ficheros cambia en cada sistema.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "Es crucial, es fundamental, imprescindible y fascinante; un mundo de posibilidades, spoiler: atención: ojo al dato.",
+  "salida": {
+   "texto": "Es crucial, es fundamental, imprescindible y fascinante; un mundo de posibilidades, spoiler: atención: ojo al dato.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "relleno de IA: «es crucial», «es fundamental», «imprescindible», «fascinante», «spoiler:», «atención:», «ojo al dato», «un mundo de posibilidades»",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 31,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 0,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "Revolucionarios y revolucionar no son lo mismo. Desbloquear sí. Desbloqueado no.",
+  "salida": {
+   "texto": "Revolucionarios y revolucionar no son lo mismo. Desbloquear sí. Desbloqueado no.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "relleno de IA: «revolucionar», «desbloquear»",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 31,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 0,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "Ñandú Über Élan Ángel. ÁRBOL ñu. ß y ǅ como inicio: ǅabc Ǆabc. İstanbul ıa Σίσυφος ΣΑΣ.",
+  "salida": {
+   "texto": "Ñandú Über Élan Ángel. ÁRBOL ñu. ß y ǅ como inicio: ǅabc Ǆabc. İstanbul ıa Σίσυφος ΣΑΣ.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [],
+   "puntos": 75,
+   "pruebas": {
+    "ritmo": 68,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "Deseret 𐐀abc mayúscula fuera del plano básico y 𐐀 suelta.",
+  "salida": {
+   "texto": "Deseret 𐐀abc mayúscula fuera del plano básico y 𐐀 suelta.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "Kelvin K y s larga ſ: NO ES ſOLO esto, es lo otro. Žorro.",
+  "salida": {
+   "texto": "Kelvin K y s larga ſ: NO ES ſOLO esto, es lo otro. Žorro.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "«no es solo X, es Y»: di Y directamente"
+   ],
+   "puntos": 71,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 45
+   }
+  }
+ },
+ {
+  "entrada": "NELsalto. Yaquí. Fin",
+  "salida": {
+   "texto": "NELsalto. Yaquí. Fin",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "todas las frases miden parecido: mezcla alguna corta con otra larga",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 35,
+   "pruebas": {
+    "ritmo": 33,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "¡Hola! ¿Qué tal?\nBien…\n\nGenial… seguimos. Sí! Claro? Vale.",
+  "salida": {
+   "texto": "¡Hola! ¿Qué tal?\nBien…\n\nGenial… seguimos. Sí! Claro? Vale.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "pregunta retórica corta («¿El resultado?»): cuéntalo sin preguntar",
+    "todas las frases miden parecido: mezcla alguna corta con otra larga",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 34,
+   "pruebas": {
+    "ritmo": 36,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 45
+   }
+  }
+ },
+ {
+  "entrada": "una.dos.tres sin espacios y v1.2.3 con https://a.b/c.d. Fin.",
+  "salida": {
+   "texto": "una.dos.tres sin espacios y v1.2.3 con https://a.b/c.d. Fin.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [],
+   "puntos": 79,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "HTTP://EJEMPLO.COM/MAYUS y Https://otro.es/x, más texto",
+  "salida": {
+   "texto": "HTTP://EJEMPLO.COM/MAYUS y Https://otro.es/x, más texto",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [],
+   "puntos": 79,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "¿El resultado?",
+  "salida": {
+   "texto": "¿El resultado?",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "pregunta retórica corta («¿El resultado?»): cuéntalo sin preguntar",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 41,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 45
+   }
+  }
+ },
+ {
+  "entrada": ": ¿Por qué? Porque sí.",
+  "salida": {
+   "texto": ": ¿Por qué? Porque sí.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "pregunta retórica corta («¿El resultado?»): cuéntalo sin preguntar",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 41,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 45
+   }
+  }
+ },
+ {
+  "entrada": "¿Una pregunta muy larga que pasa de los veinticinco caracteres seguro?",
+  "salida": {
+   "texto": "¿Una pregunta muy larga que pasa de los veinticinco caracteres seguro?",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "a¿Pegada? ¿Otra?",
+  "salida": {
+   "texto": "a¿Pegada? ¿Otra?",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "pregunta retórica corta («¿El resultado?»): cuéntalo sin preguntar"
+   ],
+   "puntos": 71,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 45
+   }
+  }
+ },
+ {
+  "entrada": "Precio 1 2 3 4 5 números sueltos 12345 y ٣٤ arábigos",
+  "salida": {
+   "texto": "Precio 1 2 3 4 5 números sueltos 12345 y ٣٤ arábigos",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [],
+   "puntos": 79,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "_guion_bajo es palabra y a_día_de_hoy no cambia",
+  "salida": {
+   "texto": "_guion_bajo es palabra y a_día_de_hoy no cambia",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "en resumen: EN RESUMEN. En Resumen",
+  "salida": {
+   "texto": "en resumen: EN RESUMEN. En Resumen",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "relleno de IA: «en resumen»"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 0,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "Linea uno\r\nLinea dos\r\nLinea tres con — raya\r\n",
+  "salida": {
+   "texto": "Linea uno\r\nLinea dos\r\nLinea tres con — raya\r\n",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "1 raya(s) «—»: cámbialas por coma, punto o paréntesis",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 25,
+   "pruebas": {
+    "ritmo": 51,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 0,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "\tTab\tseparado\f y \u000bvertical. 🚀",
+  "salida": {
+   "texto": "\tTab\tseparado\f y \u000bvertical. 🚀",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "🚀",
+  "salida": {
+   "texto": "🚀",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "empieza con emoji: empieza con la idea",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "   🚀 tras espacios",
+  "salida": {
+   "texto": "   🚀 tras espacios",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "empieza con emoji: empieza con la idea",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ },
+ {
+  "entrada": "　🚀 espacio ideográfico",
+  "salida": {
+   "texto": "　🚀 espacio ideográfico",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "empieza con emoji: empieza con la idea",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  }
+ }
+]
