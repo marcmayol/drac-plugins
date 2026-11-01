@@ -17,7 +17,7 @@ jobs:
   pruebas:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -118,3 +118,25 @@ jobs:
           gh release create "$GITHUB_REF_NAME" humanizar-* SHA256SUMS \
             --repo "$GITHUB_REPOSITORY" --verify-tag --latest=false --title "Humanizar ${GITHUB_REF_NAME#humanizar-}" \
             --notes "humanizar as a standalone binary: an MCP server and \`humanizar setup <agent>\` for 14 coding agents, with the same engine as the Claude Code plugin. Install: see plugins/humanizar/README.md."
+
+  # What a person does: the real installer against the published Release, then an agent's conversation.
+  instalar:
+    needs: publicar
+    if: startsWith(github.ref, 'refs/tags/humanizar-v')
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, macos-15-intel, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install and talk to it
+        run: |
+          casa="$(mktemp -d)"
+          mkdir -p "$casa/.codex" "$casa/.gemini"
+          export HUMANIZAR_SETUP_HOME="$casa" HUMANIZAR_INSTALL_DIR="$casa/bin" HUMANIZAR_VERSION="$GITHUB_REF_NAME"
+          sh humanizar-mcp/install.sh
+          grep -q '\[mcp_servers.humanizar\]' "$casa/.codex/config.toml"
+          grep -q '"humanizar"' "$casa/.gemini/settings.json"
+          printf '%s\n' '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"humanizar","arguments":{"textos":["A día de hoy lo utilizo."]}}}' | "$casa/bin/humanizar" mcp > respuesta.json
+          grep -q 'Hoy lo uso' respuesta.json
