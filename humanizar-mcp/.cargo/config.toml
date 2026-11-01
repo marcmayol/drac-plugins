@@ -1,0 +1,4 @@
+# The C runtime goes inside the .exe: a clean Windows has no VCRUNTIME140.dll unless someone
+# installed the Visual C++ Redistributable. Linux releases use musl, which is static already.
+[target.x86_64-pc-windows-msvc]
+rustflags = ["-C", "target-feature=+crt-static"]

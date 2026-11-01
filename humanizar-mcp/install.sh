@@ -1,21 +1,22 @@
 #!/bin/sh
-# Installs the humanizar binary on Linux or macOS. It doesn't touch any agent: run
-# `humanizar setup <agent>` afterwards.
+# Installs humanizar on Linux or macOS and gets ready every agent it finds. Nothing else is needed:
+# the binary depends on no runtime or library.
 #   curl -fsSL https://raw.githubusercontent.com/marcmayol/drac-plugins/main/humanizar-mcp/install.sh | sh
 #
 # Optional variables:
 #   HUMANIZAR_INSTALL_DIR   where the binary goes (default ~/.local/bin)
 #   HUMANIZAR_VERSION       a specific release tag (default below)
+#   HUMANIZAR_NO_SETUP=1    only install the binary, don't touch any agent
 set -eu
 
 repo="marcmayol/drac-plugins"
-tag="${HUMANIZAR_VERSION:-humanizar-v0.3.0}"
+tag="${HUMANIZAR_VERSION:-humanizar-v0.3.1}"
 dir="${HUMANIZAR_INSTALL_DIR:-$HOME/.local/bin}"
 base="https://github.com/$repo/releases/download/$tag"
 
 case "$(uname -s)-$(uname -m)" in
-  Linux-x86_64) target=x86_64-unknown-linux-gnu ;;
-  Linux-aarch64 | Linux-arm64) target=aarch64-unknown-linux-gnu ;;
+  Linux-x86_64) target=x86_64-unknown-linux-musl ;;
+  Linux-aarch64 | Linux-arm64) target=aarch64-unknown-linux-musl ;;
   Darwin-arm64) target=aarch64-apple-darwin ;;
   Darwin-x86_64) target=x86_64-apple-darwin ;;
   *)
@@ -48,4 +49,13 @@ mkdir -p "$dir"
 mv "$tmp/humanizar" "$dir/humanizar"
 chmod +x "$dir/humanizar"
 echo "Installed: $dir/humanizar ($("$dir/humanizar" --version))"
-echo "Next: $dir/humanizar setup <agent>   (or --all, for every agent on this computer)"
+
+if [ -n "${HUMANIZAR_NO_SETUP:-}" ]; then
+  echo "Next: $dir/humanizar setup <agent>   (or --all, for every agent on this computer)"
+  exit 0
+fi
+# The agents get the binary's full path, so they find it even if this folder isn't in PATH.
+if ! "$dir/humanizar" setup --all; then
+  echo "humanizar: some agents couldn't be set up (see above); the others are ready." >&2
+fi
+echo "An agent you install later: $dir/humanizar setup <agent>"

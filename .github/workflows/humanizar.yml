@@ -45,9 +45,9 @@ jobs:
       matrix:
         include:
           - { os: windows-latest, target: x86_64-pc-windows-msvc, ext: zip }
-          # Ubuntu 22.04: glibc 2.35, so the binary also runs on not-so-new distributions.
-          - { os: ubuntu-22.04, target: x86_64-unknown-linux-gnu, ext: tar.gz }
-          - { os: ubuntu-22.04-arm, target: aarch64-unknown-linux-gnu, ext: tar.gz }
+          # musl: fully static, so it runs on any distribution, whatever its libc and however old.
+          - { os: ubuntu-latest, target: x86_64-unknown-linux-musl, ext: tar.gz }
+          - { os: ubuntu-24.04-arm, target: aarch64-unknown-linux-musl, ext: tar.gz }
           - { os: macos-latest, target: aarch64-apple-darwin, ext: tar.gz }
           - { os: macos-latest, target: x86_64-apple-darwin, ext: tar.gz }
     runs-on: ${{ matrix.os }}
@@ -61,6 +61,23 @@ jobs:
           targets: ${{ matrix.target }}
       - run: cargo build --release --locked --target ${{ matrix.target }}
         working-directory: humanizar-mcp
+      - name: It needs nothing the system doesn't bring
+        run: |
+          d=humanizar-mcp/target/${{ matrix.target }}/release
+          case "${{ matrix.target }}" in
+            *-windows-*)
+              if grep -aqiE 'vcruntime|msvcp|api-ms-win-crt' "$d/humanizar.exe"; then
+                echo "the .exe needs the Visual C++ runtime"; exit 1
+              fi ;;
+            *-linux-*)
+              file "$d/humanizar" | grep -qE 'static(ally|-pie) linked'
+              # busybox has no libc for it to lean on.
+              printf 'A día de hoy lo utilizo.' | docker run --rm -i -v "$PWD/$d:/h:ro" busybox:stable /h/humanizar check | grep -q 'Hoy lo uso' ;;
+            *-apple-*)
+              if otool -L "$d/humanizar" | tail -n +2 | grep -vE '/usr/lib/(libSystem|libiconv)'; then
+                echo "the binary needs a library macOS doesn't bring"; exit 1
+              fi ;;
+          esac
       - name: Package and try it
         run: |
           d=humanizar-mcp/target/${{ matrix.target }}/release

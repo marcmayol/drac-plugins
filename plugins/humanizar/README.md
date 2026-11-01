@@ -46,8 +46,10 @@ as a hooks module (`hooks/humanizar.ts`) that registers the `humanizar` tool (`m
 
 The same tool works in the 14 agents [Omoikane](https://github.com/marcmayol/omoikane) gets ready:
 Codex, Gemini CLI, Cursor, OpenCode, Qwen Code, Kiro, GitHub Copilot, Windsurf, Antigravity, Kimi Code,
-Pi, Amp, Kilo Code and Grok Build. It's one 1.5 MB binary with no dependencies: no Node, no Python, no network.
-It gives the same answers as the plugin, and the tests compare the two.
+Pi, Amp, Kilo Code and Grok Build. It's one binary of under 2 MB that needs nothing else: no Node, no Python, no uv, no Visual C++ Redistributable,
+no particular Linux distribution, no network. It gives the same answers as the plugin, and the tests compare the two.
+
+One command installs it and gets ready every agent it finds on your computer:
 
 **Windows** (PowerShell)
 ```powershell
@@ -59,12 +61,14 @@ irm https://raw.githubusercontent.com/marcmayol/drac-plugins/main/humanizar-mcp/
 curl -fsSL https://raw.githubusercontent.com/marcmayol/drac-plugins/main/humanizar-mcp/install.sh | sh
 ```
 
-Then get your agent ready:
+Start a new session of the agent and it's there. For an agent you install later, or one that has never run
+(no configuration folder yet):
 
 ```sh
 humanizar setup codex      # or gemini, cursor, opencode, qwen, kiro, copilot, windsurf, antigravity, kimi, pi, amp, kilo, grok
-humanizar setup --all      # every agent found on this computer
 ```
+
+To install only the binary and leave the agents alone, set `HUMANIZAR_NO_SETUP=1` first.
 
 `setup` registers the MCP server, adds a paragraph to the agent's instructions and creates a `/humanizar`
 command where the agent has user commands. Copilot, Antigravity, Kimi Code and Amp don't, and Cursor has no
