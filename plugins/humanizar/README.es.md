@@ -48,8 +48,10 @@ Claude Code, como un módulo de hooks (`hooks/humanizar.ts`) que registra la her
 
 La misma herramienta funciona en los 14 agentes que prepara [Omoikane](https://github.com/marcmayol/omoikane):
 Codex, Gemini CLI, Cursor, OpenCode, Qwen Code, Kiro, GitHub Copilot, Windsurf, Antigravity, Kimi Code,
-Pi, Amp, Kilo Code y Grok Build. Es un solo binario de 1,5 MB sin dependencias: ni Node, ni Python, ni red.
-Da las mismas respuestas que el plugin, y los tests lo comparan con él.
+Pi, Amp, Kilo Code y Grok Build. Es un solo binario de menos de 2 MB que no necesita nada más: ni Node, ni Python, ni uv, ni el redistribuible de
+Visual C++, ni una distribución de Linux concreta, ni red. Da las mismas respuestas que el plugin, y los tests lo comparan con él.
+
+Un solo comando lo instala y deja listos los agentes que encuentre en tu equipo:
 
 **Windows** (PowerShell)
 ```powershell
@@ -61,12 +63,14 @@ irm https://raw.githubusercontent.com/marcmayol/drac-plugins/main/humanizar-mcp/
 curl -fsSL https://raw.githubusercontent.com/marcmayol/drac-plugins/main/humanizar-mcp/install.sh | sh
 ```
 
-Y después prepara tu agente:
+Abre una sesión nueva del agente y ya está. Para un agente que instales más tarde, o que no hayas abierto nunca
+(todavía sin carpeta de configuración):
 
 ```sh
 humanizar setup codex      # o gemini, cursor, opencode, qwen, kiro, copilot, windsurf, antigravity, kimi, pi, amp, kilo, grok
-humanizar setup --all      # todos los que encuentre en este equipo
 ```
+
+Para instalar solo el binario sin tocar los agentes, define antes `HUMANIZAR_NO_SETUP=1`.
 
 `setup` registra el servidor MCP, añade un párrafo a las instrucciones del agente y crea la orden
 `/humanizar` donde hay órdenes de usuario. Copilot, Antigravity, Kimi Code y Amp no las tienen, y Cursor
