@@ -2,7 +2,7 @@ mod mcp;
 mod motor;
 mod setup;
 
-use std::io::Read;
+use std::io::{ErrorKind, Read, Write};
 use std::process::ExitCode;
 
 const AYUDA: &str = "humanizar: clean and score Spanish text so it doesn't read like AI
@@ -73,8 +73,12 @@ fn comprobar(args: &[String]) -> Result<(), String> {
         }
     };
     let texto = String::from_utf8(bytes).map_err(|_| "the text isn't UTF-8".to_string())?;
-    println!("{}", serde_json::to_string_pretty(&motor::revisar(&texto)).map_err(|e| e.to_string())?);
-    Ok(())
+    let salida = serde_json::to_string_pretty(&motor::revisar(&texto)).map_err(|e| e.to_string())?;
+    // `println!` panics when the reader has gone, as with `humanizar check | grep -q x`.
+    match writeln!(std::io::stdout(), "{salida}") {
+        Err(e) if e.kind() != ErrorKind::BrokenPipe => Err(e.to_string()),
+        _ => Ok(()),
+    }
 }
 
 fn main() -> ExitCode {

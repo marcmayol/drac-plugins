@@ -49,6 +49,15 @@ fn responde_igual_que_el_motor_de_typescript() {
 }
 
 #[test]
+fn check_no_se_cae_si_el_lector_se_va() {
+    let mut hijo = Command::new(BIN).arg("check").stdin(Stdio::piped()).stdout(Stdio::piped()).stderr(Stdio::piped()).spawn().unwrap();
+    drop(hijo.stdout.take());
+    hijo.stdin.take().unwrap().write_all("A día de hoy lo utilizo.".as_bytes()).unwrap();
+    let salida = hijo.wait_with_output().unwrap();
+    assert!(salida.status.success(), "{}", String::from_utf8_lossy(&salida.stderr));
+}
+
+#[test]
 fn habla_mcp() {
     let r = conversacion(&[
         json!({ "jsonrpc": "2.0", "id": 1, "method": "initialize", "params": { "protocolVersion": "2025-03-26", "capabilities": {}, "clientInfo": { "name": "t", "version": "0" } } }),
