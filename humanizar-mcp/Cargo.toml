@@ -1,0 +1,26 @@
+[package]
+name = "humanizar"
+version = "0.3.0"
+edition = "2024"
+description = "Clean and score Spanish text so it doesn't read like AI: an MCP server for any coding agent."
+license = "MIT"
+repository = "https://github.com/marcmayol/drac-plugins"
+
+[[bin]]
+name = "humanizar"
+path = "src/main.rs"
+
+[dependencies]
+fancy-regex = "0.20"
+serde_json = { version = "1", features = ["preserve_order"] }
+unicode-normalization = "0.1"
+
+[profile.release]
+lto = true
+codegen-units = 1
+opt-level = "s"
+strip = true
+panic = "abort"
+
+# A crate of its own: not part of any workspace above it.
+[workspace]
