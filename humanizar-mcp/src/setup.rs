@@ -21,7 +21,7 @@ pub struct Cambio {
     pub contenido: String,
 }
 
-fn casa() -> Result<PathBuf, String> {
+pub fn casa() -> Result<PathBuf, String> {
     if let Some(h) = std::env::var_os("HUMANIZAR_SETUP_HOME") {
         return Ok(PathBuf::from(h));
     }

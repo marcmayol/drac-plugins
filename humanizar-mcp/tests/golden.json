@@ -16,7 +16,10 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "poco concreto"
+  ]
  },
  {
   "entrada": "   ",
@@ -35,7 +38,10 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "poco concreto"
+  ]
  },
  {
   "entrada": "🚀 En el vertiginoso mundo de la IA, esto lo cambia todo.\n\nNo es solo una herramienta, es un cambio de paradigma. ¿El resultado? Un antes y un después.\n\nA día de hoy es fundamental aprovechar al máximo cada oportunidad — y esta es la clave.\n\n¿Qué opinas? 👇 #IA #AI #Innovación #Tech #Futuro",
@@ -63,7 +69,23 @@
     "huella": 0,
     "voz": 30
    }
-  }
+  },
+  "reglas": [
+   "«a día de hoy» → «hoy»",
+   "relleno: «en el vertiginoso mundo»",
+   "relleno: «es fundamental»",
+   "relleno: «cambio de paradigma»",
+   "relleno: «un antes y un después»",
+   "relleno: «aprovechar al máximo»",
+   "relleno: «esto lo cambia todo»",
+   "«no es solo X, es Y»",
+   "pregunta retórica corta («¿El resultado?»)",
+   "pregunta de cebo al final",
+   "raya(s) «—»",
+   "hashtags",
+   "emojis",
+   "empieza con emoji"
+  ]
  },
  {
   "entrada": "Llevaba semanas difundiendo a mano cada post de LinkedIn en X y Threads. Unos 15 minutos por post.\n\nAyer monté un plugin para Claude Code que lo hace solo: lee mi actividad cada 2 horas y publica en las tres redes con mi propio Chrome. Sin APIs de pago.\n\nLo he subido aquí: https://github.com/marcmayol/drac-plugins #ClaudeCode",
@@ -80,7 +102,8 @@
     "huella": 100,
     "voz": 100
    }
-  }
+  },
+  "reglas": []
  },
  {
   "entrada": "𝗘𝘀𝘁𝗼 es​ así",
@@ -102,7 +125,12 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "caracteres invisibles quitados",
+   "letras Unicode de negrita/cursiva pasadas a normales",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "𝐀𝐁𝐂 𝘢𝘣𝘤 𝟏𝟐𝟑 y 𝟘 fin",
@@ -121,7 +149,10 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "letras Unicode de negrita/cursiva pasadas a normales"
+  ]
  },
  {
   "entrada": "A día de hoy lo utilizo",
@@ -143,7 +174,12 @@
     "huella": 100,
     "voz": 100
    }
-  }
+  },
+  "reglas": [
+   "«a día de hoy» → «hoy»",
+   "«utilizo» → «uso»",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "Utilizarás esto",
@@ -162,7 +198,10 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "poco concreto"
+  ]
  },
  {
   "entrada": "UTILIZA esto, utilizan aquello, Utilizando lo otro y utilizar más",
@@ -184,7 +223,13 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "«utiliza» → «usa»",
+   "«utilizan» → «usan»",
+   "«utilizar» → «usar»",
+   "«utilizando» → «usando»"
+  ]
  },
  {
   "entrada": "Lo dice «el README»: https://github.com/a/b",
@@ -201,7 +246,8 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": []
  },
  {
   "entrada": "Mi plugin ya publica en Bluesky. Gratis.",
@@ -218,7 +264,8 @@
     "huella": 100,
     "voz": 100
    }
-  }
+  },
+  "reglas": []
  },
  {
   "entrada": "Esto lo cambia todo — ¿El resultado? Nada.",
@@ -239,7 +286,12 @@
     "huella": 0,
     "voz": 45
    }
-  }
+  },
+  "reglas": [
+   "relleno: «esto lo cambia todo»",
+   "pregunta retórica corta («¿El resultado?»)",
+   "raya(s) «—»"
+  ]
  },
  {
   "entrada": "No es X. Es Y. Y ya está.",
@@ -259,7 +311,11 @@
     "huella": 100,
     "voz": 45
    }
-  }
+  },
+  "reglas": [
+   "«No es X. Es Y.»",
+   "todas las frases miden parecido"
+  ]
  },
  {
   "entrada": "No se trata de simplemente ganar; se trata de aprender.",
@@ -279,7 +335,11 @@
     "huella": 100,
     "voz": 45
    }
-  }
+  },
+  "reglas": [
+   "«no es solo X, es Y»",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "no es únicamente una idea: sino algo más",
@@ -299,7 +359,11 @@
     "huella": 100,
     "voz": 45
    }
-  }
+  },
+  "reglas": [
+   "«no es solo X, es Y»",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "Comenta GUÍA y te lo envío.",
@@ -318,7 +382,10 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "cebo de comentarios («comenta X y te lo envío»)"
+  ]
  },
  {
   "entrada": "Responde «sí» para que te avise.",
@@ -338,7 +405,11 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "cebo de comentarios («comenta X y te lo envío»)",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "Dale like y comparte si te ha gustado. Sígueme para más. Guárdalo para luego.",
@@ -358,7 +429,11 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "petición de interacción",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "¿Y tú? ¿Estás de acuerdo? ¿qué opináis",
@@ -380,7 +455,13 @@
     "huella": 100,
     "voz": 45
    }
-  }
+  },
+  "reglas": [
+   "pregunta retórica corta («¿El resultado?»)",
+   "pregunta de cebo al final",
+   "todas las frases miden parecido",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "Esto va en **negrita** y esto no.",
@@ -400,7 +481,11 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "markdown (**…**)",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "**a\nb**",
@@ -419,7 +504,10 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "poco concreto"
+  ]
  },
  {
   "entrada": "palabra—pegada y otra – suelta y otra - con guion y una—última",
@@ -439,7 +527,11 @@
     "huella": 0,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "raya(s) «—»",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "—Hola —dijo ella—. ¿Vienes?\n—No —contestó.",
@@ -460,7 +552,12 @@
     "huella": 0,
     "voz": 45
    }
-  }
+  },
+  "reglas": [
+   "pregunta retórica corta («¿El resultado?»)",
+   "raya(s) «—»",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "#uno #dos #tres",
@@ -479,7 +576,10 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "poco concreto"
+  ]
  },
  {
   "entrada": "#uno #dos #tres #cuatro no#es #cinco",
@@ -499,7 +599,11 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "hashtags",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "✅ Hecho ✨ y 🎉 listo",
@@ -520,7 +624,12 @@
     "huella": 0,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "emojis",
+   "empieza con emoji",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "Un emoji 🙂 al final",
@@ -539,7 +648,10 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "poco concreto"
+  ]
  },
  {
   "entrada": "  hola mundo . fin",
@@ -560,7 +672,11 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "espacios raros normalizados",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "­guion­blando﻿ y⁠ más ‌‍",
@@ -581,7 +697,11 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "caracteres invisibles quitados",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "etiquetas 󠁁󠁂 ocultas",
@@ -602,7 +722,11 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "caracteres invisibles quitados",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "En base a esto, de cara a mañana, con el fin de llegar y con el objetivo de ganar: sin lugar a dudas, en el día de hoy.",
@@ -628,7 +752,16 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "«en el día de hoy» → «hoy»",
+   "«sin lugar a dudas» → «sin duda»",
+   "«con el objetivo de» → «para»",
+   "«con el fin de» → «para»",
+   "«de cara a» → «para»",
+   "«en base a» → «según»",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "De cara a mañana. En Base A nada. SIN LUGAR A DUDAS.",
@@ -652,7 +785,14 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "«sin lugar a dudas» → «sin duda»",
+   "«de cara a» → «para»",
+   "«en base a» → «según»",
+   "todas las frases miden parecido",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "Corta. Una frase bastante más larga que la anterior para que varíe el ritmo del texto entero. Otra. Y luego esta, que va por el medio.",
@@ -671,7 +811,10 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "poco concreto"
+  ]
  },
  {
   "entrada": "Esta frase mide seis palabras justas. Esta otra mide seis palabras justas. Aquella también mide seis palabras justas. Todas miden seis palabras justas aquí.",
@@ -691,7 +834,11 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "todas las frases miden parecido",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "He probado 3 modelos en 2026 con 16 GB. Llevo 8 horas. El mejor fue Qwen, el peor Gemma, y uso https://example.com/a?b=1 para verlo.",
@@ -708,7 +855,8 @@
     "huella": 100,
     "voz": 100
    }
-  }
+  },
+  "reglas": []
  },
  {
   "entrada": "Yo. Me. Mi. Mis. Nosotros. Conmigo. Nuestra. Fin.",
@@ -728,7 +876,11 @@
     "huella": 100,
     "voz": 100
    }
-  }
+  },
+  "reglas": [
+   "todas las frases miden parecido",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "Mis planes: conmigo no cuentes. Mío no es palabra de la lista, ni hemos tampoco.",
@@ -747,7 +899,10 @@
     "huella": 100,
     "voz": 100
    }
-  }
+  },
+  "reglas": [
+   "poco concreto"
+  ]
  },
  {
   "entrada": "La documentación explica cómo se instala el programa y qué ficheros cambia en cada sistema.",
@@ -766,7 +921,10 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "poco concreto"
+  ]
  },
  {
   "entrada": "Es crucial, es fundamental, imprescindible y fascinante; un mundo de posibilidades, spoiler: atención: ojo al dato.",
@@ -786,7 +944,18 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "relleno: «es crucial»",
+   "relleno: «es fundamental»",
+   "relleno: «imprescindible»",
+   "relleno: «fascinante»",
+   "relleno: «spoiler:»",
+   "relleno: «atención:»",
+   "relleno: «ojo al dato»",
+   "relleno: «un mundo de posibilidades»",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "Revolucionarios y revolucionar no son lo mismo. Desbloquear sí. Desbloqueado no.",
@@ -806,7 +975,12 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "relleno: «revolucionar»",
+   "relleno: «desbloquear»",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "Ñandú Über Élan Ángel. ÁRBOL ñu. ß y ǅ como inicio: ǅabc Ǆabc. İstanbul ıa Σίσυφος ΣΑΣ.",
@@ -823,7 +997,8 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": []
  },
  {
   "entrada": "Deseret 𐐀abc mayúscula fuera del plano básico y 𐐀 suelta.",
@@ -842,7 +1017,10 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "poco concreto"
+  ]
  },
  {
   "entrada": "Kelvin K y s larga ſ: NO ES ſOLO esto, es lo otro. Žorro.",
@@ -861,7 +1039,10 @@
     "huella": 100,
     "voz": 45
    }
-  }
+  },
+  "reglas": [
+   "«no es solo X, es Y»"
+  ]
  },
  {
   "entrada": "NELsalto. Yaquí. Fin",
@@ -881,7 +1062,11 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "todas las frases miden parecido",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "¡Hola! ¿Qué tal?\nBien…\n\nGenial… seguimos. Sí! Claro? Vale.",
@@ -902,7 +1087,12 @@
     "huella": 100,
     "voz": 45
    }
-  }
+  },
+  "reglas": [
+   "pregunta retórica corta («¿El resultado?»)",
+   "todas las frases miden parecido",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "una.dos.tres sin espacios y v1.2.3 con https://a.b/c.d. Fin.",
@@ -919,7 +1109,8 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": []
  },
  {
   "entrada": "HTTP://EJEMPLO.COM/MAYUS y Https://otro.es/x, más texto",
@@ -936,7 +1127,8 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": []
  },
  {
   "entrada": "¿El resultado?",
@@ -956,7 +1148,11 @@
     "huella": 100,
     "voz": 45
    }
-  }
+  },
+  "reglas": [
+   "pregunta retórica corta («¿El resultado?»)",
+   "poco concreto"
+  ]
  },
  {
   "entrada": ": ¿Por qué? Porque sí.",
@@ -976,7 +1172,11 @@
     "huella": 100,
     "voz": 45
    }
-  }
+  },
+  "reglas": [
+   "pregunta retórica corta («¿El resultado?»)",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "¿Una pregunta muy larga que pasa de los veinticinco caracteres seguro?",
@@ -995,7 +1195,10 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "poco concreto"
+  ]
  },
  {
   "entrada": "a¿Pegada? ¿Otra?",
@@ -1014,7 +1217,10 @@
     "huella": 100,
     "voz": 45
    }
-  }
+  },
+  "reglas": [
+   "pregunta retórica corta («¿El resultado?»)"
+  ]
  },
  {
   "entrada": "Precio 1 2 3 4 5 números sueltos 12345 y ٣٤ arábigos",
@@ -1031,7 +1237,8 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": []
  },
  {
   "entrada": "_guion_bajo es palabra y a_día_de_hoy no cambia",
@@ -1050,7 +1257,10 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "poco concreto"
+  ]
  },
  {
   "entrada": "en resumen: EN RESUMEN. En Resumen",
@@ -1069,7 +1279,10 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "relleno: «en resumen»"
+  ]
  },
  {
   "entrada": "Linea uno\r\nLinea dos\r\nLinea tres con — raya\r\n",
@@ -1089,7 +1302,11 @@
     "huella": 0,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "raya(s) «—»",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "\tTab\tseparado\f y \u000bvertical. 🚀",
@@ -1108,7 +1325,10 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "poco concreto"
+  ]
  },
  {
   "entrada": "🚀",
@@ -1128,7 +1348,11 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "empieza con emoji",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "   🚀 tras espacios",
@@ -1148,7 +1372,11 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "empieza con emoji",
+   "poco concreto"
+  ]
  },
  {
   "entrada": "　🚀 espacio ideográfico",
@@ -1168,6 +1396,10 @@
     "huella": 100,
     "voz": 60
    }
-  }
+  },
+  "reglas": [
+   "empieza con emoji",
+   "poco concreto"
+  ]
  }
 ]

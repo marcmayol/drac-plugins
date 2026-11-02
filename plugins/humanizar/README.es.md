@@ -11,6 +11,7 @@ Claude Code como plugin y [en otros 14 agentes](#en-otros-agentes) como servidor
 | Pieza | Para qué |
 |---|---|
 | Herramienta `humanizar` | Recibe una lista de textos y devuelve cada uno limpio, con su nota, sus avisos y el desglose de pruebas |
+| Orden `/humanizar-log` | Enseña qué reglas saltan más ([el log](#el-log)) |
 | Skill `humanizar` (`/humanizar`) | Le dice a Claude cómo usarla: pasar el texto, reescribir solo lo que avisa, repetir como mucho dos veces y entregar lo último que devolvió la herramienta |
 
 ### Arreglos automáticos (no cambian el sentido)
@@ -32,6 +33,34 @@ todas del mismo largo y texto poco concreto.
 Cinco pruebas de 0 a 100: ritmo (variación del largo de las frases), concreción (cifras,
 nombres, enlaces), relleno, huella (rayas y emojis) y voz (primera persona). La nota mezcla
 la media con la peor, así que un solo fallo grave la baja.
+
+## El log
+
+Cada vez que la herramienta revisa un texto, apunta qué reglas han saltado. Así ves qué vicios repite el
+modelo y puedes corregirlos en sus instrucciones, o decidir que la regla está mal puesta. La idea es de
+Edwin Jimenez, en los comentarios de LinkedIn.
+
+| Dónde | Ver el log | Vaciarlo |
+|---|---|---|
+| Claude Code | `/humanizar-log` | `/humanizar-log borrar` |
+| Otros agentes (Windows, Linux y macOS) | `humanizar log` | `humanizar log --clear` |
+
+```
+12 textos revisados desde 2026-11-02; 8 con algo que corregir.
+
+Reglas que más saltan:
+    5  poco concreto
+    3  raya(s) «—»
+    1  relleno: «cabe destacar»
+
+Últimos:
+  2026-11-02 09:12  nota  43  poco concreto, raya(s) «—»
+```
+
+Guarda la fecha en UTC, la nota y el nombre de las reglas, nunca tu texto, y no sale de tu equipo. Se queda con
+las últimas 5000 revisiones más o menos. En Claude Code vive en el almacén del plugin; en el binario, en
+`~/.humanizar/log.jsonl`, y `humanizar log --raw` lo saca tal cual. Son logs separados. Para que no anote nada,
+define `HUMANIZAR_NO_LOG=1`.
 
 ## Instalar en Claude Code
 

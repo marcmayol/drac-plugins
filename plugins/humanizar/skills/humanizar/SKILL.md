@@ -29,6 +29,11 @@ por cada uno `texto` (ya limpio), `cambiado`, `arreglos`, `avisos`, `puntos` (0-
 5. Si era un archivo, escribe el resultado en el mismo archivo solo si te lo han pedido;
    si no, enséñalo y di la nota.
 
+## El log
+
+Cada revisión apunta qué reglas han saltado, sin el texto. Si preguntan qué vicios se repiten, diles que
+lo vean con `/humanizar-log` (en otros agentes, `humanizar log` en la terminal).
+
 ## Qué no hace
 
 - No es un detector de IA: son heurísticas locales en español. Un 100 no garantiza nada,
