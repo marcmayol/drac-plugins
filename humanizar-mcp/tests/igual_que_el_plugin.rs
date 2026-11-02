@@ -93,6 +93,10 @@ fn el_log_se_resume_se_borra_y_se_puede_apagar() {
     log(&h, &["--clear"]);
     assert!(log(&h, &[]).contains("vacío"));
 
+    conversacion_en(&h, &[llamada(&["Mi plugin ya publica en Bluesky. Gratis."])]);
+    assert!(log(&h, &[]).contains("1 texto revisado desde"), "a single text reads in the singular");
+    log(&h, &["--clear"]);
+
     let mut hijo = Command::new(BIN).arg("mcp").env("HUMANIZAR_SETUP_HOME", &h).env("HUMANIZAR_NO_LOG", "1").stdin(Stdio::piped()).stdout(Stdio::piped()).spawn().unwrap();
     writeln!(hijo.stdin.take().unwrap(), "{}", llamada(&["Una raya — aquí."])).unwrap();
     assert!(hijo.wait_with_output().unwrap().status.success());

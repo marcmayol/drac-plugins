@@ -35,7 +35,7 @@
       "name": "humanizar",
       "source": "./plugins/humanizar",
       "description": "Clean and score Spanish text (0-100) so it doesn't read like AI: invisible characters, Unicode bold, filler, \"it's not X, it's Y\", em dashes, hashtag walls. Local heuristics, no API. Also an MCP server for 14 other agents.",
-      "version": "0.4.0",
+      "version": "0.4.1",
       "category": "productivity"
     },
     {
