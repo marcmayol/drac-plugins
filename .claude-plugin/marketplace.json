@@ -51,7 +51,7 @@
         "source": "url",
         "url": "https://github.com/marcmayol/verify-seo-for-agents.git"
       },
-      "description": "Check whether a website is ready for AI agents, and fix what fails: 23 checks, a level from 0 to 5 and a guide for each failure. Runs on your machine and can scan localhost. Installs its own binary on first use. Independent, not affiliated with Cloudflare.",
+      "description": "Check whether a website is ready for AI agents, and fix what fails: 23 checks, a level from 0 to 5 and a guide for each failure. Runs on your machine and can scan localhost. Installs its own binary on first use.",
       "category": "development"
     },
     {
