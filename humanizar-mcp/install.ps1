@@ -11,7 +11,7 @@ $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'  # without the progress bar, Invoke-WebRequest is much faster on PowerShell 5.1
 
 $repo = 'marcmayol/drac-plugins'
-$tag = if ($env:HUMANIZAR_VERSION) { $env:HUMANIZAR_VERSION } else { 'humanizar-v0.3.1' }
+$tag = if ($env:HUMANIZAR_VERSION) { $env:HUMANIZAR_VERSION } else { 'humanizar-v0.4.0' }
 $dir = if ($env:HUMANIZAR_INSTALL_DIR) { $env:HUMANIZAR_INSTALL_DIR } else { Join-Path $env:LOCALAPPDATA 'Programs\humanizar' }
 $base = "https://github.com/$repo/releases/download/$tag"
 # Windows on ARM runs the x64 binary through emulation.

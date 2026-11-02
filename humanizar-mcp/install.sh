@@ -10,7 +10,7 @@
 set -eu
 
 repo="marcmayol/drac-plugins"
-tag="${HUMANIZAR_VERSION:-humanizar-v0.3.1}"
+tag="${HUMANIZAR_VERSION:-humanizar-v0.4.0}"
 dir="${HUMANIZAR_INSTALL_DIR:-$HOME/.local/bin}"
 base="https://github.com/$repo/releases/download/$tag"
 

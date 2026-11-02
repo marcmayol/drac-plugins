@@ -1,3 +1,4 @@
+mod log;
 mod mcp;
 mod motor;
 mod setup;
@@ -12,6 +13,7 @@ Usage:
   humanizar setup --all [--dry-run]     The same, in every agent found on this computer
   humanizar mcp                         Run the MCP server over stdio (the agents start this)
   humanizar check [file]                Print the result for a file, or for stdin, as JSON
+  humanizar log [--raw | --clear]       Which rules fire most, from what the agents sent to the tool
   humanizar --version
 
 Agents: codex, gemini, cursor, opencode, qwen, kiro, copilot, windsurf, antigravity, kimi, pi, amp,
@@ -73,8 +75,11 @@ fn comprobar(args: &[String]) -> Result<(), String> {
         }
     };
     let texto = String::from_utf8(bytes).map_err(|_| "the text isn't UTF-8".to_string())?;
-    let salida = serde_json::to_string_pretty(&motor::revisar(&texto)).map_err(|e| e.to_string())?;
-    // `println!` panics when the reader has gone, as with `humanizar check | grep -q x`.
+    imprimir(&serde_json::to_string_pretty(&motor::revisar(&texto)).map_err(|e| e.to_string())?)
+}
+
+// `println!` panics when the reader has gone, as with `humanizar check | grep -q x`.
+fn imprimir(salida: &str) -> Result<(), String> {
     match writeln!(std::io::stdout(), "{salida}") {
         Err(e) if e.kind() != ErrorKind::BrokenPipe => Err(e.to_string()),
         _ => Ok(()),
@@ -88,6 +93,7 @@ fn main() -> ExitCode {
         Some("mcp") => mcp::servir().map_err(|e| e.to_string()),
         Some("setup") => hacer_setup(resto),
         Some("check") => comprobar(resto),
+        Some("log") => log::mostrar(resto).and_then(|s| imprimir(&s)),
         Some("--version" | "-V") => {
             println!("humanizar {}", env!("CARGO_PKG_VERSION"));
             Ok(())

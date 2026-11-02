@@ -10,7 +10,11 @@ const BIN: &str = env!("CARGO_BIN_EXE_humanizar");
 const AGENTES: &[&str] = &["codex", "gemini", "cursor", "opencode", "qwen", "kiro", "copilot", "windsurf", "antigravity", "kimi", "pi", "amp", "kilo", "grok"];
 
 fn conversacion(mensajes: &[Value]) -> Vec<Value> {
-    let mut hijo = Command::new(BIN).arg("mcp").stdin(Stdio::piped()).stdout(Stdio::piped()).spawn().unwrap();
+    conversacion_en(&std::env::temp_dir().join("humanizar-test-log"), mensajes)
+}
+
+fn conversacion_en(casa: &PathBuf, mensajes: &[Value]) -> Vec<Value> {
+    let mut hijo = Command::new(BIN).arg("mcp").env("HUMANIZAR_SETUP_HOME", casa).stdin(Stdio::piped()).stdout(Stdio::piped()).spawn().unwrap();
     let mut entrada = hijo.stdin.take().unwrap();
     for m in mensajes {
         writeln!(entrada, "{m}").unwrap();
@@ -46,6 +50,54 @@ fn responde_igual_que_el_motor_de_typescript() {
     for (g, s) in golden.iter().zip(salida) {
         assert_eq!(&g["salida"], s, "\ntext: {:?}", g["entrada"]);
     }
+}
+
+fn log(casa: &PathBuf, args: &[&str]) -> String {
+    let s = Command::new(BIN).arg("log").args(args).env("HUMANIZAR_SETUP_HOME", casa).output().unwrap();
+    assert!(s.status.success(), "{}", String::from_utf8_lossy(&s.stderr));
+    String::from_utf8(s.stdout).unwrap()
+}
+
+fn llamada(textos: &[&str]) -> Value {
+    json!({ "jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": { "name": "humanizar", "arguments": { "textos": textos } } })
+}
+
+#[test]
+fn el_log_anota_las_mismas_reglas_que_el_plugin_y_nunca_el_texto() {
+    let h = casa("log");
+    let golden: Vec<Value> = serde_json::from_str(include_str!("golden.json")).unwrap();
+    let textos: Vec<&str> = golden.iter().map(|g| g["entrada"].as_str().unwrap()).collect();
+    conversacion_en(&h, &[llamada(&textos)]);
+    let crudo = log(&h, &["--raw"]);
+    let lineas: Vec<Value> = crudo.lines().map(|l| serde_json::from_str(l).unwrap()).collect();
+    assert_eq!(lineas.len(), golden.len());
+    for (g, l) in golden.iter().zip(&lineas) {
+        assert_eq!(g["reglas"], l["reglas"], "\ntext: {:?}", g["entrada"]);
+        assert_eq!(g["salida"]["puntos"], l["puntos"]);
+    }
+    let secreto = "Esto es secreto: mi clave 12345 — ya sabes.";
+    conversacion_en(&h, &[llamada(&[secreto])]);
+    assert!(!log(&h, &["--raw"]).contains("secreto"));
+    let _ = std::fs::remove_dir_all(&h);
+}
+
+#[test]
+fn el_log_se_resume_se_borra_y_se_puede_apagar() {
+    let h = casa("resumen");
+    assert!(log(&h, &[]).contains("vacío"));
+    conversacion_en(&h, &[llamada(&["Esto va bien — pero lleva una raya, y otra — aquí.", "Mi plugin ya publica en Bluesky. Gratis."])]);
+    let resumen = log(&h, &[]);
+    assert!(resumen.contains("2 textos revisados"), "{resumen}");
+    assert!(resumen.contains("raya(s) «—»"), "{resumen}");
+    assert!(resumen.contains("log.jsonl"), "{resumen}");
+    log(&h, &["--clear"]);
+    assert!(log(&h, &[]).contains("vacío"));
+
+    let mut hijo = Command::new(BIN).arg("mcp").env("HUMANIZAR_SETUP_HOME", &h).env("HUMANIZAR_NO_LOG", "1").stdin(Stdio::piped()).stdout(Stdio::piped()).spawn().unwrap();
+    writeln!(hijo.stdin.take().unwrap(), "{}", llamada(&["Una raya — aquí."])).unwrap();
+    assert!(hijo.wait_with_output().unwrap().status.success());
+    assert!(log(&h, &[]).contains("vacío"));
+    let _ = std::fs::remove_dir_all(&h);
 }
 
 #[test]

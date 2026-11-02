@@ -11,6 +11,7 @@ as a plugin and [in 14 other agents](#in-other-agents) as an MCP server.
 | Piece | Purpose |
 |---|---|
 | `humanizar` tool | Takes a list of texts and returns each one cleaned, with its score, warnings and per-check breakdown |
+| `/humanizar-log` command | Shows which rules fire most ([the log](#the-log)) |
 | `humanizar` skill (`/humanizar`) | Tells Claude how to use it: run the text, rewrite only what gets flagged, repeat at most twice and deliver the last text the tool returned |
 
 ### Automatic fixes (meaning-preserving)
@@ -31,6 +32,22 @@ sentences all the same length and vague text.
 Five checks from 0 to 100: rhythm, concreteness, filler, footprint (dashes and emojis) and
 voice (first person). The score blends the average with the worst check, so one serious
 problem pulls it down.
+
+## The log
+
+Each time the tool reviews a text, it notes which rules fired. That shows you which habits the model keeps
+repeating, so you can fix its instructions, or decide a rule is wrong. The idea came from Edwin Jimenez, in the
+LinkedIn comments.
+
+| Where | See the log | Empty it |
+|---|---|---|
+| Claude Code | `/humanizar-log` | `/humanizar-log borrar` |
+| Other agents (Windows, Linux and macOS) | `humanizar log` | `humanizar log --clear` |
+
+It keeps the date in UTC, the score and the rule names, never your text, and nothing leaves your computer. It
+holds roughly the last 5000 reviews. In Claude Code it lives in the plugin's store; in the binary, in
+`~/.humanizar/log.jsonl`, and `humanizar log --raw` prints it as it is. They are separate logs. To turn it off,
+set `HUMANIZAR_NO_LOG=1`.
 
 ## Install in Claude Code
 

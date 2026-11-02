@@ -34,6 +34,7 @@ fn llamar(params: &Value) -> Result<Value, (i64, String)> {
     Ok(match textos {
         Some(t) => {
             let result: Vec<Value> = t.into_iter().map(revisar).collect();
+            crate::log::anotar(&result);
             json!({ "content": [{ "type": "text", "text": json!({ "result": result }).to_string() }], "isError": false })
         }
         None => json!({ "content": [{ "type": "text", "text": "humanizar: `textos` tiene que ser una lista de textos." }], "isError": true }),

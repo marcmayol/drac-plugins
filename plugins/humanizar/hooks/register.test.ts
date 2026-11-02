@@ -1,6 +1,7 @@
-import { expect, test } from 'claude-code/testing'
+import { expect, mock, test } from 'claude-code/testing'
 
 import { limpiar, revisar } from './humanizar'
+import { informe, reglas } from './log'
 
 const IA = `🚀 En el vertiginoso mundo de la IA, esto lo cambia todo.
 
@@ -60,9 +61,61 @@ test('pregunta retórica tras una raya', () => {
 test('la herramienta responde a una lista de textos', async ($, on) => {
   on('session.start', (_, e) => ({ cwd: e.cwd }))
   on('tool.register', () => ({ value: { tool: 'mcp__humanizar__humanizar' } }))
+  on('command.register', () => ({ value: { command: 'humanizar-log' } }))
+  mock.store(on)
+  mock.env(on, {})
   await $.session.start({ cwd: '/', surface: 'terminal', isInteractive: false })
 
   const out = await $.tool.call({ tool: 'mcp__humanizar__humanizar', textos: ['A día de hoy lo utilizo.'] } as never)
   const { result } = JSON.parse(String((out as { result: unknown }).result)) as { result: Array<{ texto: string }> }
   expect(result[0]?.texto).toBe('Hoy lo uso.')
+})
+
+test('el nombre de la regla va sin cifras ni consejo', () => {
+  expect(reglas({
+    arreglos: ['«utilizar» → «usar»'],
+    avisos: ['relleno de IA: «cabe destacar», «es crucial»', '3 raya(s) «—»: cámbialas', '«no es solo X, es Y»: di Y directamente', 'poco concreto: añade una cifra'],
+  })).toEqual(['«utilizar» → «usar»', 'relleno: «cabe destacar»', 'relleno: «es crucial»', 'raya(s) «—»', '«no es solo X, es Y»', 'poco concreto'])
+})
+
+test('el informe ordena por veces', () => {
+  const t = informe([
+    { t: '2026-11-02T01:00:00Z', puntos: 43, reglas: ['poco concreto', 'raya(s) «—»'] },
+    { t: '2026-11-03T02:30:00Z', puntos: 90, reglas: ['poco concreto'] },
+    { t: '2026-11-03T02:31:00Z', puntos: 100, reglas: [] },
+  ])
+  expect(t).toContain('3 textos revisados desde 2026-11-02; 2 con algo que corregir.')
+  expect(t.indexOf('poco concreto') < t.indexOf('raya(s)')).toBe(true)
+  expect(t).toContain('2026-11-03 02:31  nota 100  sin avisos')
+})
+
+test('cada revisión va al log sin el texto, y el comando lo enseña y lo borra', async ($, on) => {
+  on('session.start', (_, e) => ({ cwd: e.cwd }))
+  on('tool.register', () => ({ value: { tool: 'mcp__humanizar__humanizar' } }))
+  on('command.register', () => ({ value: { command: 'humanizar-log' } }))
+  mock.store(on)
+  mock.env(on, {})
+  mock.clock(on, { now: Date.UTC(2026, 10, 2, 1, 40) })
+  await $.session.start({ cwd: '/', surface: 'terminal', isInteractive: false })
+  await $.tool.call({ tool: 'mcp__humanizar__humanizar', textos: ['Mi secreto — con raya y poco más.'] } as never)
+
+  const correr = (args: string) => $.command.run({ command: 'humanizar-log', args } as never)
+  const t = (await correr('')).text
+  expect(t).toContain('1 textos revisados')
+  expect(t).toContain('raya(s)')
+  expect(t).toContain('2026-11-02 01:40')
+  expect(t.includes('secreto')).toBe(false)
+  await correr('borrar')
+  expect((await correr('')).text).toContain('vacío')
+})
+
+test('HUMANIZAR_NO_LOG lo apaga', async ($, on) => {
+  on('session.start', (_, e) => ({ cwd: e.cwd }))
+  on('tool.register', () => ({ value: { tool: 'mcp__humanizar__humanizar' } }))
+  on('command.register', () => ({ value: { command: 'humanizar-log' } }))
+  mock.store(on)
+  mock.env(on, { HUMANIZAR_NO_LOG: '1' })
+  await $.session.start({ cwd: '/', surface: 'terminal', isInteractive: false })
+  await $.tool.call({ tool: 'mcp__humanizar__humanizar', textos: ['Una raya — aquí.'] } as never)
+  expect((await $.command.run({ command: 'humanizar-log', args: '' } as never)).text).toContain('vacío')
 })
