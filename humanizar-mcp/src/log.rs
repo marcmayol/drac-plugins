@@ -102,9 +102,12 @@ fn informe(entradas: &[Value]) -> String {
     let tiene_algo = |e: &&Value| textos(&e["reglas"]).next().is_some();
     let fecha = |e: &Value| e["t"].as_str().unwrap_or_default().to_string();
     let primera = fecha(&entradas[0]);
+    let cuantos = match entradas.len() {
+        1 => "1 texto revisado".to_string(),
+        n => format!("{n} textos revisados"),
+    };
     let mut lineas = vec![format!(
-        "{} textos revisados desde {}; {} con algo que corregir.",
-        entradas.len(),
+        "{cuantos} desde {}; {} con algo que corregir.",
         primera.get(..10).unwrap_or(&primera),
         entradas.iter().filter(tiene_algo).count()
     )];

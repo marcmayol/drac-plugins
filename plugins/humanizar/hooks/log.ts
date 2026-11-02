@@ -27,7 +27,8 @@ export function informe (entradas: readonly Entrada[]): string {
   const orden = [...cuenta].sort(([a, x], [b, y]) => y - x || (a < b ? -1 : a > b ? 1 : 0))
   const conFallos = entradas.filter(e => e.reglas.length > 0).length
 
-  const lineas = [`${entradas.length} textos revisados desde ${entradas[0]!.t.slice(0, 10)}; ${conFallos} con algo que corregir.`]
+  const textos = entradas.length === 1 ? '1 texto revisado' : `${entradas.length} textos revisados`
+  const lineas = [`${textos} desde ${entradas[0]!.t.slice(0, 10)}; ${conFallos} con algo que corregir.`]
   if (orden.length > 0) {
     lineas.push('', 'Reglas que más saltan:')
     for (const [regla, n] of orden) lineas.push(`${String(n).padStart(5)}  ${regla}`)
