@@ -1,0 +1,13 @@
+{
+  "name": "agent-names",
+  "version": "0.1.0",
+  "description": "Subagents named \"Project: task\", so with several sessions open you can tell which one each agent belongs to. Refuses any other name.",
+  "author": {
+    "name": "Marc Mayol",
+    "url": "https://github.com/marcmayol"
+  },
+  "homepage": "https://github.com/marcmayol/drac-plugins",
+  "repository": "https://github.com/marcmayol/drac-plugins",
+  "license": "MIT",
+  "keywords": ["subagents", "agents", "naming", "sessions", "mod"]
+}
