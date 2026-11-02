@@ -9,7 +9,7 @@ Plugins y mods de Claude Code de [Marc Mayol](https://github.com/marcmayol), en 
 | [meter-for-claude-code](plugins/meter-for-claude-code/README.es.md) | El uso de tu plan abajo a la derecha del prompt: `5h 42% · 7d 20% · M 7%`. Las ventanas de 5 horas y semanal tal como las da `/usage`, más una estimación del mes calibrada con tus transcripciones. `/meter` muestra los reinicios y las semanas anteriores. |
 | [context-bar](plugins/context-bar/README.es.md) | La ventana de contexto como una barra al lado del medidor, con una marca donde salta el auto-compact: `ctx ━━━━━━━───┃─ 58% · compact 84%`. Verde mientras hay sitio, ámbar a 25 puntos del compact y rojo a 10. |
 | [humanizar](plugins/humanizar/README.es.md) | Limpia y puntúa textos en español (0-100) para que no suenen a IA: caracteres invisibles, negritas Unicode, relleno, «no es X, es Y», rayas, muros de hashtags. `/humanizar` para posts, artículos, correos o README. Heurísticas locales, sin API. También funciona en otros 14 agentes (Codex, Gemini CLI, Cursor, OpenCode…) como servidor MCP. |
-| [agent-ready](https://github.com/marcmayol/agent-ready/blob/main/README.es.md) | Comprueba si una web está preparada para agentes de IA y arregla lo que falla: 23 comprobaciones, un nivel de 0 a 5 y una guía para cada fallo. Funciona en tu ordenador y escanea `localhost`. `/agent-ready` para escanear y arreglar. Descarga su binario la primera vez, para Windows, macOS y Linux. También funciona en otros 14 agentes como servidor MCP. Independiente, sin relación con Cloudflare. |
+| [verify-seo-for-agents](https://github.com/marcmayol/verify-seo-for-agents/blob/main/README.es.md) | Comprueba si una web está preparada para agentes de IA y arregla lo que falla: 23 comprobaciones, un nivel de 0 a 5 y una guía para cada fallo. Funciona en tu ordenador y escanea `localhost`. `/verify-seo` para escanear y arreglar. Descarga su binario la primera vez, para Windows, macOS y Linux. También funciona en otros 14 agentes como servidor MCP. Independiente, sin relación con Cloudflare. |
 | [omoikane](https://github.com/marcmayol/omoikane/blob/master/README.es.md) | Memoria a largo plazo: lo que Claude aprende en una sesión vuelve en la siguiente. Un fichero SQLite local, aviso de duplicados y, en cada mensaje, solo las memorias que de verdad tienen que ver (o ninguna). Descarga su propio binario `omoi` la primera vez. |
 | [creality-print](https://github.com/marcmayol/claude-code-creality-print-plugin/blob/main/README.es.md) | Lamina con Creality Print, comprueba el gcode contra la cama real, colores y filamentos mezclados, ranuras del CFS, y maneja impresoras con Creality OS (K2, K1…). No oficial. |
 
@@ -22,7 +22,7 @@ En el prompt de una sesión de Claude Code en el terminal:
 /plugin install meter-for-claude-code@drac
 /plugin install context-bar@drac
 /plugin install humanizar@drac
-/plugin install agent-ready@drac
+/plugin install verify-seo-for-agents@drac
 /plugin install creality-print@drac
 /plugin install omoikane@drac
 ```
