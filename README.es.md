@@ -8,6 +8,7 @@ Plugins y mods de Claude Code de [Marc Mayol](https://github.com/marcmayol), en 
 | --- | --- |
 | [meter-for-claude-code](plugins/meter-for-claude-code/README.es.md) | El uso de tu plan abajo a la derecha del prompt: `5h 42% · 7d 20% · M 7%`. Las ventanas de 5 horas y semanal tal como las da `/usage`, más una estimación del mes calibrada con tus transcripciones. `/meter` muestra los reinicios y las semanas anteriores. |
 | [context-bar](plugins/context-bar/README.es.md) | La ventana de contexto como una barra al lado del medidor, con una marca donde salta el auto-compact: `ctx ━━━━━━━───┃─ 58% · compact 84%`. Verde mientras hay sitio, ámbar a 25 puntos del compact y rojo a 10. |
+| [agent-names](plugins/agent-names/README.es.md) | Los subagentes se llaman `Proyecto: tarea`, como `LinkedIn: responder a Edwin`, para saber a qué sesión pertenece cada uno. Rechaza cualquier otro nombre. |
 | [humanizar](plugins/humanizar/README.es.md) | Limpia y puntúa textos en español (0-100) para que no suenen a IA: caracteres invisibles, negritas Unicode, relleno, «no es X, es Y», rayas, muros de hashtags. `/humanizar` para posts, artículos, correos o README. Heurísticas locales, sin API. También funciona en otros 14 agentes (Codex, Gemini CLI, Cursor, OpenCode…) como servidor MCP. |
 | [verify-seo-for-agents](https://github.com/marcmayol/verify-seo-for-agents/blob/main/README.es.md) | Comprueba si una web está preparada para agentes de IA y arregla lo que falla: 23 comprobaciones, un nivel de 0 a 5 y una guía para cada fallo. Funciona en tu ordenador y escanea `localhost`. `/verify-seo` para escanear y arreglar. Descarga su binario la primera vez, para Windows, macOS y Linux. También funciona en otros 14 agentes como servidor MCP. Independiente, sin relación con Cloudflare. |
 | [omoikane](https://github.com/marcmayol/omoikane/blob/master/README.es.md) | Memoria a largo plazo: lo que Claude aprende en una sesión vuelve en la siguiente. Un fichero SQLite local, aviso de duplicados y, en cada mensaje, solo las memorias que de verdad tienen que ver (o ninguna). Descarga su propio binario `omoi` la primera vez. |
@@ -21,6 +22,7 @@ En el prompt de una sesión de Claude Code en el terminal:
 /plugin marketplace add marcmayol/drac-plugins
 /plugin install meter-for-claude-code@drac
 /plugin install context-bar@drac
+/plugin install agent-names@drac
 /plugin install humanizar@drac
 /plugin install verify-seo-for-agents@drac
 /plugin install creality-print@drac
@@ -38,7 +40,7 @@ En la app de escritorio, donde `/plugin` no funciona: pulsa + junto al cuadro de
 
 ## Versiones antiguas de Claude Code
 
-meter-for-claude-code, context-bar y humanizar son módulos de hooks (mods): corren dentro de Claude Code y no necesitan nada más instalado. Claude Code 2.1.310 los carga solo en los plugins instalados; las versiones anteriores (la 2.1.282, por ejemplo) se los saltan si no se pone `CLAUDE_CODE_ENABLE_FUNCTION_HOOKS=1` en el entorno. Si `/meter` sale como comando desconocido o el pie no muestra nada, haz `claude update` o pon esa variable.
+meter-for-claude-code, context-bar, agent-names y humanizar son módulos de hooks (mods): corren dentro de Claude Code y no necesitan nada más instalado. Claude Code 2.1.310 los carga solo en los plugins instalados; las versiones anteriores (la 2.1.282, por ejemplo) se los saltan si no se pone `CLAUDE_CODE_ENABLE_FUNCTION_HOOKS=1` en el entorno. Si `/meter` sale como comando desconocido o el pie no muestra nada, haz `claude update` o pon esa variable.
 
 ## Añadir un plugin
 
