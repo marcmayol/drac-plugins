@@ -12,6 +12,7 @@ Plugins y mods de Claude Code de [Marc Mayol](https://github.com/marcmayol), en 
 | [humanizar](plugins/humanizar/README.es.md) | Limpia y puntúa textos en español (0-100) para que no suenen a IA: caracteres invisibles, negritas Unicode, relleno, «no es X, es Y», rayas, muros de hashtags. `/humanizar` para posts, artículos, correos o README. Heurísticas locales, sin API. También funciona en otros 14 agentes (Codex, Gemini CLI, Cursor, OpenCode…) como servidor MCP. |
 | [verify-seo-for-agents](https://github.com/marcmayol/verify-seo-for-agents/blob/main/README.es.md) | Comprueba si una web está preparada para agentes de IA y arregla lo que falla: 23 comprobaciones, un nivel de 0 a 5 y una guía para cada fallo. Funciona en tu ordenador y escanea `localhost`. `/verify-seo` para escanear y arreglar. Descarga su binario la primera vez, para Windows, macOS y Linux. También funciona en otros 14 agentes como servidor MCP. |
 | [omoikane](https://github.com/marcmayol/omoikane/blob/master/README.es.md) | Memoria a largo plazo: lo que Claude aprende en una sesión vuelve en la siguiente. Un fichero SQLite local, aviso de duplicados y, en cada mensaje, solo las memorias que de verdad tienen que ver (o ninguna). Descarga su propio binario `omoi` la primera vez. |
+| [aloud](https://github.com/marcmayol/aloud/blob/main/README.es.md) | Lee en voz alta las respuestas de Claude, en local y en español, para que puedas alejarte de la pantalla. Se enciende por sesión con `/aloud`. Si escribes o dictas, se calla. Descarga su propio binario la primera vez, y la voz (unos 400 MB), la primera vez que lo enciendes. |
 | [creality-print](https://github.com/marcmayol/claude-code-creality-print-plugin/blob/main/README.es.md) | Lamina con Creality Print, comprueba el gcode contra la cama real, colores y filamentos mezclados, ranuras del CFS, y maneja impresoras con Creality OS (K2, K1…). No oficial. |
 
 ## Instalación
@@ -27,6 +28,7 @@ En el prompt de una sesión de Claude Code en el terminal:
 /plugin install verify-seo-for-agents@drac
 /plugin install creality-print@drac
 /plugin install omoikane@drac
+/plugin install aloud@drac
 ```
 
 Desde una terminal:
@@ -40,7 +42,7 @@ En la app de escritorio, donde `/plugin` no funciona: pulsa + junto al cuadro de
 
 ## Versiones antiguas de Claude Code
 
-meter-for-claude-code, context-bar, agent-names y humanizar son módulos de hooks (mods): corren dentro de Claude Code y no necesitan nada más instalado. Claude Code 2.1.310 los carga solo en los plugins instalados; las versiones anteriores (la 2.1.282, por ejemplo) se los saltan si no se pone `CLAUDE_CODE_ENABLE_FUNCTION_HOOKS=1` en el entorno. Si `/meter` sale como comando desconocido o el pie no muestra nada, haz `claude update` o pon esa variable.
+meter-for-claude-code, context-bar, agent-names, humanizar y aloud son módulos de hooks (mods): corren dentro de Claude Code y no necesitan nada más instalado. Claude Code 2.1.310 los carga solo en los plugins instalados; las versiones anteriores (la 2.1.282, por ejemplo) se los saltan si no se pone `CLAUDE_CODE_ENABLE_FUNCTION_HOOKS=1` en el entorno. Si `/meter` sale como comando desconocido o el pie no muestra nada, haz `claude update` o pon esa variable.
 
 ## Añadir un plugin
 

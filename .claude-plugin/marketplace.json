@@ -5,7 +5,7 @@
     "url": "https://github.com/marcmayol"
   },
   "metadata": {
-    "description": "Claude Code plugins and mods by Marc Mayol: Meter for Claude Code, your plan usage (5h, 7d and an estimated month) at the bottom right; Context Bar, the context window filling up towards auto-compact; Agent Names, subagents named \"Project: task\"; Creality Print, slice and run Creality printers from Claude Code; Humanizar, clean and score Spanish text so it doesn't read like AI; verify-seo-for-agents, check whether a website is ready for AI agents; Omoikane, long-term memory with automatic recall."
+    "description": "Claude Code plugins and mods by Marc Mayol: Meter for Claude Code, your plan usage (5h, 7d and an estimated month) at the bottom right; Context Bar, the context window filling up towards auto-compact; Agent Names, subagents named \"Project: task\"; Creality Print, slice and run Creality printers from Claude Code; Humanizar, clean and score Spanish text so it doesn't read like AI; verify-seo-for-agents, check whether a website is ready for AI agents; Omoikane, long-term memory with automatic recall; Aloud, your agent's replies read out loud, locally."
   },
   "plugins": [
     {
@@ -61,6 +61,15 @@
         "url": "https://github.com/marcmayol/omoikane.git"
       },
       "description": "Long-term memory for Claude Code: what it learns in one session comes back in the next. Local SQLite, duplicate detection, and automatic recall of the memories that matter for each prompt. Installs its own omoi binary on first use.",
+      "category": "productivity"
+    },
+    {
+      "name": "aloud",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/marcmayol/aloud.git"
+      },
+      "description": "Reads Claude's replies out loud, locally and in Spanish, so you can walk away from the screen. Toggle it per session with /aloud. Installs its own binary on first use, and the voice (about 400 MB) when you first turn it on.",
       "category": "productivity"
     }
   ]

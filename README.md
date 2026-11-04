@@ -12,6 +12,7 @@ Claude Code plugins and mods by [Marc Mayol](https://github.com/marcmayol), in o
 | [humanizar](plugins/humanizar) | Cleans and scores Spanish text (0-100) so it doesn't read like AI: invisible characters, Unicode bold, filler, "it's not X, it's Y", em dashes, hashtag walls. `/humanizar` for posts, articles, emails or READMEs. Local heuristics, no API. Also works in 14 other agents (Codex, Gemini CLI, Cursor, OpenCode…) as an MCP server. |
 | [verify-seo-for-agents](https://github.com/marcmayol/verify-seo-for-agents) | Checks whether a website is ready for AI agents, and fixes what fails: 23 checks, a level from 0 to 5 and a guide for each failure. Runs on your machine and can scan `localhost`. `/verify-seo` to scan and fix. Downloads its own binary on first use, for Windows, macOS and Linux. Also works in 14 other agents as an MCP server. |
 | [omoikane](https://github.com/marcmayol/omoikane) | Long-term memory: what Claude learns in one session comes back in the next. One local SQLite file, duplicate detection, and on every prompt only the memories that really relate to it (or nothing). Downloads its own `omoi` binary on first use. |
+| [aloud](https://github.com/marcmayol/aloud) | Reads Claude's replies out loud, locally and in Spanish, so you can walk away from the screen. Turn it on per session with `/aloud`; it goes quiet when you type or dictate. Downloads its own binary on first use, and the voice (about 400 MB) when you first turn it on. |
 | [creality-print](https://github.com/marcmayol/claude-code-creality-print-plugin) | Slice with Creality Print, check gcode against the real bed, colours and mixed filaments, CFS slots, and run Creality OS printers (K2, K1…). Unofficial. |
 
 ## Install
@@ -27,6 +28,7 @@ At the prompt of a Claude Code terminal session:
 /plugin install verify-seo-for-agents@drac
 /plugin install creality-print@drac
 /plugin install omoikane@drac
+/plugin install aloud@drac
 ```
 
 From a shell:
@@ -40,7 +42,7 @@ In the desktop app, where `/plugin` does not run: click + next to the prompt box
 
 ## Older Claude Code versions
 
-meter-for-claude-code, context-bar, agent-names and humanizar are hooks modules (mods): they run inside Claude Code and need nothing else installed. Claude Code 2.1.310 loads them for installed plugins on its own; older versions (2.1.282, for one) skip them unless `CLAUDE_CODE_ENABLE_FUNCTION_HOOKS=1` is set in the environment. If `/meter` is an unknown command or the footer shows nothing, run `claude update` or set that variable.
+meter-for-claude-code, context-bar, agent-names, humanizar and aloud are hooks modules (mods): they run inside Claude Code and need nothing else installed. Claude Code 2.1.310 loads them for installed plugins on its own; older versions (2.1.282, for one) skip them unless `CLAUDE_CODE_ENABLE_FUNCTION_HOOKS=1` is set in the environment. If `/meter` is an unknown command or the footer shows nothing, run `claude update` or set that variable.
 
 ## Adding a plugin
 
