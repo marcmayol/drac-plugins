@@ -23,8 +23,8 @@ Claude Code como plugin y [en otros 14 agentes](#en-otros-agentes) como servidor
 
 ### Avisos (los reescribe Claude)
 
-Relleno de IA («en el mundo actual», «cambia las reglas del juego», «desbloquear»…),
-«no es solo X, es Y», preguntas retóricas cortas («¿El resultado?»), cebo de comentarios,
+Relleno de IA («en el mundo actual», «profundizar», «dicho esto», «un sinfín de»…), «no es X, es Y»
+con o sin «solo», «fundamental», «crucial» y «clave» juntas en un párrafo, tres adjetivos seguidos, preguntas retóricas cortas («¿El resultado?»), cebo de comentarios,
 markdown `**…**`, rayas «—», más de 3 hashtags, más de un emoji, empezar con emoji, frases
 todas del mismo largo y texto poco concreto.
 

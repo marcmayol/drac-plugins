@@ -23,7 +23,7 @@ as a plugin and [in 14 other agents](#in-other-agents) as an MCP server.
 
 ### Warnings (Claude rewrites them)
 
-AI filler, "it's not X, it's Y", short rhetorical questions, engagement bait, markdown
+AI filler (including «profundizar», «dicho esto», «un sinfín de»), "it's not X, it's Y" with or without «solo», «fundamental», «crucial» and «clave» piled up in one paragraph, three adjectives in a row, short rhetorical questions, engagement bait, markdown
 `**…**`, em dashes, more than 3 hashtags, more than one emoji, opening with an emoji,
 sentences all the same length and vague text.
 

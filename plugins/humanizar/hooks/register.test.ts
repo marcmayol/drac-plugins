@@ -50,6 +50,35 @@ test('no toca enlaces ni comillas españolas', () => {
   expect(limpiar(t)[0]).toBe(t)
 })
 
+test('las señales nuevas saltan todas', () => {
+  const casos: Array<[string, string]> = [
+    ['Hoy voy a profundizar en esto.', 'profundizar'],
+    ['Uso Claude para optimizar flujos.', 'optimizar'],
+    ['Dicho esto, me quedo con Codex.', 'dicho esto'],
+    ['Tengo un abanico de opciones.', 'abanico'],
+    ['Tengo un sinfín de ideas.', 'sinfín'],
+    ['Esto no es una moda, es un cambio.', 'no es X'],
+    ['No eran errores: eran avisos.', 'no es X'],
+    ['Uso Claude —un modelo— y ya.', '2 raya(s)'],
+    ['Es crucial y clave para mí.', 'juntas en un párrafo'],
+    ['Un Claude rápido, eficaz e intuitivo.', 'tres adjetivos'],
+  ]
+  for (const [texto, aviso] of casos) expect(revisar(texto).avisos.join(' ')).toContain(aviso)
+})
+
+test('lo que se parece pero no es una señal no salta', () => {
+  const avisos = (t: string) => revisar(t).avisos.join(' ')
+  expect(avisos('Esto no es fácil, es decir, me costó.')).not.toContain('no es X')
+  expect(avisos('La clave API va aquí.\n\nY es una decisión crucial.')).not.toContain('juntas')
+  expect(avisos('Funciona en Windows, Linux y Mac.')).not.toContain('adjetivos')
+  expect(avisos('Guardo fotos, vídeos y audios.')).not.toContain('adjetivos')
+  expect(avisos('Del 10–20 de mayo.')).not.toContain('raya')
+})
+
+test('«no es solo X, es Y» no avisa dos veces', () => {
+  expect(revisar('No es solo una moda, es un cambio.').avisos.filter(a => a.startsWith('«no es')).length).toBe(1)
+})
+
 test('a un tuit corto no se le castiga por ritmo', () => {
   expect(revisar('Mi plugin ya publica en Bluesky. Gratis.').pruebas.ritmo).toBe(100)
 })
