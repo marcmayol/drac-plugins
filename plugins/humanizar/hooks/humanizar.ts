@@ -66,6 +66,8 @@ const RELLENO = [
   'emocionado de anunciar', 'os presento', 'te presento', 'déjame contarte', 'te cuento un secreto',
   'aquí te dejo', 'abróchate el cinturón', 'spoiler:', 'atención:', 'ojo al dato',
   'un mundo de posibilidades', 'infinitas posibilidades', 'esto lo cambia todo',
+  'profundizar', 'profundiza', 'profundizamos', 'profundizaremos', 'optimizar', 'dicho esto',
+  'un abanico de', 'un amplio abanico de', 'un sinfín de',
 ]
 
 const ESTRUCTURAS: Array<[RegExp, string]> = [
@@ -73,6 +75,7 @@ const ESTRUCTURAS: Array<[RegExp, string]> = [
     `[,;:.—–-]\\s*(?:es|sino|se trata de)${E}`, 'iu'),
   '«no es solo X, es Y»: di Y directamente'],
   [new RegExp(`${B}no es [^.\\n]{1,50}\\.\\s+es${E}`, 'iu'), '«No es X. Es Y.»: di Y directamente'],
+  [new RegExp(`${B}(?:no es (?!(?:solo|sólo|simplemente|únicamente)${E})[^.,;:\\n]{1,50}[,;:—–]\\s*es(?!\\s+decir)|no son (?!(?:solo|sólo|simplemente|únicamente)${E})[^.,;:\\n]{1,50}[,;:—–]\\s*son|no era (?!(?:solo|sólo|simplemente|únicamente)${E})[^.,;:\\n]{1,50}[,;:—–]\\s*era|no eran (?!(?:solo|sólo|simplemente|únicamente)${E})[^.,;:\\n]{1,50}[,;:—–]\\s*eran)${E}`, 'iu'), '«no es X, es Y»: di Y directamente'],
   [/(?:^|(?<=[.!?\n—–:]))\s*¿[^?\n]{1,25}\?(?=\s|$)/u,
     'pregunta retórica corta («¿El resultado?»): cuéntalo sin preguntar'],
   [new RegExp(`${B}(?:comenta|escribe|responde)\\s+[«"']?${W}+[»"']?\\s+(?:y|para que)\\s+te${E}`, 'iu'),
@@ -84,7 +87,13 @@ const ESTRUCTURAS: Array<[RegExp, string]> = [
   [/\*\*[^*\n]+\*\*/u, 'markdown (**…**): en las redes sale tal cual, quítalo'],
 ]
 
-const RAYA = /\s[—–]\s|[^\s\n][—][^\s\n]/gu
+// «Fundamental», «crucial», «clave»: una suelta es normal; lo que delata es juntarlas en un párrafo.
+const ENFASIS = new RegExp(`${B}(?:fundamental(?:es)?|crucial(?:es)?|claves?)${E}`, 'gu')
+// «Rápido, eficaz e intuitivo». Sin diccionario no se sabe qué es un adjetivo: basta con que
+// lo parezcan dos de los tres, para no saltar con «fotos, vídeos y audios».
+const TRIO = new RegExp(`${B}(\\p{L}{4,}), (\\p{L}{4,}) (?:y|e) (\\p{L}{4,})${E}`, 'gu')
+const ADJETIVO = new RegExp('^(?:r[aá]pid[oa]s?|sencill[oa]s?|f[aá]cil(?:es)?|simples?|eficaz|eficaces|eficientes?|potentes?|robust[oa]s?|[aá]gil(?:es)?|modern[oa]s?|limpi[oa]s?|clar[oa]s?|segur[oa]s?|barat[oa]s?|liger[oa]s?|precis[oa]s?|complet[oa]s?|elegantes?|inteligentes?|innovador(?:a|es|as)?|[uú]til(?:es)?|nuev[oa]s?|direct[oa]s?|\\p{L}*(?:iv[oa]s?|bles?|os[oa]s?|ic[oa]s?))$', 'u')
+const RAYA = /—|\s–\s/gu
 const HASHTAG = new RegExp(`(?<!${W})#${W}+`, 'gu')
 const EMOJI = /[\u{1f300}-\u{1faff}\u2600-\u27bf\u{1f000}-\u{1f2ff}]/gu
 const EMOJI_AL_INICIO = /^[\u{1f300}-\u{1faff}\u2600-\u27bf\u{1f000}-\u{1f2ff}]/u
@@ -160,6 +169,10 @@ export function revisar (texto: string): Revision {
   const relleno = RELLENO.filter(r => new RegExp(`(?<!${W})${escapar(r)}(?!${W})`, 'u').test(bajo))
   if (relleno.length) avisos.push('relleno de IA: ' + relleno.map(r => `«${r}»`).join(', '))
   for (const [patron, aviso] of ESTRUCTURAS) if (patron.test(limpio)) avisos.push(aviso)
+  const enfasis = bajo.split(/\n+/u).some(p => contar(ENFASIS, p) >= 2)
+  if (enfasis) avisos.push('«fundamental», «crucial», «clave» juntas en un párrafo: deja una o di por qué importa')
+  const trio = [...bajo.matchAll(TRIO)].some(m => m.slice(1).filter(p => ADJETIVO.test(p)).length >= 2)
+  if (trio) avisos.push('tres adjetivos seguidos: quédate con el que importa')
   const rayas = contar(RAYA, limpio)
   if (rayas) avisos.push(`${rayas} raya(s) «—»: cámbialas por coma, punto o paréntesis`)
   const tags = contar(HASHTAG, limpio)
@@ -183,10 +196,10 @@ export function revisar (texto: string): Revision {
   const concrecion = escala((concretos * 100) / n, 0, 4)
   if (concrecion < 40) avisos.push('poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)')
 
-  const densidad = escala((relleno.length * 100) / n, 3, 0)
+  const densidad = escala(((relleno.length + Number(enfasis) + Number(trio)) * 100) / n, 3, 0)
   const huella = escala(((rayas + Math.max(emojis - 1, 0)) * 1000) / Math.max([...limpio].length, 1), 6, 0)
   let voz = PRIMERA.test(limpio) ? 100 : 60
-  voz -= 15 * ESTRUCTURAS.slice(0, 3).filter(([p]) => p.test(limpio)).length
+  voz -= 15 * ESTRUCTURAS.slice(0, 4).filter(([p]) => p.test(limpio)).length
 
   const pruebas = { ritmo, concreción: concrecion, relleno: densidad, huella, voz: Math.max(voz, 0) }
   const valores = Object.values(pruebas)

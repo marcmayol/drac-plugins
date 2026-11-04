@@ -56,6 +56,7 @@
     "«no es solo X, es Y»: di Y directamente",
     "pregunta retórica corta («¿El resultado?»): cuéntalo sin preguntar",
     "pregunta de cebo al final: solo si de verdad quieres esa respuesta",
+    "«fundamental», «crucial», «clave» juntas en un párrafo: deja una o di por qué importa",
     "1 raya(s) «—»: cámbialas por coma, punto o paréntesis",
     "5 hashtags: deja 1-3",
     "2 emojis: como mucho uno",
@@ -81,6 +82,7 @@
    "«no es solo X, es Y»",
    "pregunta retórica corta («¿El resultado?»)",
    "pregunta de cebo al final",
+   "«fundamental», «crucial», «clave» juntas en un párrafo",
    "raya(s) «—»",
    "hashtags",
    "emojis",
@@ -541,7 +543,7 @@
    "arreglos": [],
    "avisos": [
     "pregunta retórica corta («¿El resultado?»): cuéntalo sin preguntar",
-    "1 raya(s) «—»: cámbialas por coma, punto o paréntesis",
+    "5 raya(s) «—»: cámbialas por coma, punto o paréntesis",
     "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
    ],
    "puntos": 25,
@@ -934,6 +936,7 @@
    "arreglos": [],
    "avisos": [
     "relleno de IA: «es crucial», «es fundamental», «imprescindible», «fascinante», «spoiler:», «atención:», «ojo al dato», «un mundo de posibilidades»",
+    "«fundamental», «crucial», «clave» juntas en un párrafo: deja una o di por qué importa",
     "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
    ],
    "puntos": 31,
@@ -954,6 +957,7 @@
    "relleno: «atención:»",
    "relleno: «ojo al dato»",
    "relleno: «un mundo de posibilidades»",
+   "«fundamental», «crucial», «clave» juntas en un párrafo",
    "poco concreto"
   ]
  },
@@ -1401,5 +1405,366 @@
    "empieza con emoji",
    "poco concreto"
   ]
+ },
+ {
+  "entrada": "Hoy voy a profundizar en cómo uso Claude en 2026.",
+  "salida": {
+   "texto": "Hoy voy a profundizar en cómo uso Claude en 2026.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "relleno de IA: «profundizar»"
+   ],
+   "puntos": 48,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 0,
+    "huella": 100,
+    "voz": 100
+   }
+  },
+  "reglas": [
+   "relleno: «profundizar»"
+  ]
+ },
+ {
+  "entrada": "Probé Claude en 2026. Dicho esto, me quedo con Codex.",
+  "salida": {
+   "texto": "Probé Claude en 2026. Dicho esto, me quedo con Codex.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "relleno de IA: «dicho esto»"
+   ],
+   "puntos": 48,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 0,
+    "huella": 100,
+    "voz": 100
+   }
+  },
+  "reglas": [
+   "relleno: «dicho esto»"
+  ]
+ },
+ {
+  "entrada": "Tengo un abanico de opciones y un sinfín de ideas con Claude en 2026.",
+  "salida": {
+   "texto": "Tengo un abanico de opciones y un sinfín de ideas con Claude en 2026.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "relleno de IA: «un abanico de», «un sinfín de»"
+   ],
+   "puntos": 48,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 0,
+    "huella": 100,
+    "voz": 100
+   }
+  },
+  "reglas": [
+   "relleno: «un abanico de»",
+   "relleno: «un sinfín de»"
+  ]
+ },
+ {
+  "entrada": "Uso Claude para optimizar 3 flujos.",
+  "salida": {
+   "texto": "Uso Claude para optimizar 3 flujos.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "relleno de IA: «optimizar»"
+   ],
+   "puntos": 48,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 0,
+    "huella": 100,
+    "voz": 100
+   }
+  },
+  "reglas": [
+   "relleno: «optimizar»"
+  ]
+ },
+ {
+  "entrada": "Esto no es una moda, es un cambio de hábitos que veo en Claude desde 2026.",
+  "salida": {
+   "texto": "Esto no es una moda, es un cambio de hábitos que veo en Claude desde 2026.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "«no es X, es Y»: di Y directamente"
+   ],
+   "puntos": 71,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 45
+   }
+  },
+  "reglas": [
+   "«no es X, es Y»"
+  ]
+ },
+ {
+  "entrada": "No eran errores: eran avisos que nadie leía en 2026.",
+  "salida": {
+   "texto": "No eran errores: eran avisos que nadie leía en 2026.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "«no es X, es Y»: di Y directamente"
+   ],
+   "puntos": 71,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 45
+   }
+  },
+  "reglas": [
+   "«no es X, es Y»"
+  ]
+ },
+ {
+  "entrada": "No es solo una moda, es un cambio.",
+  "salida": {
+   "texto": "No es solo una moda, es un cambio.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "«no es solo X, es Y»: di Y directamente",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 41,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 45
+   }
+  },
+  "reglas": [
+   "«no es solo X, es Y»",
+   "poco concreto"
+  ]
+ },
+ {
+  "entrada": "Esto no es fácil, es decir, me costó 3 semanas con Claude.",
+  "salida": {
+   "texto": "Esto no es fácil, es decir, me costó 3 semanas con Claude.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [],
+   "puntos": 100,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 100
+   }
+  },
+  "reglas": []
+ },
+ {
+  "entrada": "Uso Claude —un modelo de Anthropic— desde 2026 y me va bien.",
+  "salida": {
+   "texto": "Uso Claude —un modelo de Anthropic— desde 2026 y me va bien.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "2 raya(s) «—»: cámbialas por coma, punto o paréntesis"
+   ],
+   "puntos": 48,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 0,
+    "voz": 100
+   }
+  },
+  "reglas": [
+   "raya(s) «—»"
+  ]
+ },
+ {
+  "entrada": "— Primera línea con raya\nSegunda del 10 – 20 de mayo",
+  "salida": {
+   "texto": "— Primera línea con raya\nSegunda del 10 – 20 de mayo",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "2 raya(s) «—»: cámbialas por coma, punto o paréntesis"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 0,
+    "voz": 60
+   }
+  },
+  "reglas": [
+   "raya(s) «—»"
+  ]
+ },
+ {
+  "entrada": "Del 10–20 de mayo uso Claude.",
+  "salida": {
+   "texto": "Del 10–20 de mayo uso Claude.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [],
+   "puntos": 100,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 100
+   }
+  },
+  "reglas": []
+ },
+ {
+  "entrada": "Es fundamental, crucial y clave para mí.",
+  "salida": {
+   "texto": "Es fundamental, crucial y clave para mí.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "relleno de IA: «es fundamental»",
+    "«fundamental», «crucial», «clave» juntas en un párrafo: deja una o di por qué importa",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 31,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 0,
+    "huella": 100,
+    "voz": 60
+   }
+  },
+  "reglas": [
+   "relleno: «es fundamental»",
+   "«fundamental», «crucial», «clave» juntas en un párrafo",
+   "poco concreto"
+  ]
+ },
+ {
+  "entrada": "La clave API va aquí.\n\nY es una decisión crucial para mí en 2026.",
+  "salida": {
+   "texto": "La clave API va aquí.\n\nY es una decisión crucial para mí en 2026.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [],
+   "puntos": 79,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  },
+  "reglas": []
+ },
+ {
+  "entrada": "He montado en 2026 un Claude rápido, eficaz e intuitivo.",
+  "salida": {
+   "texto": "He montado en 2026 un Claude rápido, eficaz e intuitivo.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "tres adjetivos seguidos: quédate con el que importa"
+   ],
+   "puntos": 48,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 0,
+    "huella": 100,
+    "voz": 100
+   }
+  },
+  "reglas": [
+   "tres adjetivos seguidos"
+  ]
+ },
+ {
+  "entrada": "Rápido, eficaz e intuitivo: así es Claude en 2026.",
+  "salida": {
+   "texto": "Rápido, eficaz e intuitivo: así es Claude en 2026.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "tres adjetivos seguidos: quédate con el que importa"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 0,
+    "huella": 100,
+    "voz": 60
+   }
+  },
+  "reglas": [
+   "tres adjetivos seguidos"
+  ]
+ },
+ {
+  "entrada": "Funciona en Windows, Linux y Mac desde 2026.",
+  "salida": {
+   "texto": "Funciona en Windows, Linux y Mac desde 2026.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [],
+   "puntos": 79,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  },
+  "reglas": []
+ },
+ {
+  "entrada": "Guardo fotos, vídeos y audios en Claude desde 2026.",
+  "salida": {
+   "texto": "Guardo fotos, vídeos y audios en Claude desde 2026.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [],
+   "puntos": 79,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  },
+  "reglas": []
  }
 ]

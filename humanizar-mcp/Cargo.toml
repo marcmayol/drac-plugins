@@ -1,6 +1,6 @@
 [package]
 name = "humanizar"
-version = "0.4.1"
+version = "0.5.0"
 edition = "2024"
 description = "Clean and score Spanish text so it doesn't read like AI: an MCP server for any coding agent."
 license = "MIT"

@@ -60,12 +60,17 @@ const RELLENO: &[&str] = &[
     "emocionado de anunciar", "os presento", "te presento", "déjame contarte", "te cuento un secreto",
     "aquí te dejo", "abróchate el cinturón", "spoiler:", "atención:", "ojo al dato",
     "un mundo de posibilidades", "infinitas posibilidades", "esto lo cambia todo",
+    "profundizar", "profundiza", "profundizamos", "profundizaremos", "optimizar", "dicho esto",
+    "un abanico de", "un amplio abanico de", "un sinfín de",
 ];
 
 struct Reglas {
     cambios: Vec<(Regex, &'static str, &'static str)>,
     relleno: Vec<(Regex, &'static str)>,
     estructuras: Vec<(Regex, &'static str)>,
+    enfasis: Regex,
+    trio: Regex,
+    adjetivo: Regex,
     raya: Regex,
     hashtag: Regex,
     url: Regex,
@@ -80,6 +85,7 @@ static REGLAS: LazyLock<Reglas> = LazyLock::new(|| Reglas {
     estructuras: [
         (r"(?i){B}no (?:es|se trata de) (?:solo|sólo|simplemente|únicamente){E}[^.\n]{1,80}?[,;:.—–-]{s}*(?:es|sino|se trata de){E}", "«no es solo X, es Y»: di Y directamente"),
         (r"(?i){B}no es [^.\n]{1,50}\.{s}+es{E}", "«No es X. Es Y.»: di Y directamente"),
+        (r"(?i){B}(?:no es (?!(?:solo|sólo|simplemente|únicamente){E})[^.,;:\n]{1,50}[,;:—–]{s}*es(?!{s}+decir)|no son (?!(?:solo|sólo|simplemente|únicamente){E})[^.,;:\n]{1,50}[,;:—–]{s}*son|no era (?!(?:solo|sólo|simplemente|únicamente){E})[^.,;:\n]{1,50}[,;:—–]{s}*era|no eran (?!(?:solo|sólo|simplemente|únicamente){E})[^.,;:\n]{1,50}[,;:—–]{s}*eran){E}", "«no es X, es Y»: di Y directamente"),
         (r"(?:^|(?<=[.!?\n—–:])){s}*¿[^?\n]{1,25}\?(?={s}|$)", "pregunta retórica corta («¿El resultado?»): cuéntalo sin preguntar"),
         (r#"(?i){B}(?:comenta|escribe|responde){s}+[«"']?{W}+[»"']?{s}+(?:y|para que){s}+te{E}"#, "cebo de comentarios («comenta X y te lo envío»): pon el enlace"),
         (r"(?i)¿(?:y tú|y vosotros|qué opinas|qué opináis|qué piensas|estás de acuerdo)\??", "pregunta de cebo al final: solo si de verdad quieres esa respuesta"),
@@ -89,7 +95,12 @@ static REGLAS: LazyLock<Reglas> = LazyLock::new(|| Reglas {
     .iter()
     .map(|(p, a)| (re(&plantilla(p)), *a))
     .collect(),
-    raya: re(&plantilla(r"{s}[—–]{s}|[^\n{SS}][—][^\n{SS}]".replace("{SS}", S).as_str())),
+    // A lone «clave» is normal; what gives it away is piling them up in one paragraph.
+    enfasis: re(&plantilla("{B}(?:fundamental(?:es)?|crucial(?:es)?|claves?){E}")),
+    // Without a dictionary, two of the three have to look like adjectives.
+    trio: re(&plantilla(r"{B}(\p{L}{4,}), (\p{L}{4,}) (?:y|e) (\p{L}{4,}){E}")),
+    adjetivo: re(r"^(?:r[aá]pid[oa]s?|sencill[oa]s?|f[aá]cil(?:es)?|simples?|eficaz|eficaces|eficientes?|potentes?|robust[oa]s?|[aá]gil(?:es)?|modern[oa]s?|limpi[oa]s?|clar[oa]s?|segur[oa]s?|barat[oa]s?|liger[oa]s?|precis[oa]s?|complet[oa]s?|elegantes?|inteligentes?|innovador(?:a|es|as)?|[uú]til(?:es)?|nuev[oa]s?|direct[oa]s?|\p{L}*(?:iv[oa]s?|bles?|os[oa]s?|ic[oa]s?))$"),
+    raya: re(&plantilla("—|{s}–{s}")),
     hashtag: re(&plantilla("{B}#{W}+")),
     url: re(&plantilla("(?i)https?://{S}+")),
     palabra: re(&plantilla("{W}+")),
@@ -227,6 +238,14 @@ pub fn revisar(entrada: &str) -> Value {
             avisos.push((*aviso).to_string());
         }
     }
+    let enfasis = bajo.split('\n').any(|p| contar(&r.enfasis, p) >= 2);
+    if enfasis {
+        avisos.push("«fundamental», «crucial», «clave» juntas en un párrafo: deja una o di por qué importa".to_string());
+    }
+    let trio = r.trio.captures_iter(&bajo).flatten().any(|c| (1..=3).filter(|i| c.get(*i).is_some_and(|p| coincide(&r.adjetivo, p.as_str()))).count() >= 2);
+    if trio {
+        avisos.push("tres adjetivos seguidos: quédate con el que importa".to_string());
+    }
     let rayas = contar(&r.raya, &limpio);
     if rayas > 0 {
         avisos.push(format!("{rayas} raya(s) «—»: cámbialas por coma, punto o paréntesis"));
@@ -264,11 +283,11 @@ pub fn revisar(entrada: &str) -> Value {
         avisos.push("poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)".to_string());
     }
 
-    let densidad = escala(relleno.len() as f64 * 100.0 / n, 3.0, 0.0);
+    let densidad = escala((relleno.len() + usize::from(enfasis) + usize::from(trio)) as f64 * 100.0 / n, 3.0, 0.0);
     let largo = limpio.chars().count().max(1) as f64;
     let huella = escala((rayas + emojis.saturating_sub(1)) as f64 * 1000.0 / largo, 6.0, 0.0);
     let mut voz = if coincide(&r.primera, &limpio) { 100.0 } else { 60.0 };
-    voz -= 15.0 * estructuras[..3].iter().filter(|h| **h).count() as f64;
+    voz -= 15.0 * estructuras[..4].iter().filter(|h| **h).count() as f64;
     let voz: f64 = voz.max(0.0);
 
     let valores = [ritmo, concrecion, densidad, huella, voz];
