@@ -143,12 +143,24 @@ function refresh ($: EngineInterface, countCacheRead: boolean) {
   $.clock.after(0, () => { void derive($, countCacheRead).catch(() => {}) })
 }
 
+/**
+ * Folds a reading into the kept windows, one by one: a reading that lacks a window
+ * (Claude Code sometimes reports only seven_day) keeps the last one seen for it,
+ * which shows 0% once its reset has passed.
+ */
+const fold = (kept: readonly Limit[], found: readonly Limit[]): Limit[] =>
+  WINDOWS.flatMap(kind => {
+    const limit = found.find(l => l.kind === kind) ?? kept.find(l => l.kind === kind)
+    return limit ? [limit] : []
+  })
+
 /** Keeps the latest reading, and shares it with the other sessions through the store. */
 async function remember ($: EngineInterface, found: Limit[]) {
   if (found.length === 0) return
   seenAt = await $.clock.now()
-  await update($, limits, () => found)
-  await $.store.set('limits', found)
+  const all = fold(await read($, limits), found)
+  await update($, limits, () => all)
+  await $.store.set('limits', all)
   await $.store.set('at', seenAt) // after the limits, so a reader that sees the new time finds them
 }
 
