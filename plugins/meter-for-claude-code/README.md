@@ -9,7 +9,7 @@ A Claude Code mod from [Claude Code Meter](https://github.com/marcmayol/claude-c
 ```
 
 - **5h**: the session window, **7d**: the weekly window, the same figures as `/usage`, read from what Claude Code already measures after each response (no extra request, no tokens spent).
-- **M**: the month. The plan has no monthly quota, so M is estimated: the weekly limit in tokens comes by rule of three (tokens of the current plan week ÷ its %), and this month's tokens are measured against that limit scaled to the month's days. The plan week is anchored to its real reset, not Monday → Sunday. The best calibration (the highest weekly %) is kept across sessions; M shows once the week passes 3%.
+- **M**: the month. The plan has no monthly quota, so M is estimated: the weekly limit in tokens comes by rule of three (tokens of the current plan week ÷ its %), and this month's tokens are measured against that limit scaled to the month's days. The plan week is anchored to its real reset, not Monday → Sunday. It calibrates on the latest reading, shared across sessions, so if the plan changes its limits M follows on the next response; M shows once the week passes 3%.
 
 Green under 70%, amber under 90%, red above. Where the footer is short, M goes first.
 

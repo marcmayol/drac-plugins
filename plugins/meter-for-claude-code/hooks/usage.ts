@@ -36,11 +36,17 @@ export function sumRange (hourly: Hourly, startMs: number, endMs: number, countC
   return sum
 }
 
-/** Keeps the reading with the highest weekly %, and drops one too old. */
+/**
+ * Calibrates on the latest usable reading. Within a plan week the % only grows, so
+ * the latest is also the least hurt by rounding; when it drops, the plan's limits
+ * changed (as on 5-nov-2026, mid-week) and an older calibration would be wrong.
+ * Below MIN_UTIL (the start of a week) the last one is kept, unless too old.
+ */
 export function calibrate (best: Calibration | undefined, util: number, tokens: number, now: number): Calibration | undefined {
   const kept = best && now - best.at <= MAX_AGE_MS ? best : undefined
   if (util < MIN_UTIL || tokens <= 0) return kept
-  return !kept || util > kept.util ? { util, tokens, at: now } : kept
+  if (kept && kept.util === util && kept.tokens === tokens) return kept
+  return { util, tokens, at: now }
 }
 
 export const weeklyLimitOf = (c: Calibration | undefined) => (c ? c.tokens / c.util : undefined)

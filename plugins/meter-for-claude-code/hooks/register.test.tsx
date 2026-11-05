@@ -2,6 +2,7 @@ import { expect, mock, test } from 'claude-code/testing'
 import type { On } from 'claude-code'
 
 const NOW = Date.parse('2026-10-25T12:00:00Z')
+const DAY = 86400000
 const ROOT = 'C:/u/.claude/projects'
 const FILE = `${ROOT}/p/s.jsonl`
 const row = (at: string, input: number) =>
@@ -84,6 +85,18 @@ test('a reading without five_hour keeps the 5h window seen before', async ($, on
   expect(texts.startsWith('5h 42% · 7d 21%')).toBe(true)
   await ui.unmount()
   expect((store.get('limits') as Array<{ kind: string }>).map(l => l.kind)).toEqual(['five_hour', 'seven_day'])
+})
+
+test('a lower weekly % than the stored calibration means new limits: M recalibrates', async ($, on) => {
+  // An old calibration at 76% (a much smaller weekly limit), as before the plan changed.
+  const store = new Map<string, unknown>([['calib', { util: 0.76, tokens: 2e6, at: NOW - DAY }]])
+  const { clock } = world(on, store)
+  await $.session.start({ cwd: '/', surface: 'terminal', isInteractive: false })
+  await clock.advance(1)
+  expect(store.get('calib')).toEqual({ util: 0.2, tokens: 2e6, at: NOW })
+  const ui = await $.ui.mount({ ...FOOTER, surface: 'terminal' })
+  expect((await ui.findAll({ type: 'Text' })).map(t => t.text).join('')).toBe('5h 42% · 7d 20% · M 7%')
+  await ui.unmount()
 })
 
 test('a window the readings stop bringing goes once its reset has passed', async ($, on) => {

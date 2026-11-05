@@ -12,7 +12,7 @@
       "name": "meter-for-claude-code",
       "source": "./plugins/meter-for-claude-code",
       "description": "Plan usage at the bottom right of the prompt: 5-hour session, weekly window and an estimated month (M), calibrated from your own transcripts.",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "category": "productivity"
     },
     {

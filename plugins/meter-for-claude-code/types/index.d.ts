@@ -15,7 +15,7 @@ export type Derived = {
   isPartial: boolean
 }
 
-/** The best calibration seen: the reading with the highest weekly %, least hurt by rounding. */
+/** The calibration in use: the latest reading of the weekly window at 3% or more. */
 export type Calibration = { util: number; tokens: number; at: number }
 
 declare module 'claude-code' {

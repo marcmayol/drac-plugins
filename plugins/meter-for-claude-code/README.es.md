@@ -9,7 +9,7 @@ Un mod de Claude Code que sale de [Claude Code Meter](https://github.com/marcmay
 ```
 
 - **5h** es la ventana de sesión y **7d** la semanal. Son las mismas cifras que `/usage` y salen de lo que Claude Code ya mide tras cada respuesta, así que no hay peticiones extra ni se gastan tokens.
-- **M** es el mes. El plan no tiene cuota mensual, así que M es una estimación. El límite semanal en tokens se saca por regla de tres (tokens de la semana del plan entre su %) y los tokens del mes se miden contra ese límite escalado a los días del mes. La semana del plan va anclada a su reinicio real, no de lunes a domingo. Se guarda la mejor calibración (la del % semanal más alto) entre sesiones. M aparece cuando la semana pasa del 3 %.
+- **M** es el mes. El plan no tiene cuota mensual, así que M es una estimación. El límite semanal en tokens se saca por regla de tres (tokens de la semana del plan entre su %) y los tokens del mes se miden contra ese límite escalado a los días del mes. La semana del plan va anclada a su reinicio real, no de lunes a domingo. Se calibra con la última lectura y se comparte entre sesiones, así que si el plan cambia sus límites, M se ajusta en la siguiente respuesta. M aparece cuando la semana pasa del 3 %.
 
 Verde por debajo del 70 %, ámbar por debajo del 90 % y rojo a partir de ahí. Si falta sitio en el pie, lo primero que se quita es M.
 
