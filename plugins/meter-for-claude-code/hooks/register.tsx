@@ -145,12 +145,14 @@ function refresh ($: EngineInterface, countCacheRead: boolean) {
 
 /**
  * Folds a reading into the kept windows, one by one: a reading that lacks a window
- * (Claude Code sometimes reports only seven_day) keeps the last one seen for it,
- * which shows 0% once its reset has passed.
+ * keeps the last one seen for it until that one's reset. Past it the window goes, so
+ * one the plan no longer has (some plans have no 5h window) doesn't linger at 0%.
  */
-const fold = (kept: readonly Limit[], found: readonly Limit[]): Limit[] =>
+const fold = (kept: readonly Limit[], found: readonly Limit[], now: number): Limit[] =>
   WINDOWS.flatMap(kind => {
-    const limit = found.find(l => l.kind === kind) ?? kept.find(l => l.kind === kind)
+    const old = kept.find(l => l.kind === kind)
+    const limit = found.find(l => l.kind === kind) ??
+      (old?.resetsAt !== undefined && Date.parse(old.resetsAt) > now ? old : undefined)
     return limit ? [limit] : []
   })
 
@@ -158,7 +160,7 @@ const fold = (kept: readonly Limit[], found: readonly Limit[]): Limit[] =>
 async function remember ($: EngineInterface, found: Limit[]) {
   if (found.length === 0) return
   seenAt = await $.clock.now()
-  const all = fold(await read($, limits), found)
+  const all = fold(await read($, limits), found, seenAt)
   await update($, limits, () => all)
   await $.store.set('limits', all)
   await $.store.set('at', seenAt) // after the limits, so a reader that sees the new time finds them

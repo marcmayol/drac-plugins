@@ -86,6 +86,19 @@ test('a reading without five_hour keeps the 5h window seen before', async ($, on
   expect((store.get('limits') as Array<{ kind: string }>).map(l => l.kind)).toEqual(['five_hour', 'seven_day'])
 })
 
+test('a window the readings stop bringing goes once its reset has passed', async ($, on) => {
+  const { store, clock } = world(on)
+  on('session.measure', (_, e) => ({ changed: e.changed }))
+  await $.session.start({ cwd: '/', surface: 'terminal', isInteractive: false })
+  await clock.advance(3 * 3600000) // past the 5h reset (14:00)
+  await $.session.measure({
+    changed: ['rateLimits'],
+    rateLimits: [{ kind: 'seven_day', percentUsed: 21, resetsAt: '2026-10-30T22:00:00Z' }]
+  } as never)
+  await clock.advance(1)
+  expect((store.get('limits') as Array<{ kind: string }>).map(l => l.kind)).toEqual(['seven_day'])
+})
+
 test('without a reading the footer is the engine\'s', async ($, on) => {
   on('ui.render', ($, e) => {
     const { Text } = $.ui.resolve(e)
