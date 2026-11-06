@@ -23,13 +23,6 @@
       "category": "productivity"
     },
     {
-      "name": "agent-names",
-      "source": "./plugins/agent-names",
-      "description": "Subagents named \"Project: task\", so with several sessions open you can tell which one each agent belongs to. Refuses any other name.",
-      "version": "0.1.0",
-      "category": "productivity"
-    },
-    {
       "name": "creality-print",
       "source": {
         "source": "github",

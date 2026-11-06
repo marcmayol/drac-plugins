@@ -8,10 +8,9 @@ Claude Code plugins and mods by [Marc Mayol](https://github.com/marcmayol), in o
 | --- | --- |
 | [meter-for-claude-code](plugins/meter-for-claude-code) | Your plan usage at the bottom right of the prompt: `5h 42% · 7d 20% · M 7%`. The 5-hour and weekly windows as `/usage` reports them, plus an estimated month calibrated from your transcripts. `/meter` for resets and past weeks. |
 | [context-bar](plugins/context-bar) | The context window as a bar next to the meter, with a mark where auto-compact runs: `ctx ━━━━━━━───┃─ 58% · compact 84%`. Green while there is room, amber 25 points before the compact, red 10 before. |
-| [agent-names](plugins/agent-names) | Subagents named `Project: task`, like `LinkedIn: reply to Edwin`, so you can tell which session each one belongs to. Refuses any other name. |
 | [humanizar](plugins/humanizar) | Cleans and scores Spanish text (0-100) so it doesn't read like AI: invisible characters, Unicode bold, filler, "it's not X, it's Y", em dashes, hashtag walls. `/humanizar` for posts, articles, emails or READMEs. Local heuristics, no API. Also works in 14 other agents (Codex, Gemini CLI, Cursor, OpenCode…) as an MCP server. |
 | [verify-seo-for-agents](https://github.com/marcmayol/verify-seo-for-agents) | Checks whether a website is ready for AI agents, and fixes what fails: 23 checks, a level from 0 to 5 and a guide for each failure. Runs on your machine and can scan `localhost`. `/verify-seo` to scan and fix. Downloads its own binary on first use, for Windows, macOS and Linux. Also works in 14 other agents as an MCP server. |
-| [omoikane](https://github.com/marcmayol/omoikane) | Long-term memory: what Claude learns in one session comes back in the next. One local SQLite file, duplicate detection, and on every prompt only the memories that really relate to it (or nothing). Downloads its own `omoi` binary on first use. |
+| [omoikane](https://github.com/marcmayol/omoikane) | Long-term memory: what Claude learns in one session comes back in the next. One local SQLite file, duplicate detection, and on every prompt only the memories that really relate to it (or nothing). Downloads its own `omoi` binary on first use. Also names subagents `Project: task`, so you can tell which session each one belongs to (it was the agent-names plugin). |
 | [aloud](https://github.com/marcmayol/aloud) | Reads Claude's replies out loud, locally and in Spanish, so you can walk away from the screen. Turn it on per session with `/aloud`; it goes quiet when you type or dictate. Downloads its own binary on first use, and the voice (about 400 MB) when you first turn it on. |
 | [creality-print](https://github.com/marcmayol/claude-code-creality-print-plugin) | Slice with Creality Print, check gcode against the real bed, colours and mixed filaments, CFS slots, and run Creality OS printers (K2, K1…). Unofficial. |
 
@@ -23,7 +22,6 @@ At the prompt of a Claude Code terminal session:
 /plugin marketplace add marcmayol/drac-plugins
 /plugin install meter-for-claude-code@drac
 /plugin install context-bar@drac
-/plugin install agent-names@drac
 /plugin install humanizar@drac
 /plugin install verify-seo-for-agents@drac
 /plugin install creality-print@drac
@@ -42,7 +40,7 @@ In the desktop app, where `/plugin` does not run: click + next to the prompt box
 
 ## Older Claude Code versions
 
-meter-for-claude-code, context-bar, agent-names, humanizar and aloud are hooks modules (mods): they run inside Claude Code and need nothing else installed. Claude Code 2.1.310 loads them for installed plugins on its own; older versions (2.1.282, for one) skip them unless `CLAUDE_CODE_ENABLE_FUNCTION_HOOKS=1` is set in the environment. If `/meter` is an unknown command or the footer shows nothing, run `claude update` or set that variable.
+meter-for-claude-code, context-bar, humanizar and aloud are hooks modules (mods): they run inside Claude Code and need nothing else installed. Claude Code 2.1.310 loads them for installed plugins on its own; older versions (2.1.282, for one) skip them unless `CLAUDE_CODE_ENABLE_FUNCTION_HOOKS=1` is set in the environment. If `/meter` is an unknown command or the footer shows nothing, run `claude update` or set that variable.
 
 ## Adding a plugin
 
