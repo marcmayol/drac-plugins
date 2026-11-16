@@ -18,7 +18,7 @@ const WINDOWS = ['five_hour', 'seven_day']
 const LABELS: Record<string, string> = { five_hour: '5h', seven_day: '7d' }
 const SYNC_MS = 8000 // another session's reading shows up within this
 const SCAN_MS = 5 * 60000 // transcripts are re-read at most this often
-const MAX_READ = 4 * 1024 * 1024 // what $.fs.read takes; bigger ones go to Node
+const MAX_READ = 4 * 1024 * 1024 // what $.fs.read takes; bigger ones stream through readByPipe
 // The oldest transcript that can count: six plan weeks back, a day to spare.
 const LOOKBACK_MS = 6 * WEEK_MS + DAY_MS
 // The terminal footer: padding at each end, the mode label at the left and the
@@ -71,7 +71,65 @@ async function walk ($: EngineInterface, dir: string, since: number, out: Array<
   }
 }
 
-/** Re-reads the transcripts that changed since the last scan, the big ones in one Node run. */
+// Windows: PowerShell, always there, passes on the lines with "usage". The path
+// goes in an environment variable and the script as -EncodedCommand (UTF-16LE in
+// base64), so no quoting of Windows' command line can bend either. The file opens
+// sharing writes: Claude Code may be writing that transcript right now.
+const PS_SCRIPT = [
+  '[Console]::OutputEncoding = [Text.UTF8Encoding]::new($false)',
+  "$q = [char]34 + 'usage' + [char]34",
+  "$s = [IO.File]::Open($env:METER_TRANSCRIPT, 'Open', 'Read', 'ReadWrite, Delete')",
+  '$r = [IO.StreamReader]::new($s, [Text.Encoding]::UTF8)',
+  'while ($null -ne ($l = $r.ReadLine())) { if ($l.Contains($q)) { [Console]::Out.WriteLine($l) } }',
+  '$r.Close()'
+].join('; ')
+const PS_ENCODED = (() => {
+  const bytes = new Uint8Array(PS_SCRIPT.length * 2)
+  for (let i = 0; i < PS_SCRIPT.length; i++) bytes[i * 2] = PS_SCRIPT.charCodeAt(i) // ASCII → UTF-16LE
+  return bytes.toBase64()
+})()
+
+/**
+ * A transcript over what $.fs.read takes, read through the system's own tool and
+ * parsed piece by piece as it streams: grep on macOS and Linux, PowerShell on
+ * Windows. Nothing to install. Rejects if the tool fails, for Node to try.
+ */
+async function readByPipe ($: EngineInterface, path: string, isWindows: boolean): Promise<Hourly> {
+  const run = isWindows
+    ? $.process.spawn({
+      argv: ['powershell.exe', '-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-EncodedCommand', PS_ENCODED],
+      env: { METER_TRANSCRIPT: path }
+    })
+    : $.process.spawn({ argv: ['grep', '-F', '"usage"', '--', path] })
+  const hourly: Hourly = {}
+  let rest = ''
+  let step = await run.next()
+  while (!step.done) {
+    if (step.value.stream === 'stdout') {
+      const text = rest + step.value.text
+      const cut = text.lastIndexOf('\n')
+      if (cut < 0) rest = text
+      else {
+        parseTranscript(text.slice(0, cut), hourly)
+        rest = text.slice(cut + 1)
+      }
+    }
+    step = await run.next()
+  }
+  if (rest !== '') parseTranscript(rest, hourly)
+  const { code } = step.value
+  // grep answers 1 when no line matched: an empty transcript, not a failure
+  if (code !== 0 && !(code === 1 && !isWindows)) throw new Error(`reader exited ${code}`)
+  return hourly
+}
+
+/** The last resort: scripts/scan.mjs under Node, if Node is on the PATH. */
+async function readByNode ($: EngineInterface, paths: string[]) {
+  const run = await $.process.run(['node', `${$.plugin.root}/scripts/scan.mjs`, ...paths], { timeoutMs: 120000 })
+  return JSON.parse(run.stdout) as Record<string, Hourly>
+}
+
+/** Re-reads the transcripts that changed since the last scan, the big ones streamed through the system's reader. */
 async function scan ($: EngineInterface, now: number) {
   const found: Array<{ path: string; size: number; mtime: number }> = []
   await walk($, await projectsDir($), now - LOOKBACK_MS, found)
@@ -90,18 +148,19 @@ async function scan ($: EngineInterface, now: number) {
     }
   }
   if (big.length > 0) {
-    try {
-      const run = await $.process.run(['node', `${$.plugin.root}/scripts/scan.mjs`, ...big.map(f => f.path)], {
-        timeoutMs: 120000
-      })
-      const parsed = JSON.parse(run.stdout) as Record<string, Hourly>
-      for (const f of big) {
-        const got = parsed[f.path]
-        if (got) files.set(f.path, { size: f.size, mtime: f.mtime, hourly: got })
-        else missed = true
+    const isWindows = (await $.env.get('OS')) === 'Windows_NT'
+    let viaNode: Record<string, Hourly> | undefined
+    for (const f of big) {
+      let got: Hourly | undefined
+      try {
+        got = await readByPipe($, f.path, isWindows)
+      } catch {
+        // the system's reader failed: Node, if there is one, reads them all at once
+        if (viaNode === undefined) viaNode = await readByNode($, big.map(b => b.path)).catch(() => ({}))
+        got = viaNode[f.path]
       }
-    } catch {
-      missed = true // no Node: the big transcripts keep what an earlier scan read, if anything
+      if (got) files.set(f.path, { size: f.size, mtime: f.mtime, hourly: got })
+      else missed = true // kept: what an earlier scan read, if anything
     }
   }
   const live = new Set(found.map(f => f.path))
@@ -269,7 +328,7 @@ export const register: Register = (on, options) => {
         lines.push(`  ${`${date(row.start)} – ${date(row.end)}`.padEnd(18)} ${String(Math.round(row.percent)).padStart(3)}%  ${short(row.tokens).padStart(6)}${mark}`)
       }
     }
-    if (d.isPartial) lines.push('', t('Some transcripts over 4 MiB could not be read (is Node on the PATH?).', 'Hay transcripciones de más de 4 MiB que no se han podido leer (¿está Node en el PATH?).'))
+    if (d.isPartial) lines.push('', t('Some transcripts over 4 MiB could not be read: the count is partial.', 'Hay transcripciones de más de 4 MiB que no se han podido leer: la cuenta es parcial.'))
     return { text: lines.join('\n') }
   })
 

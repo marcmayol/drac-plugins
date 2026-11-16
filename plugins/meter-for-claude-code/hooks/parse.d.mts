@@ -1,1 +1,1 @@
-export function parseTranscript (text: string): Record<string, [number, number]>
+export function parseTranscript (text: string, hourly?: Record<string, [number, number]>): Record<string, [number, number]>

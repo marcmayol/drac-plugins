@@ -15,7 +15,7 @@ Green under 70%, amber under 90%, red above. Where the footer is short, M goes f
 
 `/meter` lists both windows with their reset times, the calibrated weekly limit and your last plan weeks rebuilt from the transcripts.
 
-Tokens come from the transcripts in `~/.claude/projects` (or `CLAUDE_CONFIG_DIR`). The ones over 4 MiB are read by `scripts/scan.mjs`, so Node needs to be on the PATH. Without Node, `/meter` says the count is partial. Cache reads are left out unless `countCacheRead` is on in `/config`.
+Tokens come from the transcripts in `~/.claude/projects` (or `CLAUDE_CONFIG_DIR`). The ones over 4 MiB are streamed through the system's own tools (`grep` on macOS and Linux, PowerShell on Windows), so there is nothing to install; Node is only a last resort. If none of them can read a transcript, `/meter` says the count is partial. Cache reads are left out unless `countCacheRead` is on in `/config`.
 
 It needs a subscription: with API key billing there are no plan windows and the footer stays as it is.
 

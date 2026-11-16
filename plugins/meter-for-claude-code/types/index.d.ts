@@ -11,7 +11,7 @@ export type Derived = {
   /** Tokens the weekly window holds, by rule of three (window tokens / weekly %). */
   weeklyLimit?: number
   history: WeekRow[]
-  /** Some transcripts could not be read (over 4 MiB and no Node to read them). */
+  /** Some transcripts could not be read (over 4 MiB, and neither the system's reader nor Node could). */
   isPartial: boolean
 }
 

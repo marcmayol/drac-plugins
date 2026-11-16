@@ -15,7 +15,7 @@ Verde por debajo del 70 %, ámbar por debajo del 90 % y rojo a partir de ahí. S
 
 `/meter` enseña las dos ventanas con sus reinicios, el límite semanal calibrado y tus últimas semanas del plan, reconstruidas a partir de las transcripciones.
 
-Los tokens salen de las transcripciones de `~/.claude/projects` (o de `CLAUDE_CONFIG_DIR`). Las de más de 4 MiB las lee `scripts/scan.mjs`, así que hace falta Node en el PATH. Sin Node, `/meter` avisa de que la cuenta es parcial. Las lecturas de caché no cuentan salvo que actives `countCacheRead` en `/config`.
+Los tokens salen de las transcripciones de `~/.claude/projects` (o de `CLAUDE_CONFIG_DIR`). Las de más de 4 MiB se leen con lo que trae el sistema (`grep` en macOS y Linux, PowerShell en Windows), así que no hay que instalar nada; Node solo se usa como último recurso. Si nada puede leer una transcripción, `/meter` avisa de que la cuenta es parcial. Las lecturas de caché no cuentan salvo que actives `countCacheRead` en `/config`.
 
 Necesita suscripción. Si pagas por API key no hay ventanas del plan y el pie se queda como está.
 

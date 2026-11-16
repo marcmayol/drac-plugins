@@ -6,9 +6,9 @@ const HOUR_MS = 3600000
 /**
  * Tokens per hour of one .jsonl transcript: { [hourIndex]: [work, cacheRead] },
  * hourIndex = floor(epoch ms / 1 h) in UTC, work = input + output + cache_creation.
+ * With `hourly`, adds into that map (a transcript read in pieces) and returns it.
  */
-export function parseTranscript (text) {
-  const hourly = {}
+export function parseTranscript (text, hourly = {}) {
   for (const line of text.split('\n')) {
     if (!line.includes('"usage"')) continue
     let d
