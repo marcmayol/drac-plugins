@@ -177,6 +177,9 @@ function escala (valor: number, cero: number, cien: number) {
   return redondear(Math.max(0, Math.min(1, (valor - cero) / (cien - cero))) * 100)
 }
 
+/** Por debajo de estas palabras el texto es una etiqueta o un título: no se le pide concreción. */
+const CORTO = 12
+
 export function revisar (texto: string): Revision {
   const [limpio, arreglos] = limpiar(texto)
   const bajo = limpio.toLowerCase()
@@ -215,7 +218,8 @@ export function revisar (texto: string): Revision {
   // Concreción: cifras, nombres propios (mayúscula fuera de inicio de frase), enlaces.
   const nombres = fs.reduce((s, f) => s + (f.match(PALABRA) ?? []).slice(1).filter(p => esMayuscula(p[0] ?? '')).length, 0)
   const concretos = Math.floor(contar(NUMERO, limpio) / 2) + nombres + contar(URL, limpio)
-  const concrecion = escala((concretos * 100) / n, 0, 4)
+  // En una etiqueta o un título corto no hay cifras ni nombres que pedir.
+  const concrecion = n < CORTO ? 100 : escala((concretos * 100) / n, 0, 4)
   if (concrecion < 40) avisos.push('poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)')
 
   const densidad = escala(((relleno.length + senales + Number(remate) + Number(enfasis) + Number(trio)) * 100) / n, 3, 0)
@@ -244,6 +248,9 @@ const SINONIMOS: Array<Array<[string, string]>> = [
   [['correo', 'correos?'], ['email', 'e-?mails?']],
   [['cancelar', verbo('cancel')], ['anular', verbo('anul')]],
 ]
+// Lo que va entre comillas es una cita o un ejemplo, no una palabra que use el texto.
+const ENTRE_COMILLAS = /«[^»]*»|“[^”]*”|"[^"]*"/gu
+const sinCitas = (t: string) => t.replace(ENTRE_COMILLAS, ' ')
 const SINONIMOS_RE = SINONIMOS.map(g => g.map(([n, p]) => [n, new RegExp(`${B}(?:${p})${E}`, 'iu')] as const))
 
 const cuales = (ns: number[]) => ns.length === 1 ? `texto ${ns[0]}` : `textos ${ns.slice(0, -1).join(', ')} y ${ns[ns.length - 1]}`
@@ -252,11 +259,14 @@ const cuales = (ns: number[]) => ns.length === 1 ? `texto ${ns[0]}` : `textos ${
 export function coherencia (textos: readonly string[]): string[] {
   if (textos.length < 2) return []
   const salen: string[] = []
+  const limpios = textos.map(sinCitas)
   for (const grupo of SINONIMOS_RE) {
     const usos = grupo
-      .map(([nombre, re]) => [nombre, textos.flatMap((t, i) => re.test(t) ? [i + 1] : [])] as const)
+      .map(([nombre, re]) => [nombre, limpios.flatMap((t, i) => re.test(t) ? [i + 1] : [])] as const)
       .filter(([, ns]) => ns.length > 0)
     if (usos.length < 2) continue
+    // Que las dos palabras salgan en textos distintos, no solo dentro de uno.
+    if (new Set(usos.flatMap(([, ns]) => ns)).size < 2) continue
     salen.push('mezcla ' + usos.map(([n, ns]) => `«${n}» (${cuales(ns)})`).join(' y ') + ': usa una sola palabra para lo mismo')
   }
   return salen

@@ -83,6 +83,12 @@ test('los textos de una interfaz avisan de palabras distintas para lo mismo y no
   expect(inf.hallazgos).toEqual([])
 })
 
+test('una etiqueta corta no pide concreción y un ejemplo entre comillas no es una mezcla', () => {
+  const inf = informar(['Emails y WhatsApp', 'Detecta más AI slop', '«Finalizar» en un botón y «Terminar» en otro: te avisa.'], 'texto')
+  expect(inf.coherencia).toEqual([])
+  expect(inf.hallazgos).toEqual([])
+})
+
 test('los párrafos de un markdown salen sin la sintaxis', () => {
   expect(textosMd('---\ntitle: x\n---\n# Título\n\nUna línea\ny otra con [enlace](https://a.b).\n\n- punto uno\n\n    código\n')).toEqual(['Título', 'Una línea y otra con enlace.', 'punto uno'])
 })

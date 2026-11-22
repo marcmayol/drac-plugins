@@ -220,4 +220,7 @@ fn avisa_de_palabras_distintas_para_lo_mismo_entre_textos() {
     let solo = conversacion(&[llamada(&["Finalizar día y terminar"])]);
     let salida: Value = serde_json::from_str(solo[0]["result"]["content"][0]["text"].as_str().unwrap()).unwrap();
     assert!(salida.get("coherencia").is_none(), "one text alone is never checked");
+    let citas = conversacion(&[llamada(&["«Finalizar» en un botón y «Terminar» en otro: te avisa.", "Emails y WhatsApp"])]);
+    let salida: Value = serde_json::from_str(citas[0]["result"]["content"][0]["text"].as_str().unwrap()).unwrap();
+    assert!(salida.get("coherencia").is_none(), "words in quotes are examples, and both in one text is not a mix");
 }
