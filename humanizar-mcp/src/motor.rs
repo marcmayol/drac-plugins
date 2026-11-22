@@ -255,6 +255,12 @@ fn frases(texto: &str) -> Vec<String> {
     trozos
 }
 
+/// Below this many words the text is a label or a title: no concreteness is asked of it.
+const CORTO: f64 = 12.0;
+
+/// What sits between quotes is a quote or an example, not a word the text uses.
+static ENTRE_COMILLAS: LazyLock<Regex> = LazyLock::new(|| Regex::new(r#"«[^»]*»|“[^”]*”|"[^"]*""#).expect("valid"));
+
 /// Cleans and scores a text. Same keys, in the same order, as the plugin's tool.
 pub fn revisar(entrada: &str) -> Value {
     let r = &*REGLAS;
@@ -321,7 +327,8 @@ pub fn revisar(entrada: &str) -> Value {
         .sum();
     let cifras = limpio.chars().filter(char::is_ascii_digit).count();
     let concretos = (cifras / 2 + nombres + contar(&r.url, &limpio)) as f64;
-    let concrecion = escala(concretos * 100.0 / n, 0.0, 4.0);
+    // A label or a short title has no figures or names to ask for.
+    let concrecion = if n < CORTO { 100.0 } else { escala(concretos * 100.0 / n, 0.0, 4.0) };
     if concrecion < 40.0 {
         avisos.push("poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)".to_string());
     }
@@ -369,13 +376,21 @@ pub fn coherencia(textos: &[&str]) -> Vec<String> {
         return Vec::new();
     }
     let mut salen = Vec::new();
+    let limpios: Vec<String> = textos.iter().map(|t| cambiar_todo(&ENTRE_COMILLAS, t, &mut |_| " ".to_string())).collect();
     for grupo in &REGLAS.sinonimos {
         let usos: Vec<(&str, Vec<usize>)> = grupo
             .iter()
-            .map(|(n, p)| (*n, textos.iter().enumerate().filter(|(_, t)| coincide(p, t)).map(|(i, _)| i + 1).collect::<Vec<_>>()))
+            .map(|(n, p)| (*n, limpios.iter().enumerate().filter(|(_, t)| coincide(p, t)).map(|(i, _)| i + 1).collect::<Vec<_>>()))
             .filter(|(_, ns)| !ns.is_empty())
             .collect();
         if usos.len() < 2 {
+            continue;
+        }
+        // Both words in different texts, not only inside one.
+        let mut distintos: Vec<usize> = usos.iter().flat_map(|(_, ns)| ns.iter().copied()).collect();
+        distintos.sort_unstable();
+        distintos.dedup();
+        if distintos.len() < 2 {
             continue;
         }
         salen.push(format!("mezcla {}: usa una sola palabra para lo mismo", usos.iter().map(|(n, ns)| format!("«{n}» ({})", cuales(ns))).collect::<Vec<_>>().join(" y ")));

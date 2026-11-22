@@ -5,21 +5,17 @@
    "texto": "",
    "cambiado": false,
    "arreglos": [],
-   "avisos": [
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
-   ],
-   "puntos": 43,
+   "avisos": [],
+   "puntos": 79,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 60
    }
   },
-  "reglas": [
-   "poco concreto"
-  ]
+  "reglas": []
  },
  {
   "entrada": "   ",
@@ -27,21 +23,17 @@
    "texto": "   ",
    "cambiado": false,
    "arreglos": [],
-   "avisos": [
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
-   ],
-   "puntos": 43,
+   "avisos": [],
+   "puntos": 79,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 60
    }
   },
-  "reglas": [
-   "poco concreto"
-  ]
+  "reglas": []
  },
  {
   "entrada": "🚀 En el vertiginoso mundo de la IA, esto lo cambia todo.\n\nNo es solo una herramienta, es un cambio de paradigma. ¿El resultado? Un antes y un después.\n\nA día de hoy es fundamental aprovechar al máximo cada oportunidad — y esta es la clave.\n\n¿Qué opinas? 👇 #IA #AI #Innovación #Tech #Futuro",
@@ -116,13 +108,11 @@
     "caracteres invisibles quitados",
     "letras Unicode de negrita/cursiva pasadas a normales"
    ],
-   "avisos": [
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
-   ],
-   "puntos": 43,
+   "avisos": [],
+   "puntos": 79,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 60
@@ -130,8 +120,7 @@
   },
   "reglas": [
    "caracteres invisibles quitados",
-   "letras Unicode de negrita/cursiva pasadas a normales",
-   "poco concreto"
+   "letras Unicode de negrita/cursiva pasadas a normales"
   ]
  },
  {
@@ -165,13 +154,11 @@
     "«a día de hoy» → «hoy»",
     "«utilizo» → «uso»"
    ],
-   "avisos": [
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
-   ],
-   "puntos": 48,
+   "avisos": [],
+   "puntos": 100,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 100
@@ -179,8 +166,7 @@
   },
   "reglas": [
    "«a día de hoy» → «hoy»",
-   "«utilizo» → «uso»",
-   "poco concreto"
+   "«utilizo» → «uso»"
   ]
  },
  {
@@ -189,21 +175,17 @@
    "texto": "Utilizarás esto",
    "cambiado": false,
    "arreglos": [],
-   "avisos": [
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
-   ],
-   "puntos": 43,
+   "avisos": [],
+   "puntos": 79,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 60
    }
   },
-  "reglas": [
-   "poco concreto"
-  ]
+  "reglas": []
  },
  {
   "entrada": "UTILIZA esto, utilizan aquello, Utilizando lo otro y utilizar más",
@@ -326,21 +308,19 @@
    "cambiado": false,
    "arreglos": [],
    "avisos": [
-    "«no es solo X, es Y»: di Y directamente",
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+    "«no es solo X, es Y»: di Y directamente"
    ],
-   "puntos": 41,
+   "puntos": 71,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 45
    }
   },
   "reglas": [
-   "«no es solo X, es Y»",
-   "poco concreto"
+   "«no es solo X, es Y»"
   ]
  },
  {
@@ -350,21 +330,19 @@
    "cambiado": false,
    "arreglos": [],
    "avisos": [
-    "«no es solo X, es Y»: di Y directamente",
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+    "«no es solo X, es Y»: di Y directamente"
    ],
-   "puntos": 41,
+   "puntos": 71,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 45
    }
   },
   "reglas": [
-   "«no es solo X, es Y»",
-   "poco concreto"
+   "«no es solo X, es Y»"
   ]
  },
  {
@@ -396,21 +374,19 @@
    "cambiado": false,
    "arreglos": [],
    "avisos": [
-    "cebo de comentarios («comenta X y te lo envío»): pon el enlace",
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+    "cebo de comentarios («comenta X y te lo envío»): pon el enlace"
    ],
-   "puntos": 43,
+   "puntos": 79,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 60
    }
   },
   "reglas": [
-   "cebo de comentarios («comenta X y te lo envío»)",
-   "poco concreto"
+   "cebo de comentarios («comenta X y te lo envío»)"
   ]
  },
  {
@@ -446,13 +422,12 @@
    "avisos": [
     "pregunta retórica corta («¿El resultado?»): cuéntalo sin preguntar",
     "pregunta de cebo al final: solo si de verdad quieres esa respuesta",
-    "todas las frases miden parecido: mezcla alguna corta con otra larga",
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+    "todas las frases miden parecido: mezcla alguna corta con otra larga"
    ],
-   "puntos": 31,
+   "puntos": 48,
    "pruebas": {
     "ritmo": 13,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 45
@@ -461,8 +436,7 @@
   "reglas": [
    "pregunta retórica corta («¿El resultado?»)",
    "pregunta de cebo al final",
-   "todas las frases miden parecido",
-   "poco concreto"
+   "todas las frases miden parecido"
   ]
  },
  {
@@ -472,21 +446,19 @@
    "cambiado": false,
    "arreglos": [],
    "avisos": [
-    "markdown (**…**): en las redes sale tal cual, quítalo",
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+    "markdown (**…**): en las redes sale tal cual, quítalo"
    ],
-   "puntos": 43,
+   "puntos": 79,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 60
    }
   },
   "reglas": [
-   "markdown (**…**)",
-   "poco concreto"
+   "markdown (**…**)"
   ]
  },
  {
@@ -495,21 +467,17 @@
    "texto": "**a\nb**",
    "cambiado": false,
    "arreglos": [],
-   "avisos": [
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
-   ],
-   "puntos": 43,
+   "avisos": [],
+   "puntos": 79,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 60
    }
   },
-  "reglas": [
-   "poco concreto"
-  ]
+  "reglas": []
  },
  {
   "entrada": "palabra—pegada y otra – suelta y otra - con guion y una—última",
@@ -543,13 +511,12 @@
    "arreglos": [],
    "avisos": [
     "pregunta retórica corta («¿El resultado?»): cuéntalo sin preguntar",
-    "5 raya(s) «—»: cámbialas por coma, punto o paréntesis",
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+    "5 raya(s) «—»: cámbialas por coma, punto o paréntesis"
    ],
-   "puntos": 25,
+   "puntos": 37,
    "pruebas": {
     "ritmo": 65,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 0,
     "voz": 45
@@ -557,8 +524,7 @@
   },
   "reglas": [
    "pregunta retórica corta («¿El resultado?»)",
-   "raya(s) «—»",
-   "poco concreto"
+   "raya(s) «—»"
   ]
  },
  {
@@ -567,21 +533,17 @@
    "texto": "#uno #dos #tres",
    "cambiado": false,
    "arreglos": [],
-   "avisos": [
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
-   ],
-   "puntos": 43,
+   "avisos": [],
+   "puntos": 79,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 60
    }
   },
-  "reglas": [
-   "poco concreto"
-  ]
+  "reglas": []
  },
  {
   "entrada": "#uno #dos #tres #cuatro no#es #cinco",
@@ -590,21 +552,19 @@
    "cambiado": false,
    "arreglos": [],
    "avisos": [
-    "5 hashtags: deja 1-3",
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+    "5 hashtags: deja 1-3"
    ],
-   "puntos": 43,
+   "puntos": 79,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 60
    }
   },
   "reglas": [
-   "hashtags",
-   "poco concreto"
+   "hashtags"
   ]
  },
  {
@@ -615,13 +575,12 @@
    "arreglos": [],
    "avisos": [
     "3 emojis: como mucho uno",
-    "empieza con emoji: empieza con la idea",
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+    "empieza con emoji: empieza con la idea"
    ],
-   "puntos": 31,
+   "puntos": 43,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 0,
     "voz": 60
@@ -629,8 +588,7 @@
   },
   "reglas": [
    "emojis",
-   "empieza con emoji",
-   "poco concreto"
+   "empieza con emoji"
   ]
  },
  {
@@ -639,21 +597,17 @@
    "texto": "Un emoji 🙂 al final",
    "cambiado": false,
    "arreglos": [],
-   "avisos": [
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
-   ],
-   "puntos": 43,
+   "avisos": [],
+   "puntos": 79,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 60
    }
   },
-  "reglas": [
-   "poco concreto"
-  ]
+  "reglas": []
  },
  {
   "entrada": "  hola mundo . fin",
@@ -663,21 +617,18 @@
    "arreglos": [
     "espacios raros normalizados"
    ],
-   "avisos": [
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
-   ],
-   "puntos": 43,
+   "avisos": [],
+   "puntos": 79,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 60
    }
   },
   "reglas": [
-   "espacios raros normalizados",
-   "poco concreto"
+   "espacios raros normalizados"
   ]
  },
  {
@@ -688,21 +639,18 @@
    "arreglos": [
     "caracteres invisibles quitados"
    ],
-   "avisos": [
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
-   ],
-   "puntos": 43,
+   "avisos": [],
+   "puntos": 79,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 60
    }
   },
   "reglas": [
-   "caracteres invisibles quitados",
-   "poco concreto"
+   "caracteres invisibles quitados"
   ]
  },
  {
@@ -713,21 +661,18 @@
    "arreglos": [
     "caracteres invisibles quitados"
    ],
-   "avisos": [
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
-   ],
-   "puntos": 43,
+   "avisos": [],
+   "puntos": 79,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 60
    }
   },
   "reglas": [
-   "caracteres invisibles quitados",
-   "poco concreto"
+   "caracteres invisibles quitados"
   ]
  },
  {
@@ -776,13 +721,12 @@
     "«en base a» → «según»"
    ],
    "avisos": [
-    "todas las frases miden parecido: mezcla alguna corta con otra larga",
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+    "todas las frases miden parecido: mezcla alguna corta con otra larga"
    ],
-   "puntos": 31,
+   "puntos": 43,
    "pruebas": {
     "ritmo": 0,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 60
@@ -792,8 +736,7 @@
    "«sin lugar a dudas» → «sin duda»",
    "«de cara a» → «para»",
    "«en base a» → «según»",
-   "todas las frases miden parecido",
-   "poco concreto"
+   "todas las frases miden parecido"
   ]
  },
  {
@@ -867,21 +810,19 @@
    "cambiado": false,
    "arreglos": [],
    "avisos": [
-    "todas las frases miden parecido: mezcla alguna corta con otra larga",
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+    "todas las frases miden parecido: mezcla alguna corta con otra larga"
    ],
-   "puntos": 36,
+   "puntos": 48,
    "pruebas": {
     "ritmo": 0,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 100
    }
   },
   "reglas": [
-   "todas las frases miden parecido",
-   "poco concreto"
+   "todas las frases miden parecido"
   ]
  },
  {
@@ -968,13 +909,12 @@
    "cambiado": false,
    "arreglos": [],
    "avisos": [
-    "relleno de IA: «revolucionar», «desbloquear»",
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+    "relleno de IA: «revolucionar», «desbloquear»"
    ],
-   "puntos": 31,
+   "puntos": 43,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 0,
     "huella": 100,
     "voz": 60
@@ -982,8 +922,7 @@
   },
   "reglas": [
    "relleno: «revolucionar»",
-   "relleno: «desbloquear»",
-   "poco concreto"
+   "relleno: «desbloquear»"
   ]
  },
  {
@@ -1010,21 +949,17 @@
    "texto": "Deseret 𐐀abc mayúscula fuera del plano básico y 𐐀 suelta.",
    "cambiado": false,
    "arreglos": [],
-   "avisos": [
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
-   ],
-   "puntos": 43,
+   "avisos": [],
+   "puntos": 79,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 60
    }
   },
-  "reglas": [
-   "poco concreto"
-  ]
+  "reglas": []
  },
  {
   "entrada": "Kelvin K y s larga ſ: NO ES ſOLO esto, es lo otro. Žorro.",
@@ -1055,21 +990,19 @@
    "cambiado": false,
    "arreglos": [],
    "avisos": [
-    "todas las frases miden parecido: mezcla alguna corta con otra larga",
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+    "todas las frases miden parecido: mezcla alguna corta con otra larga"
    ],
-   "puntos": 35,
+   "puntos": 60,
    "pruebas": {
     "ritmo": 33,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 60
    }
   },
   "reglas": [
-   "todas las frases miden parecido",
-   "poco concreto"
+   "todas las frases miden parecido"
   ]
  },
  {
@@ -1080,13 +1013,12 @@
    "arreglos": [],
    "avisos": [
     "pregunta retórica corta («¿El resultado?»): cuéntalo sin preguntar",
-    "todas las frases miden parecido: mezcla alguna corta con otra larga",
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+    "todas las frases miden parecido: mezcla alguna corta con otra larga"
    ],
-   "puntos": 34,
+   "puntos": 60,
    "pruebas": {
     "ritmo": 36,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 45
@@ -1094,8 +1026,7 @@
   },
   "reglas": [
    "pregunta retórica corta («¿El resultado?»)",
-   "todas las frases miden parecido",
-   "poco concreto"
+   "todas las frases miden parecido"
   ]
  },
  {
@@ -1141,21 +1072,19 @@
    "cambiado": false,
    "arreglos": [],
    "avisos": [
-    "pregunta retórica corta («¿El resultado?»): cuéntalo sin preguntar",
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+    "pregunta retórica corta («¿El resultado?»): cuéntalo sin preguntar"
    ],
-   "puntos": 41,
+   "puntos": 71,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 45
    }
   },
   "reglas": [
-   "pregunta retórica corta («¿El resultado?»)",
-   "poco concreto"
+   "pregunta retórica corta («¿El resultado?»)"
   ]
  },
  {
@@ -1165,21 +1094,19 @@
    "cambiado": false,
    "arreglos": [],
    "avisos": [
-    "pregunta retórica corta («¿El resultado?»): cuéntalo sin preguntar",
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+    "pregunta retórica corta («¿El resultado?»): cuéntalo sin preguntar"
    ],
-   "puntos": 41,
+   "puntos": 71,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 45
    }
   },
   "reglas": [
-   "pregunta retórica corta («¿El resultado?»)",
-   "poco concreto"
+   "pregunta retórica corta («¿El resultado?»)"
   ]
  },
  {
@@ -1188,21 +1115,17 @@
    "texto": "¿Una pregunta muy larga que pasa de los veinticinco caracteres seguro?",
    "cambiado": false,
    "arreglos": [],
-   "avisos": [
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
-   ],
-   "puntos": 43,
+   "avisos": [],
+   "puntos": 79,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 60
    }
   },
-  "reglas": [
-   "poco concreto"
-  ]
+  "reglas": []
  },
  {
   "entrada": "a¿Pegada? ¿Otra?",
@@ -1250,21 +1173,17 @@
    "texto": "_guion_bajo es palabra y a_día_de_hoy no cambia",
    "cambiado": false,
    "arreglos": [],
-   "avisos": [
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
-   ],
-   "puntos": 43,
+   "avisos": [],
+   "puntos": 79,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 60
    }
   },
-  "reglas": [
-   "poco concreto"
-  ]
+  "reglas": []
  },
  {
   "entrada": "en resumen: EN RESUMEN. En Resumen",
@@ -1295,21 +1214,19 @@
    "cambiado": false,
    "arreglos": [],
    "avisos": [
-    "1 raya(s) «—»: cámbialas por coma, punto o paréntesis",
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+    "1 raya(s) «—»: cámbialas por coma, punto o paréntesis"
    ],
-   "puntos": 25,
+   "puntos": 37,
    "pruebas": {
     "ritmo": 51,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 0,
     "voz": 60
    }
   },
   "reglas": [
-   "raya(s) «—»",
-   "poco concreto"
+   "raya(s) «—»"
   ]
  },
  {
@@ -1318,21 +1235,17 @@
    "texto": "\tTab\tseparado\f y \u000bvertical. 🚀",
    "cambiado": false,
    "arreglos": [],
-   "avisos": [
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
-   ],
-   "puntos": 43,
+   "avisos": [],
+   "puntos": 79,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 60
    }
   },
-  "reglas": [
-   "poco concreto"
-  ]
+  "reglas": []
  },
  {
   "entrada": "🚀",
@@ -1341,21 +1254,19 @@
    "cambiado": false,
    "arreglos": [],
    "avisos": [
-    "empieza con emoji: empieza con la idea",
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+    "empieza con emoji: empieza con la idea"
    ],
-   "puntos": 43,
+   "puntos": 79,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 60
    }
   },
   "reglas": [
-   "empieza con emoji",
-   "poco concreto"
+   "empieza con emoji"
   ]
  },
  {
@@ -1365,21 +1276,19 @@
    "cambiado": false,
    "arreglos": [],
    "avisos": [
-    "empieza con emoji: empieza con la idea",
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+    "empieza con emoji: empieza con la idea"
    ],
-   "puntos": 43,
+   "puntos": 79,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 60
    }
   },
   "reglas": [
-   "empieza con emoji",
-   "poco concreto"
+   "empieza con emoji"
   ]
  },
  {
@@ -1389,21 +1298,19 @@
    "cambiado": false,
    "arreglos": [],
    "avisos": [
-    "empieza con emoji: empieza con la idea",
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+    "empieza con emoji: empieza con la idea"
    ],
-   "puntos": 43,
+   "puntos": 79,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 60
    }
   },
   "reglas": [
-   "empieza con emoji",
-   "poco concreto"
+   "empieza con emoji"
   ]
  },
  {
@@ -1546,21 +1453,19 @@
    "cambiado": false,
    "arreglos": [],
    "avisos": [
-    "«no es solo X, es Y»: di Y directamente",
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+    "«no es solo X, es Y»: di Y directamente"
    ],
-   "puntos": 41,
+   "puntos": 71,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 45
    }
   },
   "reglas": [
-   "«no es solo X, es Y»",
-   "poco concreto"
+   "«no es solo X, es Y»"
   ]
  },
  {
@@ -1651,13 +1556,12 @@
    "arreglos": [],
    "avisos": [
     "relleno de IA: «es fundamental»",
-    "«fundamental», «crucial», «clave» juntas en un párrafo: deja una o di por qué importa",
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+    "«fundamental», «crucial», «clave» juntas en un párrafo: deja una o di por qué importa"
    ],
-   "puntos": 31,
+   "puntos": 43,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 0,
     "huella": 100,
     "voz": 60
@@ -1665,8 +1569,7 @@
   },
   "reglas": [
    "relleno: «es fundamental»",
-   "«fundamental», «crucial», «clave» juntas en un párrafo",
-   "poco concreto"
+   "«fundamental», «crucial», «clave» juntas en un párrafo"
   ]
  },
  {
@@ -1822,21 +1725,19 @@
    "cambiado": false,
    "arreglos": [],
    "avisos": [
-    "le dice al lector qué pensar («lo importante es», «como ves»): enséñalo con el dato y quita el comentario",
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+    "le dice al lector qué pensar («lo importante es», «como ves»): enséñalo con el dato y quita el comentario"
    ],
-   "puntos": 31,
+   "puntos": 43,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 0,
     "huella": 100,
     "voz": 60
    }
   },
   "reglas": [
-   "le dice al lector qué pensar («lo importante es», «como ves»)",
-   "poco concreto"
+   "le dice al lector qué pensar («lo importante es», «como ves»)"
   ]
  },
  {
@@ -1846,21 +1747,19 @@
    "cambiado": false,
    "arreglos": [],
    "avisos": [
-    "fuente vaga («los expertos coinciden»): nombra la fuente o quita la afirmación",
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+    "fuente vaga («los expertos coinciden»): nombra la fuente o quita la afirmación"
    ],
-   "puntos": 31,
+   "puntos": 43,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 0,
     "huella": 100,
     "voz": 60
    }
   },
   "reglas": [
-   "fuente vaga («los expertos coinciden»)",
-   "poco concreto"
+   "fuente vaga («los expertos coinciden»)"
   ]
  },
  {
@@ -1870,21 +1769,19 @@
    "cambiado": false,
    "arreglos": [],
    "avisos": [
-    "dos puntos de efecto («Lo mejor: …»): dilo en una frase normal",
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+    "dos puntos de efecto («Lo mejor: …»): dilo en una frase normal"
    ],
-   "puntos": 31,
+   "puntos": 43,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 0,
     "huella": 100,
     "voz": 60
    }
   },
   "reglas": [
-   "dos puntos de efecto («Lo mejor",
-   "poco concreto"
+   "dos puntos de efecto («Lo mejor"
   ]
  },
  {
@@ -1959,21 +1856,17 @@
    "texto": "Así de simple.",
    "cambiado": false,
    "arreglos": [],
-   "avisos": [
-    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
-   ],
-   "puntos": 43,
+   "avisos": [],
+   "puntos": 79,
    "pruebas": {
     "ritmo": 100,
-    "concreción": 0,
+    "concreción": 100,
     "relleno": 100,
     "huella": 100,
     "voz": 60
    }
   },
-  "reglas": [
-   "poco concreto"
-  ]
+  "reglas": []
  },
  {
   "entrada": "Lo dije: el resultado: nada. En otras palabras, nada.\n\nAl fin y al cabo, da igual.",
@@ -2002,5 +1895,59 @@
    "todas las frases miden parecido",
    "poco concreto"
   ]
+ },
+ {
+  "entrada": "Emails y WhatsApp",
+  "salida": {
+   "texto": "Emails y WhatsApp",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [],
+   "puntos": 79,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  },
+  "reglas": []
+ },
+ {
+  "entrada": "Detecta más AI slop",
+  "salida": {
+   "texto": "Detecta más AI slop",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [],
+   "puntos": 79,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  },
+  "reglas": []
+ },
+ {
+  "entrada": "«Finalizar» en un botón y «Terminar» en otro: te avisa.",
+  "salida": {
+   "texto": "«Finalizar» en un botón y «Terminar» en otro: te avisa.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [],
+   "puntos": 79,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  },
+  "reglas": []
  }
 ]
