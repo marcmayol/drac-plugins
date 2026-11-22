@@ -64,7 +64,39 @@ const RELLENO: &[&str] = &[
     "un abanico de", "un amplio abanico de", "un sinfín de",
 ];
 
+/// From the no-ai-slop skill, in Spanish. Each one adds to the filler count.
+const SENALES: &[(&str, &str)] = &[
+    (r"(?i),{s}*(?:destacando|subrayando|reflejando|evidenciando|resaltando|poniendo de (?:manifiesto|relieve)|consolidando|reafirmando){E}", "gerundio que finge análisis («…, destacando…»): di la consecuencia concreta o quítalo"),
+    (r"(?i){B}(?:marca(?:rá|ba)? un hito|supone un hito|(?:juega|desempeña) un papel|se erige como|sienta las bases|de vital importancia|un testimonio de|un paso de gigante|consolida su (?:posición|liderazgo)){E}", "importancia inflada («marca un hito», «juega un papel»): da el dato y deja que el lector juzgue"),
+    (r"(?i){B}(?:lo (?:importante|interesante|curioso|relevante) (?:aquí )?es|como (?:puedes|podéis|podemos|se puede) ver|como ves|como veis|esto (?:importa|es clave|es importante)|fíjate (?:en|que)|no es casualidad|en otras palabras|dicho de otro modo|lo que (?:casi )?nadie (?:te )?(?:cuenta|dice)|lo que (?:la mayoría|mucha gente|muchos) (?:no sabe|no saben|pasa por alto|pasan por alto|ignora|ignoran)){E}", "le dice al lector qué pensar («lo importante es», «como ves»): enséñalo con el dato y quita el comentario"),
+    (r"(?i){B}(?:los expertos (?:coinciden|afirman|dicen|aseguran|recomiendan)|según (?:los )?expertos|(?:diversos|varios|numerosos|muchos) estudios|los estudios (?:demuestran|muestran|dicen|indican)|está (?:científicamente )?demostrado|se dice que|es bien sabido|todo el mundo sabe|según (?:diversas|varias) fuentes|muchos (?:piensan|creen|opinan|afirman)){E}", "fuente vaga («los expertos coinciden»): nombra la fuente o quita la afirmación"),
+    (r"(?i)(?:^|(?<=[.!?\n])){s}*(?:lo (?:mejor|peor|curioso|bueno|malo|interesante)|la (?:clave|diferencia|razón|sorpresa|moraleja|lección|trampa)|el (?:truco|secreto|resultado|problema|detalle|giro)){E}[^:.\n]{0,30}:{s}", "dos puntos de efecto («Lo mejor: …»): dilo en una frase normal"),
+    (r"(?i){B}(?:(?:ha|han|había|habían|será|serán|fue|fueron) sido \p{L}+(?:ado|ada|ados|adas|ido|ida|idos|idas)|se \p{L}+(?:ará|erá|irá|arán|erán|irán)){E}", "pasiva sin sujeto («se volverá a intentar», «ha sido creado»): di quién lo hace"),
+];
+
+/// The same concept in different words across the texts of a list.
+fn verbo(raiz: &str) -> String {
+    format!("{raiz}(?:ar|a|as|an|ad[oa]s?|ó|ando|e|en|é)")
+}
+
+fn sinonimos() -> Vec<Vec<(&'static str, String)>> {
+    vec![
+        vec![("finalizar", "finaliz(?:ar|a|as|an|ad[oa]s?|ó|ando)|finalic(?:e|en|é)".into()), ("terminar", verbo("termin"))],
+        vec![("teléfono", "tel[eé]fonos?".into()), ("móvil", "m[oó]vil(?:es)?".into())],
+        vec![("borrar", verbo("borr")), ("eliminar", verbo("elimin"))],
+        vec![("añadir", "añad(?:ir|e|es|en|id[oa]s?|ió|í|iendo|a|an)".into()), ("agregar", "agreg(?:ar|a|as|an|ad[oa]s?|ó|ando)|agregu(?:e|en|é)".into())],
+        vec![("enviar", "envi(?:ar|ad[oa]s?|ando)|env[ií](?:a|as|an|ó|é|e|en)".into()), ("mandar", verbo("mand"))],
+        vec![("ajustes", "ajustes".into()), ("configuración", "configuraci[oó]n".into()), ("preferencias", "preferencias".into())],
+        vec![("editar", verbo("edit")), ("modificar", "modific(?:ar|a|as|an|ad[oa]s?|ó|ando)|modifiqu(?:e|en|é)".into())],
+        vec![("correo", "correos?".into()), ("email", "e-?mails?".into())],
+        vec![("cancelar", verbo("cancel")), ("anular", verbo("anul"))],
+    ]
+}
+
 struct Reglas {
+    senales: Vec<(Regex, &'static str)>,
+    remate: Regex,
+    sinonimos: Vec<Vec<(&'static str, Regex)>>,
     cambios: Vec<(Regex, &'static str, &'static str)>,
     relleno: Vec<(Regex, &'static str)>,
     estructuras: Vec<(Regex, &'static str)>,
@@ -80,6 +112,9 @@ struct Reglas {
 }
 
 static REGLAS: LazyLock<Reglas> = LazyLock::new(|| Reglas {
+    senales: SENALES.iter().map(|(p, a)| (re(&plantilla(p)), *a)).collect(),
+    remate: re(&plantilla(r"(?i)^{s}*(?:y eso es todo|así de (?:simple|fácil|sencillo)|ni más ni menos|y punto|(?:esa|ahí) (?:es|está) la clave|eso es lo que (?:importa|cuenta)|en pocas palabras|en síntesis|para (?:terminar|concluir|acabar)|en última instancia|al fin y al cabo){E}")),
+    sinonimos: sinonimos().into_iter().map(|g| g.into_iter().map(|(n, p)| (n, re(&plantilla(&format!("(?i){{B}}(?:{p}){{E}}"))))).collect()).collect(),
     cambios: CAMBIOS.iter().map(|(v, n)| (re(&plantilla(&format!("(?i){{B}}{}{{E}}", escape(v)))), *v, *n)).collect(),
     relleno: RELLENO.iter().map(|r| (re(&plantilla(&format!("{{B}}{}{{E}}", escape(r)))), *r)).collect(),
     estructuras: [
@@ -238,6 +273,10 @@ pub fn revisar(entrada: &str) -> Value {
             avisos.push((*aviso).to_string());
         }
     }
+    let senales: Vec<&str> = r.senales.iter().filter(|(p, _)| coincide(p, &limpio)).map(|(_, a)| *a).collect();
+    for aviso in &senales {
+        avisos.push((*aviso).to_string());
+    }
     let enfasis = bajo.split('\n').any(|p| contar(&r.enfasis, p) >= 2);
     if enfasis {
         avisos.push("«fundamental», «crucial», «clave» juntas en un párrafo: deja una o di por qué importa".to_string());
@@ -263,6 +302,10 @@ pub fn revisar(entrada: &str) -> Value {
     }
 
     let fs = frases(&cambiar_todo(&r.hashtag, &limpio, &mut |_| String::new()));
+    let remate = fs.len() >= 2 && coincide(&r.remate, &fs[fs.len() - 1]);
+    if remate {
+        avisos.push("final que remata o resume («Así de simple», «Al fin y al cabo»): acaba en el último dato o en lo siguiente que hay que hacer".to_string());
+    }
     let largos: Vec<f64> = fs.iter().map(|f| contar(&r.palabra, f) as f64).collect();
     let mut ritmo = 100.0; // a two-sentence tweet has no rhythm to measure
     if largos.len() >= 3 {
@@ -283,7 +326,7 @@ pub fn revisar(entrada: &str) -> Value {
         avisos.push("poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)".to_string());
     }
 
-    let densidad = escala((relleno.len() + usize::from(enfasis) + usize::from(trio)) as f64 * 100.0 / n, 3.0, 0.0);
+    let densidad = escala((relleno.len() + senales.len() + usize::from(remate) + usize::from(enfasis) + usize::from(trio)) as f64 * 100.0 / n, 3.0, 0.0);
     let largo = limpio.chars().count().max(1) as f64;
     let huella = escala((rayas + emojis.saturating_sub(1)) as f64 * 1000.0 / largo, 6.0, 0.0);
     let mut voz = if coincide(&r.primera, &limpio) { 100.0 } else { 60.0 };
@@ -308,4 +351,34 @@ pub fn revisar(entrada: &str) -> Value {
             "voz": entero(voz),
         },
     })
+}
+
+fn cuales(ns: &[usize]) -> String {
+    match ns {
+        [uno] => format!("texto {uno}"),
+        _ => {
+            let (ultimo, resto) = ns.split_last().expect("not empty");
+            format!("textos {} y {ultimo}", resto.iter().map(ToString::to_string).collect::<Vec<_>>().join(", "))
+        }
+    }
+}
+
+/// Warnings for different words for the same thing across the texts (numbered from 1).
+pub fn coherencia(textos: &[&str]) -> Vec<String> {
+    if textos.len() < 2 {
+        return Vec::new();
+    }
+    let mut salen = Vec::new();
+    for grupo in &REGLAS.sinonimos {
+        let usos: Vec<(&str, Vec<usize>)> = grupo
+            .iter()
+            .map(|(n, p)| (*n, textos.iter().enumerate().filter(|(_, t)| coincide(p, t)).map(|(i, _)| i + 1).collect::<Vec<_>>()))
+            .filter(|(_, ns)| !ns.is_empty())
+            .collect();
+        if usos.len() < 2 {
+            continue;
+        }
+        salen.push(format!("mezcla {}: usa una sola palabra para lo mismo", usos.iter().map(|(n, ns)| format!("«{n}» ({})", cuales(ns))).collect::<Vec<_>>().join(" y ")));
+    }
+    salen
 }

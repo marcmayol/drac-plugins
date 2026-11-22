@@ -129,7 +129,7 @@ test('cada revisión va al log sin el texto, y el comando lo enseña y lo borra'
   await $.tool.call({ tool: 'mcp__humanizar__humanizar', textos: ['Mi secreto — con raya y poco más.'] } as never)
 
   const correr = (args: string) => $.command.run({ command: 'humanizar-log', args } as never)
-  const t = (await correr('')).text
+  const t = (await correr('')).text ?? ''
   expect(t).toContain('1 texto revisado desde')
   expect(t).toContain('raya(s)')
   expect(t).toContain('2026-11-02 01:40')

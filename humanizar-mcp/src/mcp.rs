@@ -11,7 +11,8 @@ const DESCRIPCION: &str = "Limpia y puntúa cada texto (0-100, más alto = más 
 Arregla solo lo que no cambia el sentido (invisibles, letras Unicode de negrita,
 «a día de hoy» → «hoy»…) y devuelve `texto` ya limpio; lo que haya en `avisos`
 (relleno de IA, «no es solo X, es Y», rayas, muro de hashtags…) reescríbelo tú y
-vuelve a pasarlo. Publica el `texto` devuelto, no el original.";
+vuelve a pasarlo. Publica el `texto` devuelto, no el original. Si pasas varios textos
+de una misma pieza (los de una interfaz), `coherencia` avisa de palabras distintas para lo mismo.";
 
 fn herramienta() -> Value {
     json!({
@@ -33,9 +34,14 @@ fn llamar(params: &Value) -> Result<Value, (i64, String)> {
     let textos: Option<Vec<&str>> = params["arguments"]["textos"].as_array().and_then(|l| l.iter().map(Value::as_str).collect());
     Ok(match textos {
         Some(t) => {
+            let coherencia = crate::motor::coherencia(&t);
             let result: Vec<Value> = t.into_iter().map(revisar).collect();
             crate::log::anotar(&result);
-            json!({ "content": [{ "type": "text", "text": json!({ "result": result }).to_string() }], "isError": false })
+            let mut salida = json!({ "result": result });
+            if !coherencia.is_empty() {
+                salida["coherencia"] = json!(coherencia);
+            }
+            json!({ "content": [{ "type": "text", "text": salida.to_string() }], "isError": false })
         }
         None => json!({ "content": [{ "type": "text", "text": "humanizar: `textos` tiene que ser una lista de textos." }], "isError": true }),
     })
