@@ -208,3 +208,16 @@ fn dry_run_no_escribe() {
     assert!(!h.join(".codex").exists());
     let _ = std::fs::remove_dir_all(&h);
 }
+
+#[test]
+fn avisa_de_palabras_distintas_para_lo_mismo_entre_textos() {
+    let r = conversacion(&[llamada(&["Finalizar día", "Día terminado", "Tu teléfono", "Subir del móvil"])]);
+    let salida: Value = serde_json::from_str(r[0]["result"]["content"][0]["text"].as_str().unwrap()).unwrap();
+    assert_eq!(salida["coherencia"], json!([
+        "mezcla «finalizar» (texto 1) y «terminar» (texto 2): usa una sola palabra para lo mismo",
+        "mezcla «teléfono» (texto 3) y «móvil» (texto 4): usa una sola palabra para lo mismo",
+    ]));
+    let solo = conversacion(&[llamada(&["Finalizar día y terminar"])]);
+    let salida: Value = serde_json::from_str(solo[0]["result"]["content"][0]["text"].as_str().unwrap()).unwrap();
+    assert!(salida.get("coherencia").is_none(), "one text alone is never checked");
+}

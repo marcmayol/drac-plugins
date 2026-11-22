@@ -1766,5 +1766,241 @@
    }
   },
   "reglas": []
+ },
+ {
+  "entrada": "El lanzamiento añade búsqueda de archivos, destacando el compromiso del equipo con el usuario.",
+  "salida": {
+   "texto": "El lanzamiento añade búsqueda de archivos, destacando el compromiso del equipo con el usuario.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "gerundio que finge análisis («…, destacando…»): di la consecuencia concreta o quítalo",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 31,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 0,
+    "huella": 100,
+    "voz": 60
+   }
+  },
+  "reglas": [
+   "gerundio que finge análisis («…, destacando…»)",
+   "poco concreto"
+  ]
+ },
+ {
+  "entrada": "Esta herramienta juega un papel fundamental y marca un hito en la empresa.",
+  "salida": {
+   "texto": "Esta herramienta juega un papel fundamental y marca un hito en la empresa.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "importancia inflada («marca un hito», «juega un papel»): da el dato y deja que el lector juzgue",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 31,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 0,
+    "huella": 100,
+    "voz": 60
+   }
+  },
+  "reglas": [
+   "importancia inflada («marca un hito», «juega un papel»)",
+   "poco concreto"
+  ]
+ },
+ {
+  "entrada": "Lo importante aquí es que funciona. Como puedes ver, va rápido.",
+  "salida": {
+   "texto": "Lo importante aquí es que funciona. Como puedes ver, va rápido.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "le dice al lector qué pensar («lo importante es», «como ves»): enséñalo con el dato y quita el comentario",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 31,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 0,
+    "huella": 100,
+    "voz": 60
+   }
+  },
+  "reglas": [
+   "le dice al lector qué pensar («lo importante es», «como ves»)",
+   "poco concreto"
+  ]
+ },
+ {
+  "entrada": "Los expertos coinciden en que es mejor. Numerosos estudios lo avalan.",
+  "salida": {
+   "texto": "Los expertos coinciden en que es mejor. Numerosos estudios lo avalan.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "fuente vaga («los expertos coinciden»): nombra la fuente o quita la afirmación",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 31,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 0,
+    "huella": 100,
+    "voz": 60
+   }
+  },
+  "reglas": [
+   "fuente vaga («los expertos coinciden»)",
+   "poco concreto"
+  ]
+ },
+ {
+  "entrada": "Lo mejor de todo: aprende solo.",
+  "salida": {
+   "texto": "Lo mejor de todo: aprende solo.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "dos puntos de efecto («Lo mejor: …»): dilo en una frase normal",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 31,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 0,
+    "huella": 100,
+    "voz": 60
+   }
+  },
+  "reglas": [
+   "dos puntos de efecto («Lo mejor",
+   "poco concreto"
+  ]
+ },
+ {
+  "entrada": "Se volverá a intentar cuando haya conexión. El archivo ha sido creado.",
+  "salida": {
+   "texto": "Se volverá a intentar cuando haya conexión. El archivo ha sido creado.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "pasiva sin sujeto («se volverá a intentar», «ha sido creado»): di quién lo hace",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 31,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 0,
+    "huella": 100,
+    "voz": 60
+   }
+  },
+  "reglas": [
+   "pasiva sin sujeto («se volverá a intentar», «ha sido creado»)",
+   "poco concreto"
+  ]
+ },
+ {
+  "entrada": "He montado el plugin en dos tardes. Funciona con Claude y con Codex. Así de simple.",
+  "salida": {
+   "texto": "He montado el plugin en dos tardes. Funciona con Claude y con Codex. Así de simple.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "final que remata o resume («Así de simple», «Al fin y al cabo»): acaba en el último dato o en lo siguiente que hay que hacer",
+    "todas las frases miden parecido: mezcla alguna corta con otra larga"
+   ],
+   "puntos": 41,
+   "pruebas": {
+    "ritmo": 42,
+    "concreción": 100,
+    "relleno": 0,
+    "huella": 100,
+    "voz": 100
+   }
+  },
+  "reglas": [
+   "final que remata o resume («Así de simple», «Al fin y al cabo»)",
+   "todas las frases miden parecido"
+  ]
+ },
+ {
+  "entrada": "Ayer subí 14 fotos de Osaka a Drive. Tardó 3 minutos con el wifi del hotel.",
+  "salida": {
+   "texto": "Ayer subí 14 fotos de Osaka a Drive. Tardó 3 minutos con el wifi del hotel.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [],
+   "puntos": 79,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 100,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  },
+  "reglas": []
+ },
+ {
+  "entrada": "Así de simple.",
+  "salida": {
+   "texto": "Así de simple.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 43,
+   "pruebas": {
+    "ritmo": 100,
+    "concreción": 0,
+    "relleno": 100,
+    "huella": 100,
+    "voz": 60
+   }
+  },
+  "reglas": [
+   "poco concreto"
+  ]
+ },
+ {
+  "entrada": "Lo dije: el resultado: nada. En otras palabras, nada.\n\nAl fin y al cabo, da igual.",
+  "salida": {
+   "texto": "Lo dije: el resultado: nada. En otras palabras, nada.\n\nAl fin y al cabo, da igual.",
+   "cambiado": false,
+   "arreglos": [],
+   "avisos": [
+    "le dice al lector qué pensar («lo importante es», «como ves»): enséñalo con el dato y quita el comentario",
+    "final que remata o resume («Así de simple», «Al fin y al cabo»): acaba en el último dato o en lo siguiente que hay que hacer",
+    "todas las frases miden parecido: mezcla alguna corta con otra larga",
+    "poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)"
+   ],
+   "puntos": 22,
+   "pruebas": {
+    "ritmo": 21,
+    "concreción": 0,
+    "relleno": 0,
+    "huella": 100,
+    "voz": 60
+   }
+  },
+  "reglas": [
+   "le dice al lector qué pensar («lo importante es», «como ves»)",
+   "final que remata o resume («Así de simple», «Al fin y al cabo»)",
+   "todas las frases miden parecido",
+   "poco concreto"
+  ]
  }
 ]

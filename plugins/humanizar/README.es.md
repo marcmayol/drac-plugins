@@ -11,6 +11,8 @@ Claude Code como plugin y [en otros 14 agentes](#en-otros-agentes) como servidor
 | Pieza | Para qué |
 |---|---|
 | Herramienta `humanizar` | Recibe una lista de textos y devuelve cada uno limpio, con su nota, sus avisos y el desglose de pruebas |
+| Modo automático | Revisa solo el texto de producto en español mientras Claude trabaja ([abajo](#el-modo-automático)) |
+| Orden `/humanizar-auto` | Enciende (`on`), apaga (`off`) o enseña cómo está el modo automático |
 | Orden `/humanizar-log` | Enseña qué reglas saltan más ([el log](#el-log)) |
 | Skill `humanizar` (`/humanizar`) | Le dice a Claude cómo usarla: pasar el texto, reescribir solo lo que avisa, repetir como mucho dos veces y entregar lo último que devolvió la herramienta |
 
@@ -28,11 +30,38 @@ con o sin «solo», «fundamental», «crucial» y «clave» juntas en un párra
 markdown `**…**`, rayas «—», más de 3 hashtags, más de un emoji, empezar con emoji, frases
 todas del mismo largo y texto poco concreto.
 
+Desde la 2.0, también lo que vigila la skill no-ai-slop, en español: gerundios que fingen análisis
+(«…, destacando su compromiso»), importancia inflada («marca un hito», «juega un papel»), frases que
+le dicen al lector qué pensar («lo importante es», «como ves»), fuentes vagas («los expertos
+coinciden»), dos puntos de efecto («Lo mejor: …»), pasivas sin sujeto («se volverá a intentar») y
+finales que rematan («Así de simple», «Al fin y al cabo»). Con varios textos de una misma pieza,
+`coherencia` avisa de palabras distintas para lo mismo («Finalizar» y «Terminar», «teléfono» y «móvil»).
+
 ### La nota
 
 Cinco pruebas de 0 a 100: ritmo (variación del largo de las frases), concreción (cifras,
 nombres, enlaces), relleno, huella (rayas y emojis) y voz (primera persona). La nota mezcla
 la media con la peor, así que un solo fallo grave la baja.
+
+## El modo automático
+
+Viene encendido. Mira solo el **texto de producto en español**: el que va a leer otra gente.
+
+| Dónde | Qué hace |
+|---|---|
+| Write y Edit de .md, .mdx, .txt, .html, .rst, .adoc, .eml | Arregla lo seguro antes de escribir y le dice a Claude qué reescribir |
+| Publicar un Artifact | Revisa el fichero si no pasó ya por Write con el mismo contenido |
+| Claude Docs, Notion, Google Drive, Gmail (borradores), Canva, generar imágenes | Arregla lo seguro en los argumentos y deja la nota después |
+| Enviar un correo o publicar un post (Gmail send, `send`, `publish`, `post`, `tweet`) | Si hay avisos, lo para una vez para que se corrija; la segunda llamada igual pasa |
+| Un correo, WhatsApp, Teams o post que pides en el chat («escríbeme un correo para…») | En ese turno, arregla lo seguro en la cita o el bloque de texto plano y avisa si la nota es baja |
+
+No toca nunca el código (.kt, .ts, .py…, los bloques de código, `<script>` y `<style>`), las
+instrucciones para agentes (CLAUDE.md, AGENTS.md, SKILL.md, memorias, `.claude/`), los textos en
+otro idioma ni las respuestas normales del chat. Además añade al prompt de sistema las reglas para
+ese texto, para que salga limpio desde el principio.
+
+Se apaga con `/humanizar-auto off` (o `HUMANIZAR_AUTO=0`). Las reglas del prompt cambian en la
+próxima conversación; la revisión de las herramientas, al momento.
 
 ## El log
 

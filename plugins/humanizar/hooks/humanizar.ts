@@ -70,6 +70,24 @@ const RELLENO = [
   'un abanico de', 'un amplio abanico de', 'un sinfín de',
 ]
 
+// Lo que viene de la skill no-ai-slop, en español. Cada señal suma al relleno.
+const SENALES: Array<[RegExp, string]> = [
+  [new RegExp(`,\\s*(?:destacando|subrayando|reflejando|evidenciando|resaltando|poniendo de (?:manifiesto|relieve)|consolidando|reafirmando)${E}`, 'iu'),
+    'gerundio que finge análisis («…, destacando…»): di la consecuencia concreta o quítalo'],
+  [new RegExp(`${B}(?:marca(?:rá|ba)? un hito|supone un hito|(?:juega|desempeña) un papel|se erige como|sienta las bases|de vital importancia|un testimonio de|un paso de gigante|consolida su (?:posición|liderazgo))${E}`, 'iu'),
+    'importancia inflada («marca un hito», «juega un papel»): da el dato y deja que el lector juzgue'],
+  [new RegExp(`${B}(?:lo (?:importante|interesante|curioso|relevante) (?:aquí )?es|como (?:puedes|podéis|podemos|se puede) ver|como ves|como veis|esto (?:importa|es clave|es importante)|fíjate (?:en|que)|no es casualidad|en otras palabras|dicho de otro modo|lo que (?:casi )?nadie (?:te )?(?:cuenta|dice)|lo que (?:la mayoría|mucha gente|muchos) (?:no sabe|no saben|pasa por alto|pasan por alto|ignora|ignoran))${E}`, 'iu'),
+    'le dice al lector qué pensar («lo importante es», «como ves»): enséñalo con el dato y quita el comentario'],
+  [new RegExp(`${B}(?:los expertos (?:coinciden|afirman|dicen|aseguran|recomiendan)|según (?:los )?expertos|(?:diversos|varios|numerosos|muchos) estudios|los estudios (?:demuestran|muestran|dicen|indican)|está (?:científicamente )?demostrado|se dice que|es bien sabido|todo el mundo sabe|según (?:diversas|varias) fuentes|muchos (?:piensan|creen|opinan|afirman))${E}`, 'iu'),
+    'fuente vaga («los expertos coinciden»): nombra la fuente o quita la afirmación'],
+  [new RegExp(`(?:^|(?<=[.!?\\n]))\\s*(?:lo (?:mejor|peor|curioso|bueno|malo|interesante)|la (?:clave|diferencia|razón|sorpresa|moraleja|lección|trampa)|el (?:truco|secreto|resultado|problema|detalle|giro))${E}[^:.\\n]{0,30}:\\s`, 'iu'),
+    'dos puntos de efecto («Lo mejor: …»): dilo en una frase normal'],
+  [new RegExp(`${B}(?:(?:ha|han|había|habían|será|serán|fue|fueron) sido \\p{L}+(?:ado|ada|ados|adas|ido|ida|idos|idas)|se \\p{L}+(?:ará|erá|irá|arán|erán|irán))${E}`, 'iu'),
+    'pasiva sin sujeto («se volverá a intentar», «ha sido creado»): di quién lo hace'],
+]
+// La última frase: el remate «profundo» o el resumen que repite lo que ya se ha leído.
+const REMATE = new RegExp(`^\\s*(?:y eso es todo|así de (?:simple|fácil|sencillo)|ni más ni menos|y punto|(?:esa|ahí) (?:es|está) la clave|eso es lo que (?:importa|cuenta)|en pocas palabras|en síntesis|para (?:terminar|concluir|acabar)|en última instancia|al fin y al cabo)${E}`, 'iu')
+
 const ESTRUCTURAS: Array<[RegExp, string]> = [
   [new RegExp(`${B}no (?:es|se trata de) (?:solo|sólo|simplemente|únicamente)${E}[^.\\n]{1,80}?` +
     `[,;:.—–-]\\s*(?:es|sino|se trata de)${E}`, 'iu'),
@@ -169,6 +187,8 @@ export function revisar (texto: string): Revision {
   const relleno = RELLENO.filter(r => new RegExp(`(?<!${W})${escapar(r)}(?!${W})`, 'u').test(bajo))
   if (relleno.length) avisos.push('relleno de IA: ' + relleno.map(r => `«${r}»`).join(', '))
   for (const [patron, aviso] of ESTRUCTURAS) if (patron.test(limpio)) avisos.push(aviso)
+  const senales = SENALES.filter(([p]) => p.test(limpio)).length
+  for (const [p, aviso] of SENALES) if (p.test(limpio)) avisos.push(aviso)
   const enfasis = bajo.split(/\n+/u).some(p => contar(ENFASIS, p) >= 2)
   if (enfasis) avisos.push('«fundamental», «crucial», «clave» juntas en un párrafo: deja una o di por qué importa')
   const trio = [...bajo.matchAll(TRIO)].some(m => m.slice(1).filter(p => ADJETIVO.test(p)).length >= 2)
@@ -182,6 +202,8 @@ export function revisar (texto: string): Revision {
   if (EMOJI_AL_INICIO.test(limpio.trimStart())) avisos.push('empieza con emoji: empieza con la idea')
 
   const fs = frases(limpio.replace(HASHTAG, ''))
+  const remate = fs.length >= 2 && REMATE.test(fs[fs.length - 1]!)
+  if (remate) avisos.push('final que remata o resume («Así de simple», «Al fin y al cabo»): acaba en el último dato o en lo siguiente que hay que hacer')
   const largos = fs.map(f => contar(PALABRA, f))
   let ritmo = 100 // en un tuit de dos frases no hay ritmo que medir
   if (largos.length >= 3) {
@@ -196,7 +218,7 @@ export function revisar (texto: string): Revision {
   const concrecion = escala((concretos * 100) / n, 0, 4)
   if (concrecion < 40) avisos.push('poco concreto: añade una cifra, un nombre o el enlace real (solo si están en la fuente)')
 
-  const densidad = escala(((relleno.length + Number(enfasis) + Number(trio)) * 100) / n, 3, 0)
+  const densidad = escala(((relleno.length + senales + Number(remate) + Number(enfasis) + Number(trio)) * 100) / n, 3, 0)
   const huella = escala(((rayas + Math.max(emojis - 1, 0)) * 1000) / Math.max([...limpio].length, 1), 6, 0)
   let voz = PRIMERA.test(limpio) ? 100 : 60
   voz -= 15 * ESTRUCTURAS.slice(0, 4).filter(([p]) => p.test(limpio)).length
@@ -205,4 +227,37 @@ export function revisar (texto: string): Revision {
   const valores = Object.values(pruebas)
   const puntos = redondear(0.6 * media(valores) + 0.4 * Math.min(...valores))
   return { texto: limpio, cambiado: limpio !== texto, arreglos, avisos, puntos, pruebas }
+}
+
+// El mismo concepto con palabras distintas entre los textos de una lista (los de una interfaz,
+// por ejemplo): «Finalizar» en un botón y «Terminar» en otro. Solo entre textos, no dentro de
+// uno: en prosa alternar es normal.
+const verbo = (raiz: string, extra = '') => `${raiz}(?:ar|a|as|an|ad[oa]s?|ó|ando|e|en|é)${extra}`
+const SINONIMOS: Array<Array<[string, string]>> = [
+  [['finalizar', 'finaliz(?:ar|a|as|an|ad[oa]s?|ó|ando)|finalic(?:e|en|é)'], ['terminar', verbo('termin')]],
+  [['teléfono', 'tel[eé]fonos?'], ['móvil', 'm[oó]vil(?:es)?']],
+  [['borrar', verbo('borr')], ['eliminar', verbo('elimin')]],
+  [['añadir', 'añad(?:ir|e|es|en|id[oa]s?|ió|í|iendo|a|an)'], ['agregar', 'agreg(?:ar|a|as|an|ad[oa]s?|ó|ando)|agregu(?:e|en|é)']],
+  [['enviar', 'envi(?:ar|ad[oa]s?|ando)|env[ií](?:a|as|an|ó|é|e|en)'], ['mandar', verbo('mand')]],
+  [['ajustes', 'ajustes'], ['configuración', 'configuraci[oó]n'], ['preferencias', 'preferencias']],
+  [['editar', verbo('edit')], ['modificar', 'modific(?:ar|a|as|an|ad[oa]s?|ó|ando)|modifiqu(?:e|en|é)']],
+  [['correo', 'correos?'], ['email', 'e-?mails?']],
+  [['cancelar', verbo('cancel')], ['anular', verbo('anul')]],
+]
+const SINONIMOS_RE = SINONIMOS.map(g => g.map(([n, p]) => [n, new RegExp(`${B}(?:${p})${E}`, 'iu')] as const))
+
+const cuales = (ns: number[]) => ns.length === 1 ? `texto ${ns[0]}` : `textos ${ns.slice(0, -1).join(', ')} y ${ns[ns.length - 1]}`
+
+/** Avisos de palabras distintas para lo mismo entre los textos (numerados desde 1). */
+export function coherencia (textos: readonly string[]): string[] {
+  if (textos.length < 2) return []
+  const salen: string[] = []
+  for (const grupo of SINONIMOS_RE) {
+    const usos = grupo
+      .map(([nombre, re]) => [nombre, textos.flatMap((t, i) => re.test(t) ? [i + 1] : [])] as const)
+      .filter(([, ns]) => ns.length > 0)
+    if (usos.length < 2) continue
+    salen.push('mezcla ' + usos.map(([n, ns]) => `«${n}» (${cuales(ns)})`).join(' y ') + ': usa una sola palabra para lo mismo')
+  }
+  return salen
 }

@@ -1,7 +1,7 @@
 {
   "name": "humanizar",
-  "version": "0.5.0",
-  "description": "Clean and score any Spanish text (0-100) so it doesn't read like AI: fixes invisible characters and Unicode bold, flags filler, \"it's not X, it's Y\", em dashes and hashtag walls. Works for posts, articles, emails or READMEs.",
+  "version": "2.0.0",
+  "description": "Clean, score and rewrite Spanish text (0-100) so it doesn't read like AI, keeping the writer's voice. Works by itself on product text: documents, artifacts, emails, designs, posts and the messages you ask for in the chat; never on code or ordinary chat replies.",
   "author": {
     "name": "Marc Mayol",
     "url": "https://github.com/marcmayol"

@@ -11,6 +11,8 @@ as a plugin and [in 14 other agents](#in-other-agents) as an MCP server.
 | Piece | Purpose |
 |---|---|
 | `humanizar` tool | Takes a list of texts and returns each one cleaned, with its score, warnings and per-check breakdown |
+| Automatic mode | Checks only Spanish product text while Claude works ([below](#automatic-mode)) |
+| `/humanizar-auto` command | Turns automatic mode on (`on`), off (`off`) or shows its state |
 | `/humanizar-log` command | Shows which rules fire most ([the log](#the-log)) |
 | `humanizar` skill (`/humanizar`) | Tells Claude how to use it: run the text, rewrite only what gets flagged, repeat at most twice and deliver the last text the tool returned |
 
@@ -27,11 +29,37 @@ AI filler (including «profundizar», «dicho esto», «un sinfín de»), "it's 
 `**…**`, em dashes, more than 3 hashtags, more than one emoji, opening with an emoji,
 sentences all the same length and vague text.
 
+Since 2.0 it also covers what the no-ai-slop skill looks for, in Spanish: trailing gerunds that fake
+analysis («…, destacando su compromiso»), importance puffery («marca un hito»), lines that tell the
+reader what to think («lo importante es»), weasel attribution («los expertos coinciden»), colon
+reveals («Lo mejor: …»), passives with no subject («se volverá a intentar») and fake-profound
+endings («Así de simple»). Given several texts of one piece, `coherencia` flags different words for
+the same thing («Finalizar» and «Terminar», «teléfono» and «móvil»).
+
 ### The score
 
 Five checks from 0 to 100: rhythm, concreteness, filler, footprint (dashes and emojis) and
 voice (first person). The score blends the average with the worst check, so one serious
 problem pulls it down.
+
+## Automatic mode
+
+On by default. It only looks at **Spanish product text**, the text other people will read.
+
+| Where | What it does |
+|---|---|
+| Write and Edit of .md, .mdx, .txt, .html, .rst, .adoc, .eml | Applies the safe fixes before writing and tells Claude what to rewrite |
+| Publishing an Artifact | Checks the file unless Write already saw the same content |
+| Claude Docs, Notion, Google Drive, Gmail drafts, Canva, image generation | Applies the safe fixes to the arguments and leaves the note afterwards |
+| Sending an email or publishing a post (Gmail send, `send`, `publish`, `post`, `tweet`) | With warnings, stops it once so it gets fixed; the same call again goes through |
+| An email, WhatsApp, Teams message or post you ask for in the chat | In that turn, fixes the quote or plain-text block and warns when the score is low |
+
+It never touches code (.kt, .ts, .py…, code blocks, `<script>` and `<style>`), agent instructions
+(CLAUDE.md, AGENTS.md, SKILL.md, memories, `.claude/`), text in other languages or ordinary chat
+replies. It also adds the rules for that text to the system prompt, so it comes out clean.
+
+Turn it off with `/humanizar-auto off` (or `HUMANIZAR_AUTO=0`). The prompt rules change in the
+next conversation; the tool checks, right away.
 
 ## The log
 
