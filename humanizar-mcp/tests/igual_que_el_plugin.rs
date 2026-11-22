@@ -169,6 +169,49 @@ fn setup_deja_cada_agente_listo_sin_repetir() {
 }
 
 #[test]
+fn setup_conecta_el_hook_donde_el_agente_lo_admite() {
+    let h = casa("hooks");
+    for a in AGENTES {
+        setup(&h, a);
+    }
+    let leer = |f: &str| -> Value { serde_json::from_str(&std::fs::read_to_string(h.join(f)).unwrap()).unwrap() };
+    let orden = |v: &Value| v.as_str().unwrap().to_string();
+    let q = leer(".qwen/settings.json");
+    assert_eq!(q["hooks"]["PreToolUse"][0]["matcher"], "^(write_file|edit)$");
+    assert!(orden(&q["hooks"]["PreToolUse"][0]["hooks"][0]["command"]).ends_with("humanizar\" hook"));
+    assert!(q["mcpServers"]["humanizar"].is_object(), "the MCP server and the hook in the same file");
+    let g = leer(".gemini/settings.json");
+    for e in ["BeforeTool", "AfterTool"] {
+        assert_eq!(g["hooks"][e][0]["matcher"], "^(write_file|replace)$", "{e}");
+    }
+    let ag = leer(".gemini/config/hooks.json");
+    assert_eq!(ag["humanizar"]["PreToolUse"][0]["matcher"], "^(write_to_file|replace_file_content)$");
+    // Devin (what Windsurf became) gets the rules too.
+    assert!(std::fs::read_to_string(h.join(".devin/global_rules.md")).unwrap().contains("<!-- humanizar -->"));
+    // The product rules go with the instructions.
+    assert!(std::fs::read_to_string(h.join(".qwen/QWEN.md")).unwrap().contains("Una palabra para cada cosa"));
+    // Never in Claude Code's settings: other agents read them too, in another format.
+    assert!(!h.join(".claude").exists());
+    let _ = std::fs::remove_dir_all(&h);
+}
+
+#[test]
+fn setup_pone_al_dia_las_instrucciones_de_una_version_anterior() {
+    let h = casa("al-dia");
+    let d = h.join(".qwen");
+    std::fs::create_dir_all(&d).unwrap();
+    std::fs::write(d.join("QWEN.md"), "Mías\n\n<!-- humanizar -->\n## Humanizar\n\nTexto viejo.\n<!-- /humanizar -->\n\nMás mías\n").unwrap();
+    setup(&h, "qwen");
+    let md = std::fs::read_to_string(d.join("QWEN.md")).unwrap();
+    assert!(md.starts_with("Mías\n\n<!-- humanizar -->\n## Humanizar"));
+    assert!(md.ends_with("<!-- /humanizar -->\n\nMás mías\n"));
+    assert!(!md.contains("Texto viejo") && md.contains("Una palabra para cada cosa"));
+    assert_eq!(md.matches("<!-- humanizar -->").count(), 1);
+    assert!(setup(&h, "qwen").contains("already set up"));
+    let _ = std::fs::remove_dir_all(&h);
+}
+
+#[test]
 fn respeta_lo_que_ya_habia_y_guarda_copia() {
     let h = casa("respeta");
     let d = h.join(".gemini");

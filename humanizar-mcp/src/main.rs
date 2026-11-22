@@ -1,6 +1,8 @@
+mod hook;
 mod log;
 mod mcp;
 mod motor;
+mod producto;
 mod setup;
 
 use std::io::{ErrorKind, Read, Write};
@@ -12,6 +14,7 @@ Usage:
   humanizar setup <agent> [--dry-run]   Get an agent ready: MCP server, instructions, /humanizar
   humanizar setup --all [--dry-run]     The same, in every agent found on this computer
   humanizar mcp                         Run the MCP server over stdio (the agents start this)
+  humanizar hook                        Answer an agent's hook event on stdin (setup installs it)
   humanizar check [file]                Print the result for a file, or for stdin, as JSON
   humanizar log [--raw | --clear]       Which rules fire most, from what the agents sent to the tool
   humanizar --version
@@ -91,6 +94,11 @@ fn main() -> ExitCode {
     let resto = args.get(1..).unwrap_or_default();
     let r = match args.first().map(String::as_str) {
         Some("mcp") => mcp::servir().map_err(|e| e.to_string()),
+        // Never an error: a hook that fails must not stop the agent.
+        Some("hook") => {
+            hook::correr();
+            Ok(())
+        }
         Some("setup") => hacer_setup(resto),
         Some("check") => comprobar(resto),
         Some("log") => log::mostrar(resto).and_then(|s| imprimir(&s)),

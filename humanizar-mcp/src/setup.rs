@@ -10,7 +10,7 @@ pub const AGENTES: &[&str] = &["codex", "gemini", "cursor", "opencode", "qwen", 
 
 const INICIO: &str = "<!-- humanizar -->";
 const FIN: &str = "<!-- /humanizar -->";
-const INSTRUCCIONES: &str = "## Humanizar\n\nYou have the `humanizar` tool (MCP). Before delivering Spanish prose that other people will read (a post, an article, an email, a README), or when the user asks for it to stop sounding like AI, pass it through `humanizar`. Keep the `texto` it returns, rewrite only what `avisos` flags, and pass it again, two rounds at most. Deliver the last `texto` it returned. Don't invent figures or names to raise the score.";
+const INSTRUCCIONES: &str = "## Humanizar\n\nYou have the `humanizar` tool (MCP). Before delivering Spanish prose that other people will read (a post, an article, an email, a README), or when the user asks for it to stop sounding like AI, pass it through `humanizar`. Keep the `texto` it returns, rewrite only what `avisos` flags, and pass it again, two rounds at most. Deliver the last `texto` it returned. Don't invent figures or names to raise the score.\n\nReglas para el texto en español que se entrega a otra gente (documentos, posts, correos, textos de una interfaz o de un diseño), no para tus respuestas en el chat:\n- Al grano y concreto, sin inventar datos. Voz activa y con sujeto: «Tokimichi lo intentará otra vez», no «se volverá a intentar».\n- Una palabra para cada cosa: si un botón dice «Terminar», otro no dice «Finalizar».\n- Nada de «no es solo X, es Y», gerundios de relleno («…, destacando su compromiso»), importancia inflada («marca un hito»), fuentes vagas («los expertos coinciden»), preguntas retóricas, remates («Así de simple»), relleno («a día de hoy», «cabe destacar») ni rayas «—» como muletilla.\n- Si corriges un texto ajeno, haz la edición mínima y respeta su voz.";
 
 const DESCRIPCION_ORDEN: &str = "Clean and score Spanish text so it doesn't read like AI";
 const TEXTO_ORDEN: &str = "Pass the text the user wrote after this command, or the file they name, or the last text you wrote, through the `humanizar` tool (a list of texts; skip code, tables and front matter). Keep the `texto` it returns. If there are `avisos` or the score is under 80, rewrite only those sentences and pass it again, two rounds at most: say the idea directly instead of filler or «no es solo X, es Y», use a comma, full stop or brackets instead of em dashes, and add a figure, name or link only if the source has it. A `voz` of 60 means no first person: ignore it in impersonal text such as documentation. Deliver the last `texto` the tool returned and its score, and say which warning remains and why. Don't overwrite a file unless asked.";
@@ -83,12 +83,88 @@ fn bonito(v: &Value) -> String {
     serde_json::to_string_pretty(v).expect("JSON") + "\n"
 }
 
+/// The JSON a file will hold: what an earlier change in this plan already left in it, or what is on disk.
+/// That earlier change is taken out of the plan: the caller puts back the merged one.
+fn base_json(v: &mut Vec<Cambio>, fichero: &Path) -> Result<(Value, &'static str), String> {
+    if let Some(i) = v.iter().position(|c| c.fichero == fichero) {
+        let c = v.remove(i);
+        return Ok((serde_json::from_str(&c.contenido).map_err(|e| e.to_string())?, c.que));
+    }
+    Ok((leer_json(fichero)?, ""))
+}
+
+fn junto(antes: &'static str, ahora: &'static str) -> &'static str {
+    match (antes, ahora) {
+        ("", a) => a,
+        ("MCP server", "hook") => "MCP server and hook",
+        (a, _) => a,
+    }
+}
+
 fn mcp_json(v: &mut Vec<Cambio>, fichero: PathBuf, raiz: &str, entrada: Value) -> Result<(), String> {
-    let mut j = leer_json(&fichero)?;
+    let (mut j, antes) = base_json(v, &fichero)?;
     let servidores = objeto(&mut j, raiz);
-    if !servidores.contains_key("humanizar") {
+    let nuevo = !servidores.contains_key("humanizar");
+    if nuevo {
         servidores.insert("humanizar".into(), entrada);
-        v.push(Cambio { fichero, que: "MCP server", contenido: bonito(&j) });
+    }
+    if nuevo || !antes.is_empty() {
+        v.push(Cambio { fichero, que: if nuevo { junto(antes, "MCP server") } else { antes }, contenido: bonito(&j) });
+    }
+    Ok(())
+}
+
+/// The command an agent runs for the hook.
+fn orden_hook(bin: &str) -> String {
+    format!("\"{bin}\" hook")
+}
+
+fn es_nuestro(h: &Value) -> bool {
+    h.get("command").and_then(Value::as_str).is_some_and(|c| c.contains("humanizar") && c.trim_end().ends_with(" hook"))
+}
+
+/// A `PreToolUse`-style hook group in `settings.json`, as Qwen Code and Gemini CLI read it:
+/// `hooks.<event>: [{ matcher, hooks: [{ type, command, … }] }]`.
+fn hook_json(v: &mut Vec<Cambio>, fichero: PathBuf, eventos: &[&str], matcher: &str, extra: Value) -> Result<(), String> {
+    let (mut j, antes) = base_json(v, &fichero)?;
+    let bin = binario()?;
+    let mut nuevo = false;
+    for evento in eventos {
+        let hooks = objeto(&mut j, "hooks");
+        if !hooks.get(*evento).is_some_and(Value::is_array) {
+            hooks.insert((*evento).into(), json!([]));
+        }
+        let grupos = hooks[*evento].as_array_mut().expect("just made a list");
+        let ya = grupos.iter().any(|g| g.get("hooks").and_then(Value::as_array).is_some_and(|hs| hs.iter().any(es_nuestro)));
+        if !ya {
+            let mut h = json!({ "type": "command", "command": orden_hook(&bin), "name": "humanizar" });
+            if let (Some(h), Some(e)) = (h.as_object_mut(), extra.as_object()) {
+                h.extend(e.clone());
+            }
+            grupos.push(json!({ "matcher": matcher, "hooks": [h] }));
+            nuevo = true;
+        }
+    }
+    if nuevo || !antes.is_empty() {
+        v.push(Cambio { fichero, que: if nuevo { junto(antes, "hook") } else { antes }, contenido: bonito(&j) });
+    }
+    Ok(())
+}
+
+/// Antigravity's `hooks.json`: hook names that map to their events.
+fn hook_antigravity(v: &mut Vec<Cambio>, fichero: PathBuf) -> Result<(), String> {
+    let (mut j, antes) = base_json(v, &fichero)?;
+    let bin = binario()?;
+    let o = j.as_object_mut().ok_or_else(|| format!("{} isn't a JSON object", fichero.display()))?;
+    let nuevo = !o.contains_key("humanizar");
+    if nuevo {
+        o.insert(
+            "humanizar".into(),
+            json!({ "PreToolUse": [{ "matcher": "^(write_to_file|replace_file_content)$", "hooks": [{ "type": "command", "command": orden_hook(&bin), "timeout": 10 }] }] }),
+        );
+    }
+    if nuevo || !antes.is_empty() {
+        v.push(Cambio { fichero, que: if nuevo { junto(antes, "hook") } else { antes }, contenido: bonito(&j) });
     }
     Ok(())
 }
@@ -112,10 +188,20 @@ fn mcp_toml(v: &mut Vec<Cambio>, toml: PathBuf, bin: &str) -> Result<(), String>
 
 fn instrucciones(v: &mut Vec<Cambio>, fichero: PathBuf) -> Result<(), String> {
     let actual = if fichero.exists() { std::fs::read_to_string(&fichero).map_err(|e| format!("{}: {e}", fichero.display()))? } else { String::new() };
-    if !actual.contains(INICIO) {
-        let sep = if actual.is_empty() || actual.ends_with("\n\n") { "" } else if actual.ends_with('\n') { "\n" } else { "\n\n" };
-        let contenido = format!("{actual}{sep}{INICIO}\n{INSTRUCCIONES}\n{FIN}\n");
-        v.push(Cambio { fichero, que: "instructions", contenido });
+    let bloque = format!("{INICIO}\n{INSTRUCCIONES}\n{FIN}");
+    match (actual.find(INICIO), actual.find(FIN)) {
+        // Already there: brought up to date if an older version wrote another text.
+        (Some(i), Some(f)) if f > i => {
+            let contenido = format!("{}{bloque}{}", &actual[..i], &actual[f + FIN.len()..]);
+            if contenido != actual {
+                v.push(Cambio { fichero, que: "instructions (updated)", contenido });
+            }
+        }
+        (Some(_), _) => {}
+        _ => {
+            let sep = if actual.is_empty() || actual.ends_with("\n\n") { "" } else if actual.ends_with('\n') { "\n" } else { "\n\n" };
+            v.push(Cambio { fichero, que: "instructions", contenido: format!("{actual}{sep}{bloque}\n") });
+        }
     }
     Ok(())
 }
@@ -156,6 +242,8 @@ pub fn plan(agente: &str) -> Result<Vec<Cambio>, String> {
         "gemini" => {
             let d = h.join(".gemini");
             mcp_json(&mut v, d.join("settings.json"), "mcpServers", normal)?;
+            // BeforeTool fixes the arguments; AfterTool tells the model (BeforeTool can't). Timeout in ms.
+            hook_json(&mut v, d.join("settings.json"), &["BeforeTool", "AfterTool"], "^(write_file|replace)$", json!({ "timeout": 10000 }))?;
             instrucciones(&mut v, d.join("GEMINI.md"))?;
             orden(&mut v, d.join("commands"), Formato::Toml);
         }
@@ -174,6 +262,7 @@ pub fn plan(agente: &str) -> Result<Vec<Cambio>, String> {
         "qwen" => {
             let d = h.join(".qwen");
             mcp_json(&mut v, d.join("settings.json"), "mcpServers", normal)?;
+            hook_json(&mut v, d.join("settings.json"), &["PreToolUse"], "^(write_file|edit)$", json!({ "timeout": 10 }))?;
             instrucciones(&mut v, d.join("QWEN.md"))?;
             orden(&mut v, d.join("commands"), Formato::Md(true));
         }
@@ -194,11 +283,14 @@ pub fn plan(agente: &str) -> Result<Vec<Cambio>, String> {
             mcp_json(&mut v, config_sistema(&h).join("devin").join("mcp_config.json"), "mcpServers", normal.clone())?;
             mcp_json(&mut v, d.join("mcp_config.json"), "mcpServers", normal)?;
             instrucciones(&mut v, d.join("memories").join("global_rules.md"))?;
+            // Devin (what Windsurf became) reads its global rules here.
+            instrucciones(&mut v, h.join(".devin").join("global_rules.md"))?;
             orden(&mut v, d.join("global_workflows"), Formato::Md(true));
         }
         "antigravity" => {
             let d = h.join(".gemini").join("config");
             mcp_json(&mut v, d.join("mcp_config.json"), "mcpServers", normal)?;
+            hook_antigravity(&mut v, d.join("hooks.json"))?;
             instrucciones(&mut v, d.join("AGENTS.md"))?;
         }
         "kimi" => {

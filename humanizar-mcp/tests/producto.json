@@ -1,0 +1,118 @@
+[
+ {
+  "ruta": "/p/post.md",
+  "contenido": "# A día de hoy\n\nA día de hoy utilizo esto para mi equipo, destacando su compromiso con el producto.\n\n```js\nconst a = 'a día de hoy'\n```\n\nLos expertos coinciden en que es lo mejor del mercado para todos.\n",
+  "tipo": "md",
+  "arreglado": "# Hoy\n\nHoy uso esto para mi equipo, destacando su compromiso con el producto.\n\n```js\nconst a = 'a día de hoy'\n```\n\nLos expertos coinciden en que es lo mejor del mercado para todos.\n",
+  "arreglos": [
+   "«a día de hoy» → «hoy»",
+   "«utilizo» → «uso»"
+  ],
+  "textos": [
+   "Hoy",
+   "Hoy uso esto para mi equipo, destacando su compromiso con el producto.",
+   "Los expertos coinciden en que es lo mejor del mercado para todos."
+  ],
+  "espanol": true,
+  "mensaje": "humanizar (/p/post.md):\n- Arreglado solo: «a día de hoy» → «hoy»; «utilizo» → «uso».\n- Reescribe esto sin cambiar el sentido ni inventar datos, con la edición mínima y respetando la voz del texto:\n  - «Hoy uso esto para mi equipo, destacando su compromiso con el producto.»: gerundio que finge análisis («…, destacando…»): di la consecuencia concreta o quítalo\n  - «Los expertos coinciden en que es lo mejor del mercado para todos.»: fuente vaga («los expertos coinciden»): nombra la fuente o quita la afirmación"
+ },
+ {
+  "ruta": "/p/notas.txt",
+  "contenido": "Hola, te escribo porque a día de hoy no tenemos fecha para la reunión de la semana que viene.",
+  "tipo": "texto",
+  "arreglado": "Hola, te escribo porque hoy no tenemos fecha para la reunión de la semana que viene.",
+  "arreglos": [
+   "«a día de hoy» → «hoy»"
+  ],
+  "textos": [
+   "Hola, te escribo porque hoy no tenemos fecha para la reunión de la semana que viene."
+  ],
+  "espanol": true,
+  "mensaje": "humanizar (/p/notas.txt):\n- Arreglado solo: «a día de hoy» → «hoy»."
+ },
+ {
+  "ruta": "/p/index.html",
+  "contenido": "<html><body><h1>Finalizar el día</h1><p title=\"A día de hoy\">Cuando termines, pulsa el botón y se guardará todo lo que has hecho hoy.</p><button>Terminar día</button><script>const x = 'a día de hoy'</script><p>Tu móvil o tu teléfono, como prefieras.</p></body></html>",
+  "tipo": "html",
+  "arreglado": "<html><body><h1>Finalizar el día</h1><p title=\"A día de hoy\">Cuando termines, pulsa el botón y se guardará todo lo que has hecho hoy.</p><button>Terminar día</button><script>const x = 'a día de hoy'</script><p>Tu móvil o tu teléfono, como prefieras.</p></body></html>",
+  "arreglos": [],
+  "textos": [
+   "A día de hoy",
+   "Finalizar el día",
+   "Cuando termines, pulsa el botón y se guardará todo lo que has hecho hoy.",
+   "Terminar día",
+   "Tu móvil o tu teléfono, como prefieras."
+  ],
+  "espanol": true,
+  "mensaje": "humanizar (/p/index.html):\n- Reescribe esto sin cambiar el sentido ni inventar datos, con la edición mínima y respetando la voz del texto:\n  - «Cuando termines, pulsa el botón y se guardará todo lo que has hecho hoy.»: pasiva sin sujeto («se volverá a intentar», «ha sido creado»): di quién lo hace\n  - mezcla «finalizar» (texto 2) y «terminar» (texto 4): usa una sola palabra para lo mismo"
+ },
+ {
+  "ruta": "/p/README.md",
+  "contenido": "---\ntitle: a día de hoy\n---\nThis is an English document that should never be touched by the Spanish engine at all.\n",
+  "tipo": "md",
+  "arreglado": "---\ntitle: a día de hoy\n---\nThis is an English document that should never be touched by the Spanish engine at all.\n",
+  "arreglos": [],
+  "textos": [
+   "This is an English document that should never be touched by the Spanish engine at all."
+  ],
+  "espanol": false,
+  "mensaje": null
+ },
+ {
+  "ruta": "/p/CLAUDE.md",
+  "contenido": "A día de hoy esto es para el agente y no se toca.",
+  "tipo": null
+ },
+ {
+  "ruta": "/p/src/main.rs",
+  "contenido": "// a día de hoy\nfn main() {}",
+  "tipo": null
+ },
+ {
+  "ruta": "/p/.claude/notas.md",
+  "contenido": "A día de hoy esto es para el agente y no se toca nunca.",
+  "tipo": null
+ },
+ {
+  "ruta": "/p/lista.md",
+  "contenido": "Cosas que hacer hoy en la casa de la playa con los niños:\n\n- A día de hoy, limpiar el **jardín** de la casa\n- Revisar la [web](https://a.b/a-dia-de-hoy) y el `código`\n\n    código sangrado a día de hoy\n\n> Una cita que a día de hoy sigue viva para mí y para todos.\n",
+  "tipo": "md",
+  "arreglado": "Cosas que hacer hoy en la casa de la playa con los niños:\n\n- Hoy, limpiar el **jardín** de la casa\n- Revisar la [web](https://a.b/a-dia-de-hoy) y el `código`\n\n    código sangrado a día de hoy\n\n> Una cita que hoy sigue viva para mí y para todos.\n",
+  "arreglos": [
+   "«a día de hoy» → «hoy»"
+  ],
+  "textos": [
+   "Cosas que hacer hoy en la casa de la playa con los niños:",
+   "Hoy, limpiar el **jardín** de la casa",
+   "Revisar la web y el código",
+   "Una cita que hoy sigue viva para mí y para todos."
+  ],
+  "espanol": true,
+  "mensaje": "humanizar (/p/lista.md):\n- Arreglado solo: «a día de hoy» → «hoy»."
+ },
+ {
+  "ruta": "/p/ui.html",
+  "contenido": "<div>&iquest;Qu&eacute; ha pasado hoy en la oficina?</div><span>Escribe aquí lo que quieras para el equipo y para ti.</span><pre>a día de hoy</pre><!-- a día de hoy -->",
+  "tipo": "html",
+  "arreglado": "<div>&iquest;Qu&eacute; ha pasado hoy en la oficina?</div><span>Escribe aquí lo que quieras para el equipo y para ti.</span><pre>a día de hoy</pre><!-- a día de hoy -->",
+  "arreglos": [],
+  "textos": [
+   "¿Qu&eacute; ha pasado hoy en la oficina?",
+   "Escribe aquí lo que quieras para el equipo y para ti."
+  ],
+  "espanol": true,
+  "mensaje": null
+ },
+ {
+  "ruta": "/p/largo.md",
+  "contenido": "Es fundamental, crucial y clave para mí y para todo el equipo que trabaja en esta empresa desde hace años. No es solo una herramienta, es un cambio de paradigma para la forma en que trabajamos todos los días en la oficina y fuera de ella. Así de simple.",
+  "tipo": "md",
+  "arreglado": "Es fundamental, crucial y clave para mí y para todo el equipo que trabaja en esta empresa desde hace años. No es solo una herramienta, es un cambio de paradigma para la forma en que trabajamos todos los días en la oficina y fuera de ella. Así de simple.",
+  "arreglos": [],
+  "textos": [
+   "Es fundamental, crucial y clave para mí y para todo el equipo que trabaja en esta empresa desde hace años. No es solo una herramienta, es un cambio de paradigma para la forma en que trabajamos todos los días en la oficina y fuera de ella. Así de simple."
+  ],
+  "espanol": true,
+  "mensaje": "humanizar (/p/largo.md):\n- Reescribe esto sin cambiar el sentido ni inventar datos, con la edición mínima y respetando la voz del texto:\n  - «Es fundamental, crucial y clave para mí y para todo el equipo que trabaja en esta empresa…»: relleno de IA: «es fundamental», «cambio de paradigma»; «no es solo X, es Y»: di Y directamente; «fundamental», «crucial», «clave» juntas en un párrafo: deja una o di por qué importa; final que remata o resume («Así de simple», «Al fin y al cabo»): acaba en el último dato o en lo siguiente que hay que hacer"
+ }
+]

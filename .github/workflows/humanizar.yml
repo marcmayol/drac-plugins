@@ -34,7 +34,7 @@ jobs:
       - name: The TypeScript engine still gives the saved answers
         run: |
           node humanizar-mcp/tests/generar_golden.mjs
-          git diff --ignore-cr-at-eol --exit-code humanizar-mcp/tests/golden.json
+          git diff --ignore-cr-at-eol --exit-code humanizar-mcp/tests/golden.json humanizar-mcp/tests/producto.json
       - run: cargo test --release --locked
         working-directory: humanizar-mcp
 

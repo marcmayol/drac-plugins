@@ -126,6 +126,32 @@ agent's documentation, with the same paths as `omoi setup`.
 
 `humanizar check <file>` gives the result in the terminal, with no agent.
 
+### Hooked into the agent
+
+With MCP, the agent has to remember to call the tool. Since 2.1.0, where the agent has hooks that can
+change a tool's arguments, `setup` also hooks up `humanizar hook`: each time the agent is about to write a
+document (.md, .txt, .html…; never code or the agents' own instructions) in Spanish, the hook fixes the
+safe things before it's written and tells the model what to rewrite. Nobody has to ask.
+
+| Agent | How it's hooked | Where |
+|---|---|---|
+| Qwen Code | `PreToolUse` hook on `write_file` and `edit` | `~/.qwen/settings.json` |
+| Gemini CLI | `BeforeTool` (fixes) and `AfterTool` (tells) hooks on `write_file` and `replace` | `~/.gemini/settings.json` |
+| Antigravity | `PreToolUse` hook on `write_to_file` and `replace_file_content` | `~/.gemini/config/hooks.json` |
+| The rest | MCP and the rules only | |
+
+Not yet in the rest: their hooks can't change the arguments (Kimi Code), their docs don't say which fields
+the write tool sends (Devin, Kiro, Grok Build, GitHub Copilot, Cursor), they send a patch instead of the text
+(Codex), or they need TypeScript plugins (OpenCode, Kilo, Pi, Amp).
+
+`setup` also puts the short product-text rules (active voice, one word per thing, no filler or em
+dashes…) in each agent's instructions, and Windsurf, now Devin, gets them in `~/.devin/global_rules.md`
+too. If an older version left them, they're brought up to date.
+
+The hook keeps nothing between calls, doesn't look at chat replies and stops no sends: only the Claude Code
+plugin does that. Turn it off with `HUMANIZAR_AUTO=0`. To remove it, delete the `humanizar` hook group from
+each agent's file.
+
 ## Tests
 
 ```
