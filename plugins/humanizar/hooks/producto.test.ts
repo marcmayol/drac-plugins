@@ -11,7 +11,7 @@ test('qué fichero es texto de producto', () => {
   expect(tipoDeFichero('/p/README.md')).toBe('md')
   expect(tipoDeFichero('/p/project/S-Inicio.dc.html')).toBe('html')
   expect(tipoDeFichero('/p/nota.txt')).toBe('texto')
-  for (const no of ['/p/App.kt', '/p/main.ts', '/p/CLAUDE.md', '/p/skills/x/SKILL.md', '/Users/m/.claude/memory/a.md', '/p/node_modules/a/README.md']) {
+  for (const no of ['/p/App.kt', '/p/main.ts', '/p/CLAUDE.md', '/p/skills/x/SKILL.md', '/Users/m/.claude/memory/a.md', '/p/node_modules/a/README.md', '/p/QWEN.md', '/Users/m/.qwen/QWEN.md', '/Users/m/.kiro/steering/humanizar.md', '/Users/m/.devin/global_rules.md', '/Users/m/.codeium/windsurf/memories/global_rules.md', '/p/.github/copilot-instructions.md', '/p/.github/instructions/a.md', '/Users/m/.config/kilo/humanizar.md']) {
     expect(tipoDeFichero(no)).toBe(null)
   }
 })
