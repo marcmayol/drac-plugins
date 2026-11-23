@@ -69,7 +69,7 @@ struct Reglas {
 static R: LazyLock<Reglas> = LazyLock::new(|| Reglas {
     documento: re(r"(?i)\.(?:md|mdx|markdown|txt|html?|rst|adoc|eml)$"),
     // Instructions for agents and memories: not product, and rewriting them changes how agents work.
-    de_agentes: re(r"(?i)(?:^|[\\/])(?:CLAUDE|AGENTS|GEMINI|SKILL|MEMORY)\.md$|(?:^|[\\/])\.(?:claude|codex|gemini|cursor|agents)[\\/]|[\\/]memory[\\/]|[\\/]node_modules[\\/]"),
+    de_agentes: re(r"(?i)(?:^|[\\/])(?:CLAUDE|AGENTS|GEMINI|QWEN|SKILL|MEMORY|copilot-instructions|global_rules)\.md$|(?:^|[\\/])\.(?:claude|codex|gemini|qwen|cursor|agents|kiro|devin|windsurf|codeium|github[\\/]instructions|kilocode|kilo|clinerules|roo|config[\\/](?:opencode|kilo))[\\/]|[\\/]memor(?:y|ies)[\\/]|[\\/]node_modules[\\/]"),
     html: re(r"(?i)\.html?$"),
     texto: re(r"(?i)\.(?:txt|eml)$"),
     protegido: re("`[^`\\n]*`|\\]\\([^)\\s]*\\)|https?://\\S+|<[^>\\n]*>|&[a-z#0-9]+;|[\u{a0}\u{202f}]|(?:\\p{Extended_Pictographic}\u{fe0f}?\u{200d})+\\p{Extended_Pictographic}\u{fe0f}?"),

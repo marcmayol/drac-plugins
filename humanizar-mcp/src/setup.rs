@@ -160,7 +160,11 @@ fn hook_antigravity(v: &mut Vec<Cambio>, fichero: PathBuf) -> Result<(), String>
     if nuevo {
         o.insert(
             "humanizar".into(),
-            json!({ "PreToolUse": [{ "matcher": "^(write_to_file|replace_file_content)$", "hooks": [{ "type": "command", "command": orden_hook(&bin), "timeout": 10 }] }] }),
+            json!({
+                "PreToolUse": [{ "matcher": "^(write_to_file|replace_file_content|write_file|edit_file)$", "hooks": [{ "type": "command", "command": orden_hook(&bin), "timeout": 10 }] }],
+                // Hands the model the note of the last write: it doesn't see `reason` on an allowed call.
+                "PreInvocation": [{ "type": "command", "command": orden_hook(&bin), "timeout": 10 }],
+            }),
         );
     }
     if nuevo || !antes.is_empty() {

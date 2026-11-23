@@ -35,7 +35,7 @@ export type Informe = {
 
 const DOCUMENTO = /\.(?:md|mdx|markdown|txt|html?|rst|adoc|eml)$/i
 // Instrucciones para agentes y memorias: no son producto, y reescribirlas cambia cómo trabajan.
-const DE_AGENTES = /(?:^|[\\/])(?:CLAUDE|AGENTS|GEMINI|SKILL|MEMORY)\.md$|(?:^|[\\/])\.(?:claude|codex|gemini|cursor|agents)[\\/]|[\\/]memory[\\/]|[\\/]node_modules[\\/]/i
+const DE_AGENTES = /(?:^|[\\/])(?:CLAUDE|AGENTS|GEMINI|QWEN|SKILL|MEMORY|copilot-instructions|global_rules)\.md$|(?:^|[\\/])\.(?:claude|codex|gemini|qwen|cursor|agents|kiro|devin|windsurf|codeium|github[\\/]instructions|kilocode|kilo|clinerules|roo|config[\\/](?:opencode|kilo))[\\/]|[\\/]memor(?:y|ies)[\\/]|[\\/]node_modules[\\/]/i
 
 /** El tipo de un fichero de documento, o null si no es texto de producto. */
 export function tipoDeFichero (ruta: string): Tipo | null {

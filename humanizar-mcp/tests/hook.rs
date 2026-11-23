@@ -107,6 +107,41 @@ fn antigravity_replace_file_content() {
 }
 
 #[test]
+fn antigravity_cli_write_file_y_edit_file() {
+    // As `agy` 1.5 sends them: `write_file` and `edit_file` with its own argument names.
+    let e = json!({ "hookEventName": "PreToolUse", "stepIdx": 2, "toolCall": { "id": "i", "name": "write_file", "args": { "Path": "/w/post.md", "Content": POST } } });
+    let s = hook(&e.to_string()).expect("an answer");
+    assert_eq!(s["decision"], "allow");
+    assert_eq!(s["overwrite"], json!({ "Content": LIMPIO }));
+    let f = fichero("cli.md", "# Nota\n\nEsta es la página de la casa de la playa para los niños.\n\nTexto viejo.\n");
+    let e = json!({ "hookEventName": "PreToolUse", "toolCall": { "name": "edit_file", "args": { "Path": f, "Target": "Texto viejo.", "Replacement": "A día de hoy está cerrada." } } });
+    let s = hook(&e.to_string()).expect("an answer");
+    assert_eq!(s["overwrite"], json!({ "Replacement": "Hoy está cerrada." }));
+    // Qwen's and Gemini's argument names under Antigravity's `write_file` are not its own: nothing.
+    let e = json!({ "toolCall": { "name": "write_file", "args": { "file_path": "/w/post.md", "content": POST } } });
+    assert_eq!(hook(&e.to_string()), None);
+    // After the tool has run, Antigravity ignores the answer: say nothing.
+    let e = json!({ "hookEventName": "PostToolUse", "toolCall": { "name": "write_file", "args": { "Path": "/w/post.md", "Content": POST } } });
+    assert_eq!(hook(&e.to_string()), None);
+}
+
+#[test]
+fn antigravity_pasa_la_nota_en_el_siguiente_pre_invocation() {
+    // Antigravity doesn't show `reason` on an allowed call: the next PreInvocation hands it over, once.
+    let id = format!("prueba-{}", std::process::id());
+    let e = json!({ "hookEventName": "PreToolUse", "conversationId": id, "toolCall": { "name": "write_file", "args": { "Path": "/w/post.md", "Content": POST } } });
+    let s = hook(&e.to_string()).expect("an answer");
+    let nota = s["reason"].as_str().unwrap().to_string();
+    let antes = json!({ "hookEventName": "PreInvocation", "conversationId": id, "invocationNum": 1, "initialNumSteps": 3 });
+    let s = hook(&antes.to_string()).expect("the note");
+    assert_eq!(s["injectSteps"][0]["ephemeralMessage"], nota.as_str());
+    assert_eq!(hook(&antes.to_string()), None, "only once");
+    // Another conversation gets nothing.
+    let otra = json!({ "hookEventName": "PreInvocation", "conversationId": "otra", "invocationNum": 0 });
+    assert_eq!(hook(&otra.to_string()), None);
+}
+
+#[test]
 fn grok_en_camel_case() {
     // Grok sends camelCase keys; with a write tool name the agents document, it works the same.
     let e = json!({ "hook_event_name": "PreToolUse", "toolName": "write_file", "toolInput": { "file_path": "/tmp/post.md", "content": POST } });
@@ -122,6 +157,16 @@ fn lo_que_no_es_texto_de_producto_no_contesta_nada() {
         // The agents' own instructions.
         json!({ "hook_event_name": "PreToolUse", "tool_name": "write_file", "tool_input": { "file_path": "/tmp/AGENTS.md", "content": POST } }),
         json!({ "hook_event_name": "PreToolUse", "tool_name": "write_file", "tool_input": { "file_path": "/home/x/.claude/notas.md", "content": POST } }),
+        // The instruction files that `humanizar setup` writes for each agent.
+        json!({ "hook_event_name": "PreToolUse", "tool_name": "write_file", "tool_input": { "file_path": "/home/x/.qwen/QWEN.md", "content": POST } }),
+        json!({ "hook_event_name": "PreToolUse", "tool_name": "write_file", "tool_input": { "file_path": "/p/QWEN.md", "content": POST } }),
+        json!({ "hook_event_name": "BeforeTool", "tool_name": "write_file", "tool_input": { "file_path": "/p/GEMINI.md", "content": POST } }),
+        json!({ "toolCall": { "name": "write_to_file", "args": { "TargetFile": "/home/x/.gemini/config/AGENTS.md", "CodeContent": POST } } }),
+        json!({ "hook_event_name": "PreToolUse", "tool_name": "write_file", "tool_input": { "file_path": "/home/x/.kiro/steering/humanizar.md", "content": POST } }),
+        json!({ "hook_event_name": "PreToolUse", "tool_name": "write_file", "tool_input": { "file_path": "/home/x/.devin/global_rules.md", "content": POST } }),
+        json!({ "hook_event_name": "PreToolUse", "tool_name": "write_file", "tool_input": { "file_path": "/home/x/.codeium/windsurf/memories/global_rules.md", "content": POST } }),
+        json!({ "hook_event_name": "PreToolUse", "tool_name": "write_file", "tool_input": { "file_path": "/p/.github/copilot-instructions.md", "content": POST } }),
+        json!({ "hook_event_name": "PreToolUse", "tool_name": "write_file", "tool_input": { "file_path": "/home/x/.config/kilo/humanizar.md", "content": POST } }),
         // Another language.
         json!({ "hook_event_name": "PreToolUse", "tool_name": "write_file", "tool_input": { "file_path": "/tmp/a.md", "content": "This is a document in English, and it is not for the Spanish engine." } }),
         // Another tool.

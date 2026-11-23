@@ -154,7 +154,7 @@ reescribir. Sin que nadie lo pida.
 |---|---|---|
 | Qwen Code | Hook `PreToolUse` en `write_file` y `edit` | `~/.qwen/settings.json` |
 | Gemini CLI | Hooks `BeforeTool` (arregla) y `AfterTool` (avisa) en `write_file` y `replace` | `~/.gemini/settings.json` |
-| Antigravity | Hook `PreToolUse` en `write_to_file` y `replace_file_content` | `~/.gemini/config/hooks.json` |
+| Antigravity | Hook `PreToolUse` (arregla) en `write_to_file` y `replace_file_content` (app e IDE) y en `write_file` y `edit_file` (CLI `agy`), y `PreInvocation` (avisa al modelo antes de su siguiente turno) | `~/.gemini/config/hooks.json` |
 | El resto | Solo el MCP y las reglas | |
 
 En el resto todavía no: o sus hooks no pueden cambiar los argumentos (Kimi Code), o su documentación no
@@ -165,8 +165,12 @@ Además, `setup` deja en las instrucciones de cada agente las reglas cortas del 
 activa, una palabra para cada cosa, nada de relleno ni rayas…), y Windsurf, que ahora es Devin, las
 recibe también en `~/.devin/global_rules.md`. Si ya estaban de una versión anterior, las pone al día.
 
-El hook no guarda nada entre llamadas, no mira las respuestas del chat y no para ningún envío: eso solo lo
-hace el plugin de Claude Code. Se apaga con `HUMANIZAR_AUTO=0`. Para quitarlo, borra el grupo del hook
+El hook no mira las respuestas del chat y no para ningún envío: eso solo lo hace el plugin de Claude
+Code. Entre llamadas solo guarda, en la carpeta temporal, la nota de Antigravity que espera al siguiente
+`PreInvocation`, y la borra al entregarla.
+
+Probado de punta a punta con Qwen Code 0.28, Gemini CLI 0.70 y Antigravity CLI 1.5 (escribir y editar,
+con un modelo de pruebas): el fichero queda arreglado y el modelo recibe lo que tiene que reescribir. Se apaga con `HUMANIZAR_AUTO=0`. Para quitarlo, borra el grupo del hook
 `humanizar` del fichero de cada agente.
 
 ## Tests

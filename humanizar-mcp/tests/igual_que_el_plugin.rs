@@ -185,7 +185,8 @@ fn setup_conecta_el_hook_donde_el_agente_lo_admite() {
         assert_eq!(g["hooks"][e][0]["matcher"], "^(write_file|replace)$", "{e}");
     }
     let ag = leer(".gemini/config/hooks.json");
-    assert_eq!(ag["humanizar"]["PreToolUse"][0]["matcher"], "^(write_to_file|replace_file_content)$");
+    assert_eq!(ag["humanizar"]["PreToolUse"][0]["matcher"], "^(write_to_file|replace_file_content|write_file|edit_file)$");
+    assert!(ag["humanizar"]["PreInvocation"][0]["command"].as_str().unwrap().ends_with(" hook"));
     // Devin (what Windsurf became) gets the rules too.
     assert!(std::fs::read_to_string(h.join(".devin/global_rules.md")).unwrap().contains("<!-- humanizar -->"));
     // The product rules go with the instructions.

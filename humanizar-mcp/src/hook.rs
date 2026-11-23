@@ -12,7 +12,8 @@
 //! - Gemini CLI's: `BeforeTool` returns `hookSpecificOutput.tool_input`; `AfterTool` returns the
 //!   note for the model in `additionalContext` (BeforeTool can't send one).
 //! - Antigravity's: `toolCall.name` and `toolCall.args` in; `decision`, `overwrite` (merged) and
-//!   `reason` out.
+//!   `reason` out. The model doesn't see `reason` on an allowed call, so the note also waits for the
+//!   next `PreInvocation`, which hands it over as an `ephemeralMessage`.
 //!
 //! Anything else, or any error, ends with no output and exit 0: a hook must never stop the agent.
 
@@ -25,17 +26,21 @@ enum Herramienta {
     Editar { ruta: &'static str, viejo: &'static str, nuevo: &'static str },
 }
 
-/// The write tools whose arguments the agents document.
-fn herramienta(nombre: &str) -> Option<Herramienta> {
+/// The write tools whose arguments the agents document. Antigravity reuses `write_file` with its
+/// own argument names, so its calls are looked up apart.
+fn herramienta(nombre: &str, antigravity: bool) -> Option<Herramienta> {
     use Herramienta::*;
-    Some(match nombre {
+    Some(match (antigravity, nombre) {
         // Qwen Code and Gemini CLI.
-        "write_file" => Escribir { ruta: "file_path", contenido: "content" },
+        (false, "write_file") => Escribir { ruta: "file_path", contenido: "content" },
         // Qwen Code (`edit`) and Gemini CLI (`replace`).
-        "edit" | "replace" => Editar { ruta: "file_path", viejo: "old_string", nuevo: "new_string" },
-        // Antigravity.
-        "write_to_file" => Escribir { ruta: "TargetFile", contenido: "CodeContent" },
-        "replace_file_content" => Editar { ruta: "TargetFile", viejo: "TargetContent", nuevo: "ReplacementContent" },
+        (false, "edit" | "replace") => Editar { ruta: "file_path", viejo: "old_string", nuevo: "new_string" },
+        // Antigravity's app and IDE.
+        (true, "write_to_file") => Escribir { ruta: "TargetFile", contenido: "CodeContent" },
+        (true, "replace_file_content") => Editar { ruta: "TargetFile", viejo: "TargetContent", nuevo: "ReplacementContent" },
+        // Antigravity CLI (`agy`), as it sends them to the hook.
+        (true, "write_file") => Escribir { ruta: "Path", contenido: "Content" },
+        (true, "edit_file") => Editar { ruta: "Path", viejo: "Target", nuevo: "Replacement" },
         _ => return None,
     })
 }
@@ -63,8 +68,8 @@ fn texto<'a>(args: &'a Value, clave: &str) -> Option<&'a str> {
 
 /// Works out the fixes and the note for a write tool call. `despues` is true when the tool has
 /// already run (Gemini's AfterTool): the file then holds the new text, not the old one.
-fn revisar(nombre: &str, args: &Value, despues: bool) -> Option<Resultado> {
-    let h = herramienta(nombre)?;
+fn revisar(nombre: &str, args: &Value, despues: bool, antigravity: bool) -> Option<Resultado> {
+    let h = herramienta(nombre, antigravity)?;
     match h {
         Herramienta::Escribir { ruta, contenido } => {
             let ruta_v = texto(args, ruta)?;
@@ -116,13 +121,49 @@ fn revisar(nombre: &str, args: &Value, despues: bool) -> Option<Resultado> {
     }
 }
 
+/// Antigravity doesn't show the model the `reason` of an allowed call, so the note waits here
+/// until its next `PreInvocation`, which can add a message before the model is called.
+fn pendiente(conversacion: &str) -> Option<std::path::PathBuf> {
+    let limpio: String = conversacion.chars().filter(|c| c.is_ascii_alphanumeric() || *c == '-').collect();
+    (!limpio.is_empty()).then(|| std::env::temp_dir().join("humanizar-pendiente").join(format!("{limpio}.txt")))
+}
+
+fn guardar_nota(conversacion: &str, nota: &str) {
+    use std::io::Write;
+    let Some(f) = pendiente(conversacion) else { return };
+    if let Some(d) = f.parent() {
+        let _ = std::fs::create_dir_all(d);
+    }
+    if let Ok(mut h) = std::fs::OpenOptions::new().create(true).append(true).open(&f) {
+        let _ = writeln!(h, "{nota}\n");
+    }
+}
+
+/// The notes waiting for this conversation, handed over once.
+fn sacar_notas(conversacion: &str) -> Option<String> {
+    let f = pendiente(conversacion)?;
+    let notas = std::fs::read_to_string(&f).ok()?;
+    let _ = std::fs::remove_file(&f);
+    let notas = notas.trim();
+    (!notas.is_empty()).then(|| notas.to_string())
+}
+
 /// The hook's answer for one event, or None to say nothing.
 pub fn responder(entrada: &Value) -> Option<Value> {
     if apagado() {
         return None;
     }
     let evento = entrada.get("hook_event_name").and_then(Value::as_str).unwrap_or("");
+    let conversacion = entrada.get("conversationId").and_then(Value::as_str).unwrap_or("");
+    if entrada.get("hookEventName").and_then(Value::as_str) == Some("PreInvocation") {
+        let notas = sacar_notas(conversacion)?;
+        return Some(json!({ "injectSteps": [{ "ephemeralMessage": notas }] }));
+    }
     let (dialecto, nombre, args) = if let Some(llamada) = entrada.get("toolCall") {
+        // Only before the tool runs: after it, Antigravity ignores the answer.
+        if !matches!(entrada.get("hookEventName").and_then(Value::as_str), None | Some("PreToolUse")) {
+            return None;
+        }
         (Dialecto::Antigravity, llamada.get("name")?.as_str()?, llamada.get("args")?)
     } else {
         let nombre = entrada.get("tool_name").or_else(|| entrada.get("toolName"))?.as_str()?;
@@ -139,7 +180,7 @@ pub fn responder(entrada: &Value) -> Option<Value> {
         return None;
     }
     let despues = matches!(dialecto, Dialecto::GeminiDespues);
-    let r = revisar(nombre, args, despues)?;
+    let r = revisar(nombre, args, despues, matches!(dialecto, Dialecto::Antigravity))?;
     let completo = || {
         let mut a = args.as_object().cloned().unwrap_or_default();
         a.extend(r.cambios.clone());
@@ -170,6 +211,7 @@ pub fn responder(entrada: &Value) -> Option<Value> {
                 salida.insert("overwrite".into(), Value::Object(r.cambios));
             }
             if let Some(n) = r.nota {
+                guardar_nota(conversacion, &n);
                 salida.insert("reason".into(), json!(n));
             }
             Some(Value::Object(salida))
