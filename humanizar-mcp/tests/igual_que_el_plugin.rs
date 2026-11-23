@@ -178,7 +178,9 @@ fn setup_conecta_el_hook_donde_el_agente_lo_admite() {
     let orden = |v: &Value| v.as_str().unwrap().to_string();
     let q = leer(".qwen/settings.json");
     assert_eq!(q["hooks"]["PreToolUse"][0]["matcher"], "^(write_file|edit)$");
-    assert!(orden(&q["hooks"]["PreToolUse"][0]["hooks"][0]["command"]).ends_with("humanizar\" hook"));
+    // `humanizar.exe` on Windows.
+    let o = orden(&q["hooks"]["PreToolUse"][0]["hooks"][0]["command"]);
+    assert!(o.ends_with("humanizar\" hook") || o.ends_with("humanizar.exe\" hook"), "{o}");
     assert!(q["mcpServers"]["humanizar"].is_object(), "the MCP server and the hook in the same file");
     let g = leer(".gemini/settings.json");
     for e in ["BeforeTool", "AfterTool"] {
